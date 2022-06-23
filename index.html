@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+ <head>
+  <meta charset="utf-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icon-180x180.png">
+  <link rel="canonical" href="https://hen.cat/">
+  <link rel="icon" sizes="16x16" href="/icon-16x16.png">
+  <link rel="icon" sizes="32x32" href="/icon-32x32.png">
+  <meta name="description" content="very 💖😎👍 site">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:description" content="very 💖😎👍 site">
+  <meta property="og:image" content="https://hen.cat/opengraph-1200x630.jpg">
+  <meta property="og:image:alt" content="henry catalini smith. very 💖😎👍 site">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:title" content="">
+  <meta property="og:url" content="https://hen.cat/">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+   html {
+    box-sizing: border-box
+   }
+
+   *,
+   *:before,
+   *:after {
+    box-sizing: inherit
+   }
+
+   :root {
+    --burst: calc(clamp(0rem, calc((100vw - 32rem) / 1), 4rem) + var(--width));
+    --column: min(calc(var(--width) - var(--margin) * 2), min(32rem, 100vw));
+    --mono: Menlo, Consolas, monospace;
+    --sans: Helvetica, Calibri, sans-serif;
+    --serif: Times New Roman, Constantia, serif;
+    --slab: Rockwell, Cambria, serif;
+    --f12: clamp(1rem, calc(1rem + (100vw - var(--margin) * 2 - 8rem) / 120), 1.2rem);
+    --f14: clamp(1rem, calc(1rem + (100vw - var(--margin) * 2 - 8rem) / 48), 1.4rem);
+    --f20: clamp(1rem, calc(1rem + (100vw - var(--margin) * 2 - 8rem) / 24), 2rem);
+    --f30: clamp(1rem, calc(1rem + (100vw - var(--margin) * 2 - 8rem) / 12), 3rem);
+    --f40: clamp(1rem, calc(1rem + (100vw - var(--margin) * 2 - 8rem) / 8), 3rem);
+    --margin: calc(clamp(0rem, calc((100vw - 16rem) / 2), 1rem) - clamp(0rem, calc((100vw - 32rem) / 2), 1rem));
+    --width: min(100vw, 32rem)
+   }
+
+   @media(prefers-color-scheme: light) {
+    :root {
+     --bg0: ghostwhite;
+     --bg1: lavenderblush;
+     --fg: darkslategray;
+     --red: firebrick;
+     --orange: orangered;
+     --yellow: gold;
+     --green: green;
+     --blue: blue;
+     --pink: mediumvioletred;
+     --purple: rebeccapurple
+    }
+   }
+
+   @media(prefers-color-scheme: dark) {
+    :root {
+     --bg0: black;
+     --bg1: midnightblue;
+     --fg: ghostwhite;
+     --red: tomato;
+     --orange: orange;
+     --yellow: khaki;
+     --green: limegreen;
+     --blue: deepskyblue;
+     --pink: hotpink;
+     --purple: fuchsia
+    }
+   }
+
+   body {
+    color: #2f4f4f;
+    margin: 0;
+    max-width: 100vw;
+    overflow-x: hidden
+   }
+
+   main {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    display: grid
+   }
+
+   header {
+    height: var(--column);
+    width: var(--column);
+    display: grid;
+    justify-content: center;
+    row-gap: 2rem
+   }
+
+   h1 {
+    font-size: var(--f20);
+    line-height: 1em;
+    align-self: flex-end;
+    color: #2f4f4f;
+    font-family: Futura, sans-serif;
+    margin: 0;
+    text-align: center
+   }
+
+   [itemprop=description] {
+    align-self: flex-start;
+    font-size: var(--f20);
+    line-height: 1em;
+    font-family: "Cochin", "Droid Serif", "Times New Roman", "Times", serif;
+    font-family: "Monaco", "Menlo", monospace;
+    margin: 0
+   }
+
+   [itemprop=description] span {
+    display: inline-block;
+    width: calc(var(--f20) * 0.8);
+    position: relative;
+    text-align: right
+   }
+
+   [itemprop=description] span::after {
+    --scale: 1;
+    position: absolute;
+    left: 0;
+    color: #ff1493;
+    font-family: "Menlo", monospace;
+    font-weight: bold;
+    transform: scale(--scale)
+   }
+
+   @keyframes letter1 {
+    0% {
+     visibility: visible
+    }
+
+    42.3076923077% {
+     visibility: visible
+    }
+
+    42.3477564103% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo1 {
+    0% {
+     visibility: hidden
+    }
+
+    42.3076923077% {
+     visibility: hidden
+    }
+
+    42.3477564103% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    46.3477564103% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    50.3477564103% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(1) {
+    animation-name: letter1;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(1):after {
+    animation-name: pseudo1;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "v";
+    visibility: hidden;
+    top: 0
+   }
+
+   @keyframes letter2 {
+    0% {
+     visibility: visible
+    }
+
+    43.5897435897% {
+     visibility: visible
+    }
+
+    43.6298076923% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo2 {
+    0% {
+     visibility: hidden
+    }
+
+    43.5897435897% {
+     visibility: hidden
+    }
+
+    43.6298076923% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    47.6298076923% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    51.6298076923% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(2) {
+    animation-name: letter2;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(2):after {
+    animation-name: pseudo2;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "e";
+    visibility: hidden;
+    top: 0
+   }
+
+   @keyframes letter3 {
+    0% {
+     visibility: visible
+    }
+
+    44.8717948718% {
+     visibility: visible
+    }
+
+    44.9118589744% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo3 {
+    0% {
+     visibility: hidden
+    }
+
+    44.8717948718% {
+     visibility: hidden
+    }
+
+    44.9118589744% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    48.9118589744% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    52.9118589744% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(3) {
+    animation-name: letter3;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(3):after {
+    animation-name: pseudo3;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "r";
+    visibility: hidden;
+    top: 0
+   }
+
+   @keyframes letter4 {
+    0% {
+     visibility: visible
+    }
+
+    46.1538461538% {
+     visibility: visible
+    }
+
+    46.1939102564% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo4 {
+    0% {
+     visibility: hidden
+    }
+
+    46.1538461538% {
+     visibility: hidden
+    }
+
+    46.1939102564% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    50.1939102564% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    54.1939102564% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(4) {
+    animation-name: letter4;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(4):after {
+    animation-name: pseudo4;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "y";
+    visibility: hidden;
+    top: 0
+   }
+
+   @keyframes letter5 {
+    0% {
+     visibility: visible
+    }
+
+    47.4358974359% {
+     visibility: visible
+    }
+
+    47.4759615385% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo5 {
+    0% {
+     visibility: hidden
+    }
+
+    47.4358974359% {
+     visibility: hidden
+    }
+
+    47.4759615385% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    51.4759615385% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    55.4759615385% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(5) {
+    animation-name: letter5;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(5):after {
+    animation-name: pseudo5;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: " ";
+    visibility: hidden;
+    top: 0
+   }
+
+   @keyframes letter6 {
+    0% {
+     visibility: visible
+    }
+
+    48.7179487179% {
+     visibility: visible
+    }
+
+    48.7580128205% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo6 {
+    0% {
+     visibility: hidden
+    }
+
+    48.7179487179% {
+     visibility: hidden
+    }
+
+    48.7580128205% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    52.7580128205% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    56.7580128205% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(6) {
+    animation-name: letter6;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(6):after {
+    animation-name: pseudo6;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "💖";
+    visibility: hidden;
+    top: 0;
+    --scale: 0.8;
+    text-shadow: -0.05em -0.05em .08em #2f4f4f, 0em -0.05em .08em #2f4f4f, .05em -0.05em .08em #2f4f4f, -0.05em 0em .08em #2f4f4f, .05em 0em .08em #2f4f4f, -0.05em .05em .08em #2f4f4f, 0em .05em .08em #2f4f4f, .05em .05em .08em #2f4f4f;
+    left: calc(var(--f12) * -0.2);
+    width: var(--f20)
+   }
+
+   @keyframes letter7 {
+    0% {
+     visibility: visible
+    }
+
+    50% {
+     visibility: visible
+    }
+
+    50.0400641026% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo7 {
+    0% {
+     visibility: hidden
+    }
+
+    50% {
+     visibility: hidden
+    }
+
+    50.0400641026% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    54.0400641026% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    58.0400641026% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(7) {
+    animation-name: letter7;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(7):after {
+    animation-name: pseudo7;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "😎";
+    visibility: hidden;
+    top: 0;
+    --scale: 0.8;
+    text-shadow: -0.05em -0.05em .08em #2f4f4f, 0em -0.05em .08em #2f4f4f, .05em -0.05em .08em #2f4f4f, -0.05em 0em .08em #2f4f4f, .05em 0em .08em #2f4f4f, -0.05em .05em .08em #2f4f4f, 0em .05em .08em #2f4f4f, .05em .05em .08em #2f4f4f;
+    left: calc(var(--f12) * -0.2);
+    width: var(--f20)
+   }
+
+   @keyframes letter8 {
+    0% {
+     visibility: visible
+    }
+
+    51.2820512821% {
+     visibility: visible
+    }
+
+    51.3221153846% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo8 {
+    0% {
+     visibility: hidden
+    }
+
+    51.2820512821% {
+     visibility: hidden
+    }
+
+    51.3221153846% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    55.3221153846% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    59.3221153846% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(8) {
+    animation-name: letter8;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(8):after {
+    animation-name: pseudo8;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "👍";
+    visibility: hidden;
+    top: 0;
+    --scale: 0.8;
+    text-shadow: -0.05em -0.05em .08em #2f4f4f, 0em -0.05em .08em #2f4f4f, .05em -0.05em .08em #2f4f4f, -0.05em 0em .08em #2f4f4f, .05em 0em .08em #2f4f4f, -0.05em .05em .08em #2f4f4f, 0em .05em .08em #2f4f4f, .05em .05em .08em #2f4f4f;
+    left: calc(var(--f12) * -0.2);
+    width: var(--f20)
+   }
+
+   @keyframes letter9 {
+    0% {
+     visibility: visible
+    }
+
+    52.5641025641% {
+     visibility: visible
+    }
+
+    52.6041666667% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo9 {
+    0% {
+     visibility: hidden
+    }
+
+    52.5641025641% {
+     visibility: hidden
+    }
+
+    52.6041666667% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    56.6041666667% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    60.6041666667% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(9) {
+    animation-name: letter9;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(9):after {
+    animation-name: pseudo9;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: " ";
+    visibility: hidden;
+    top: 0
+   }
+
+   @keyframes letter10 {
+    0% {
+     visibility: visible
+    }
+
+    53.8461538462% {
+     visibility: visible
+    }
+
+    53.8862179487% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo10 {
+    0% {
+     visibility: hidden
+    }
+
+    53.8461538462% {
+     visibility: hidden
+    }
+
+    53.8862179487% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    57.8862179487% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    61.8862179487% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(10) {
+    animation-name: letter10;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(10):after {
+    animation-name: pseudo10;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "s";
+    visibility: hidden;
+    top: 0
+   }
+
+   @keyframes letter11 {
+    0% {
+     visibility: visible
+    }
+
+    55.1282051282% {
+     visibility: visible
+    }
+
+    55.1682692308% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo11 {
+    0% {
+     visibility: hidden
+    }
+
+    55.1282051282% {
+     visibility: hidden
+    }
+
+    55.1682692308% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    59.1682692308% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    63.1682692308% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(11) {
+    animation-name: letter11;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(11):after {
+    animation-name: pseudo11;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "i";
+    visibility: hidden;
+    top: 0
+   }
+
+   @keyframes letter12 {
+    0% {
+     visibility: visible
+    }
+
+    56.4102564103% {
+     visibility: visible
+    }
+
+    56.4503205128% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo12 {
+    0% {
+     visibility: hidden
+    }
+
+    56.4102564103% {
+     visibility: hidden
+    }
+
+    56.4503205128% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    60.4503205128% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    64.4503205128% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(12) {
+    animation-name: letter12;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(12):after {
+    animation-name: pseudo12;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "t";
+    visibility: hidden;
+    top: 0
+   }
+
+   @keyframes letter13 {
+    0% {
+     visibility: visible
+    }
+
+    57.6923076923% {
+     visibility: visible
+    }
+
+    57.7323717949% {
+     visibility: hidden
+    }
+
+    100% {
+     visibility: hidden
+    }
+   }
+
+   @keyframes pseudo13 {
+    0% {
+     visibility: hidden
+    }
+
+    57.6923076923% {
+     visibility: hidden
+    }
+
+    57.7323717949% {
+     visibility: visible;
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    61.7323717949% {
+     transform: scale(1.4) translateY(0.1em)
+    }
+
+    65.7323717949% {
+     transform: scale(var(--scale)) translateY(0)
+    }
+
+    100% {
+     visibility: visible
+    }
+   }
+
+   [itemprop=description] span:nth-child(13) {
+    animation-name: letter13;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+   }
+
+   [itemprop=description] span:nth-child(13):after {
+    animation-name: pseudo13;
+    animation-duration: 2496ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    content: "e";
+    visibility: hidden;
+    top: 0
+   }
+
+   [itemprop=blogPost] {
+    height: calc(var(--column) * 2);
+    width: var(--column);
+    display: grid;
+    grid-template-areas: "video""title";
+    grid-template-rows: min-content min-content
+   }
+
+   [itemprop=blogPost] h2 a {
+    text-decoration: none
+   }
+
+   [itemprop=blogPost] [itemprop="headline name"] {
+    font-size: var(--f30);
+    line-height: 1em;
+    color: #1e90ff;
+    font-family: Futura, sans-serif;
+    grid-area: title;
+    margin: 0;
+    text-decoration: none
+   }
+
+   [itemprop=blogPost] [itemprop="headline name"]:hover {
+    text-decoration: underline
+   }
+
+   [itemprop=blogPost] video {
+    height: var(--column);
+    width: var(--column);
+    grid-area: video
+   }
+
+   [itemprop=blogPost] footer {
+    display: none
+   }
+
+   main footer {
+    height: var(--column);
+    width: var(--column);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+   }
+
+   main footer a[href*=github],
+   main footer a[href*=twitter] {
+    display: block
+   }
+
+   main footer a svg {
+    height: 2rem;
+    width: 2rem
+   }
+
+   main footer a[href*=github] svg {
+    fill: #1e90ff
+   }
+
+   main footer a[href*=twitter] circle {
+    fill: #1e90ff
+   }
+
+   main footer a[href*=twitter] path {
+    fill: #fff
+   }
+  </style>
+  <title>henry catalini smith</title>
+ </head>
+
+ <body>
+  <main>
+   <header>
+    <h1 itemprop="headline name">henry catalini smith</h1>
+    <p itemprop="description" lang="ca" aria-label="molt bon lloc"><span>m</span><span>o</span><span>l</span><span>t</span><span></span><span>b</span><span>o</span><span>n</span><span></span><span>l</span><span>l</span><span>o</span><span>c</span></p>
+   </header>
+
+   <article itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+    <h2><a href="https://hen.cat/moonrise/"><span itemprop="headline name">moonrise</span></a></h2><video src="https://hen.cat/moonrise/demo-512x512.mp4" title="Moon animation" autoplay controls loop muted playsinline></video>
+    <footer>
+     <p itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Henry Catalini Smith</span></p>
+     <p itemprop="publisher" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Henry Catalini Smith</span></p><time datetime="Thu Mar 04 2021 00:00:00 GMT+0000 (Coordinated Universal Time)" itemprop="datePublished">2021-03-04</time><time datetime="Thu Mar 04 2021 00:00:00 GMT+0000 (Coordinated Universal Time)" itemprop="dateModified">2021-03-04</time>
+    </footer>
+    <link itemprop="mainEntityOfPage" href="https://hen.cat/moonrise/">
+   </article>
+
+   <article itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+    <h2><a href="https://hen.cat/hivernal/"><span itemprop="headline name">hivernal</span></a></h2><video src="https://hen.cat/hivernal/demo-512x512.mp4" title="Winter scene" autoplay controls loop muted playsinline></video>
+    <footer>
+     <p itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Henry Catalini Smith</span></p>
+     <p itemprop="publisher" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Henry Catalini Smith</span></p><time datetime="Sun Feb 21 2021 00:00:00 GMT+0000 (Coordinated Universal Time)" itemprop="datePublished">2021-02-21</time><time datetime="Sun Feb 21 2021 00:00:00 GMT+0000 (Coordinated Universal Time)" itemprop="dateModified">2021-02-21</time>
+    </footer>
+    <link itemprop="mainEntityOfPage" href="https://hen.cat/hivernal/">
+   </article>
+
+   <article itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+    <h2><a href="https://hen.cat/doomfire/"><span itemprop="headline name">doomfire</span></a></h2><video src="https://hen.cat/doomfire/demo-512x512.mp4" title="Video of the fire with red flames against a black background. The bottom of the flames near the source is yellow" autoplay controls loop muted playsinline></video>
+    <footer>
+     <p itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Henry Catalini Smith</span></p>
+     <p itemprop="publisher" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Henry Catalini Smith</span></p><time datetime="Thu Dec 03 2020 00:00:00 GMT+0000 (Coordinated Universal Time)" itemprop="datePublished">2020-12-03</time><time datetime="Thu Dec 03 2020 00:00:00 GMT+0000 (Coordinated Universal Time)" itemprop="dateModified">2020-12-03</time>
+    </footer>
+    <link itemprop="mainEntityOfPage" href="https://hen.cat/doomfire/">
+   </article>
+
+   <article itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+    <h2><a href="https://hen.cat/tailbone/"><span itemprop="headline name">tailbone</span></a></h2><video src="https://hen.cat/tailbone/videos/demo-512x512.mp4" title="Demo video showing Tailbone gameplay" autoplay controls loop muted playsinline></video>
+    <footer>
+     <p itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Henry Catalini Smith</span></p>
+     <p itemprop="publisher" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Henry Catalini Smith</span></p><time datetime="Tue Jun 05 2018 00:00:00 GMT+0000 (Coordinated Universal Time)" itemprop="datePublished">2018-06-05</time><time datetime="Sun Nov 22 2020 00:00:00 GMT+0000 (Coordinated Universal Time)" itemprop="dateModified">2020-11-22</time>
+    </footer>
+    <link itemprop="mainEntityOfPage" href="https://hen.cat/tailbone/">
+   </article>
+
+   <footer>
+    <a href="https://github.com/henrycatalinismith" aria-label="GitHub">
+     <svg viewBox="0 0 1024 1024">
+      <path
+       fill-rule="evenodd"
+       d="M512 0a512 512 0 00-162 998c26 4 35-11 35-25v-95c-129 24-162-31-173-60-5-15-30-60-52-72-18-10-44-34-1-34 41-1 69 37 79 52 46 78 120 56 149 42 5-33 18-55 33-68-114-13-233-57-233-253 0-56 20-102 52-137-5-13-23-66 5-136 0 0 43-14 141 52a475 475 0 01256 0c98-66 141-52 141-52 28 70 10 123 5 136 33 35 53 81 53 137 0 197-120 240-234 253 19 16 35 47 35 95l-1 140c0 14 10 30 35 25A513 513 0 00512 0z"
+       clip-rule="evenodd"
+      />
+     </svg>
+    </a>
+   </footer>
+  </main>
+ </body>
+
+</html>
