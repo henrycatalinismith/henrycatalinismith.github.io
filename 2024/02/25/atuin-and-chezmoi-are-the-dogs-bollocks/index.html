@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Atuin and chezmoi are the dog's bollocks – Henry Catalini Smith</title>
+  <meta name="description" content="Syncing devtools across multiple machines is a solved problem at long last.
+">
+  <meta name="og:description" content="Syncing devtools across multiple machines is a solved problem at long last.
+">
+  <meta name="og:title" content="Atuin and chezmoi are the dog&#x27;s bollocks – Henry Catalini Smith">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2024/02/25/atuin-and-chezmoi-are-the-dogs-bollocks/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Atuin and chezmoi are the dog's bollocks</h1><time datetime="Sun Feb 25 2024 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">February 25, 2024</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>My <a href="https://github.com/henrycatalinismith/dotfiles">dotfiles repo</a> is the oldest one I still have. Its <a href="https://github.com/henrycatalinismith/dotfiles/commit/2183f219ef3629fba729d8b8dfa89453b69d4605">first commit</a> is from 2012. The message I wrote for that commit tells a familiar story.</p>
+             <blockquote>
+              <p>Fresh start for config files<br>The old config repo had become bloated and unwieldy</p>
+             </blockquote>
+             <p>I don't remember what went wrong, but evidently, things had had gotten out of control. Synchronising development tools across multiple computers has always been such a pain in the ass. Not any more though. 12 years later, I finally have a setup in place that I'm happy with.</p>
+             <h2>Atuin</h2>
+             <p>Losing shell history when swapping back and forth between different terminal tabs or different computers has always been frustrating. It's an annoyance I'd accepted as inevitable. For no particular reason, I recently became inspired to question that inevitability, and found <a href="https://atuin.sh/">Atuin</a> soon after.</p>
+             <p>No idea how I lived without this tool before. In particular, as <a href="/2024/02/07/screencasting-secrets">someone who uses <code>ffmpeg</code> frequently</a>, it's been amazing to be able to refer back to any given set of filters I've ever used.</p>
+             <p>The end-to-end encrypted sync feature is a game changer as well. Having access to your full shell history on every computer you use feels like it changes what the terminal <em>is</em> somehow. Brings it a bit closer to being an extension of you or something, I don't know.</p>
+             <p>The stats are cool too. For example, <code>atuin stats -c 3</code> prints your top three most-used commands.</p>
+             <p>
+              <img style="objectFit: none" src="/2024/02/25/atuin-stats.png" alt="[▮▮▮▮▮▮▮▮▮▮] 1626 git s
+[▮▮▮ ] 616 git b
+[▮▮▮ ] 604 yarn test
+Total commands: 10268
+Unique commands: 2091">
+             </p>
+             <p>My top command there – <code>git s</code> – is my alias for <code>git status</code>. Learning that I'm running that so often made me realise that those fancy terminal prompts that include git status info are worth the trouble. I'd stopped bothering with them because of the dotfiles syncing problem, and this inspired me to check in and see if it was solved yet. It was!</p>
+             <h2>chezmoi</h2>
+             <p>There are a lot of <a href="https://dotfiles.github.io/utilities/">dotfiles tools</a>. Most of them are effectively proof-of-concept in terms of the maturity level of the implementation. Someone has a core idea they're excited about, they implement that, then the project quietly goes into maintenance mode. What makes <a href="https://www.chezmoi.io/">chezmoi</a> the best isn't any particular concept – it's the work that's gone into polishing the annoying details around the edges.</p>
+             <p>In my case, I just wanted to use it to set up oh-my-zsh automatically and keep the config in sync between different computers. There's an <a href="https://www.chezmoi.io/user-guide/include-files-from-elsewhere/">example in the chezmoi docs showing how to do exactly this thing</a>.</p>
+             <pre class="toml">[".oh-my-zsh"]
+    type = "archive"
+    url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+</pre>
+             <p>I was blown away by how easy it was to set that up. Syncing a few little personal config files has always been the easy part, and it's generally these externally-sourced configs where things become difficult. You always get it syncing eventually, but it breaks along the way and so the end result feels brittle. Somehow chezmoi has cracked it. For once this feels like it will work on the first try when I next have to set up a new computer.</p>
+             <h2>Things are good</h2>
+             <p>I'm in a really good place at the moment when it comes to tools. Shipping 666a with <a href="/2024/01/14/my-sqlite-in-production-epiphany">SQLite as its production database</a> was a huge personal revelation, going <a href="/2024/01/30/maining-vscode-terminal">all-in on VSCode terminal</a> has decluttered my workflow, and doing a bunch of React Native at work is scratching a really longstanding itch. I'm getting tons done and feeling happy in the process.</p>
+             <p>Interestingly, the creator of Atuin has <a href="https://ellie.wtf/posts/i-quit-my-job-to-work-full-time-on-my-open-source-project">quit her day job to found a company and work on Atuin full time</a>. Will be fun to see what happens next there.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

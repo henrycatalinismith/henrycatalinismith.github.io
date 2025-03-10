@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Apple Pie From Scratch – Henry Catalini Smith</title>
+  <meta name="description" content="Learning about 2D graphics programming by rendering a cosy little universe.">
+  <meta name="og:description" content="Learning about 2D graphics programming by rendering a cosy little universe.">
+  <meta name="og:title" content="Apple Pie From Scratch – Henry Catalini Smith">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2015/10/29/apple-pie-from-scratch/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Apple Pie From Scratch</h1><time datetime="Thu Oct 29 2015 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">October 29, 2015</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>This is a quick write-up of my solution to one of the first problems I bumped into in my latest project. I’m building a JavaScript model of the solar system, which in the end will hopefully feature all the planets orbiting the Sun according to some approximation of Newtonian gravity.</p>
+             <p>The problem arose because it’s easier to implement the equations if your data model uses SI units: meters, kilograms and seconds. Plus, if you adopt a nice convention like SI units, it makes the code so much more readable. I find names like distanceInKm or massInKg super ugly. It’s nicer if you can use distance and mass and just infer the units from the convention.</p>
+             <pre class="">class Planet {
+  constructor ({ mass, position, radius }) {
+  this.mass = mass;
+  this.position = position; // { x, y }
+  this.radius = radius;
+  }
+}
+</pre>
+             <p>This is lovely, but the CanvasRenderingContext2D API works in pixels. Take it or leave it. So the code in charge of rendering planets needs to know how to convert between meters and pixels.</p>
+             <p>It’s the kind of problem that’s tempting to sort of hack your way through. Just keep throwing code at the wall and eventually something will stick. Easy enough, but the result is usually not great. It’s bad enough not understanding your own code a few weeks after writing it. Not understanding it while you’re still writing it is just… no fun.</p>
+             <p>So I made a cup of tea, cleared a whiteboard, and had a bit of a think. The resulting diagram is a bit incomprehensible, but I sometimes think it’d be nice if people were more open about how lost they get with even simple stuff like this, so here it is.</p>
+             <p>The gist of the solution is to have a scale property somewhere, denoting the conversion rate between pixels and meters. Next, I needed there to be a “thing” in my system to actually own that property and apply it. The name I settled on for that “thing” was Viewport.</p>
+             <p>The Viewport needs to a few things to do its job. It needs that scale value, for starters. It needs a reference to the rendering context, too. And I figured it also needs to know which part of the universe it’s centered on, which I pass in as an object called center with an x and a y property. Because x and y are spatial values, you can just assume they’re in meters. See how nice that is?</p>
+             <pre class="">class Viewport {
+  constructor({ center, context, scale }) {
+  this.center = center; // { x, y }
+  this.context = context;
+  this.scale = scale;
+  }
+}
+</pre>
+             <p>The last thing that’s missing is a Viewport method to render planets. Rendering circles is nice and simple because it’s part of the browser API, so that’s a freebie. What’s less simple is that I’ve designed the Viewport to accept the coordinates of its center point in meters, whereas the built-in arc method expects the coordinates of the circle in pixels from the top-left corner.</p>
+             <p>This is important, because I need it to be easy to center the viewport on a given planet. I want it to be as simple as viewport.center = planet.position. As usual, the price of simplicity somewhere is complexity elsewhere.</p>
+             <p>Converting between those two points is a two-step calculation. First, you have to calculate the position of the top-left pixel of the canvas in imaginary space meters. Then you subtract the coordinates of that position from the coordinates of the planet, and multiply the results by the scale property from earlier. This gives you the pixel position of the planet within the canvas. The resulting code is really heavy on arithmetic and took a while to get right.</p>
+             <pre class="">drawPlanet (planet) {
+  const { width, height } = this.context.canvas;
+  const topLeft = new Point(
+  this.center.x - ((width / 2) * (1 / this.scale)),
+  this.center.y - ((height / 2) * (1 / this.scale))
+  );
+
+  this.context.fillStyle = planet.color;
+  this.context.beginPath();
+
+  this.context.arc(
+  (planet.position.x - topLeft.x) * this.scale,
+  (planet.position.y - topLeft.y) * this.scale,
+  planet.radius * this.scale,
+  0,
+  Math.PI * 2
+  );
+
+  this.context.closePath();
+  this.context.fill();
+}
+</pre>
+             <p>With that in place, I now have a working graphical layer that understands how to render my SI units data model onto a 2D canvas element.</p>
+             <p>It’s a really fundamental part of the system, so you don’t end up with much to show for all the effort, but I did manage to squeeze one cool thing out of it. By gradually shrinking the value of the scale property, I can generate a “flying backwards through space” effect. Check it out. Right at the very end you can see the Moon whizz by on the right once we’re far enough from Earth.</p>
+             <figure>
+              <video src="apple-pie-from-scratch-zoom@960x540.mp4" title="
+   2D earth fading into the distance as the camera moves backwards" controls playsinline></video>
+              <figcaption>Fun, fun, fun.</figcaption>
+             </figure>
+             <p>Now that the basics are in place to display what’s going on, the next step is to get everything moving. Right now I’m still struggling to make gravity work right. It’s a lot harder than this was.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

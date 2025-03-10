@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Passport Hacking – Henry Catalini Smith</title>
+  <meta name="description" content="Trying to beat Sweden&#x27;s 2022 passport crisis using code.">
+  <meta name="og:description" content="Trying to beat Sweden&#x27;s 2022 passport crisis using code.">
+  <meta name="og:title" content="Passport Hacking – Henry Catalini Smith">
+  <meta name="og:image" content="https://henry.catalinismith.com/2022/11/09/passport-hacking-opengraph@1200x630.jpeg">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2022/11/09/passport-hacking/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Passport Hacking</h1><time datetime="Wed Nov 09 2022 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">November 9, 2022</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>The passport system in Sweden collapsed earlier this year when pandemic travel restrictions lifted and half the country tried to renew their passports at once. In March I tried to book an appointment to get passports for the kids so they could visit their extended family for the first time. The date I got was in October.</p>
+             <figure>
+              <img src="/2022/11/09/passport-hacking-passexpedition@768x640.jpeg" alt="Waiting room with fluorescent lights and an LED sign showing current queue positions. Wooden benches in the foreground. Behind them are several booths with curtains around them for taking flash photos inside.">
+              <figcaption>In Sweden you have to go to one of these special offices where a cop literally watches you pose for your passport photo.</figcaption>
+             </figure>
+             <h2>Pass für alle</h2>
+             <p>By May the crisis was so bad that <a href="https://github.com/jonkpirateboy/Pass-fur-alle">Pass für alle</a> went viral. This was a bit of JavaScript that could automatically refresh the passport booking page and grab earlier slots.</p>
+             <p>It helped a few Stockholm people I knew get a better appointment, but it wasn't working for me down in Skåne. In Stockholm there was more of everything: more passport offices, more cancellations, more new booking slots available. In Skåne there was less activity, so the script needed to run longer to get results. And there's only one passport office per town here, so the logistics are more complicated.</p>
+             <p>I <em>really</em> wanted to get the kids to the UK during the summer if possible so that we wouldn't spend the whole trip indoors. So I set about building my own Skåne-friendly version of Pass für alle.</p>
+             <h2>Beep boop</h2>
+             <p>The first thing I did was make it beep. Skåne's slower pace meant it wasn't practical to sit and watch the screen. The beeping meant the laptop could be across the room and I'd know how it was going without looking.</p>
+             <h3>Beep beep</h3>
+             <p>First up: some constant high pitched beeping.</p>
+             <pre class="">setInterval(() => {
+  sfx(pow2(9), "triangle", pow2(8))
+}, pow2(10))
+setInterval(() => {
+  sfx(pow2(9), "triangle", pow2(8))
+}, pow2(11))
+</pre>
+             <figure>
+              <audio controls src="/2022/11/09/passport-hacking-beep-beep.mp3"></audio>
+              <figcaption>Beep beep</figcaption>
+             </figure>
+             <p>That made for a nice loud heartbeat so that the sudden silence would be noticeable if anything broke and it stopped running. It's quite a high-pitched and annoying sound, but it had to compete with the noise from two small kids.</p>
+             <h3>Boop boooooop</h3>
+             <p>The most common thing to happen after reloading the page was for no appointments to be found. This needed a noise too.</p>
+             <pre class="">sfx(20, "square", 500)
+  .then(() => wait(10))
+  .then(() => sfx(40, "square", 4000))
+</pre>
+             <figure>
+              <audio controls src="/2022/11/09/passport-hacking-boop-boooop.mp3"></audio>
+              <figcaption>Boop booooop.</figcaption>
+             </figure>
+             <p>I kept the pitch low for this one. The script failed like 99.99% of the time so this didn't need a lot of attention. Plus from a musical perspective it combined quite nicely with the high pitch of the page load heartbeat like this.</p>
+             <h3>Beep beep boop</h3>
+             <p>Sometimes there would be an appointment a few towns away. As long as it was late enough to get there in time by train this was great news! A nice high pitched alert sound announced this scenario.</p>
+             <pre class="">sfx(600, "sawtooth", 400)
+  .then(() => wait(10))
+  .then(() => sfx(400, "sawtooth", 420))
+  .then(() => wait(10))
+  .then(() => sfx(200, "sawtooth", 440))
+</pre>
+             <figure>
+              <audio controls src="/2022/11/09/passport-hacking-beep-beep-boop.mp3"></audio>
+              <figcaption>Beep beep boop.</figcaption>
+             </figure>
+             <h3>Boop boop beep</h3>
+             <p>The best case scenario was an appointment here in Malmö. A triumphant little chirp was the sound for this.</p>
+             <pre class="">sfx(400, "triangle", 500)
+  .then(() => wait(10))
+  .then(() => sfx(500, "triangle", 220))
+  .then(() => wait(10))
+  .then(() => sfx(600, "triangle", 240))
+</pre>
+             <figure>
+              <audio controls src="/2022/11/09/passport-hacking-boop-boop-beep.mp3"></audio>
+              <figcaption>Boop boop beep!</figcaption>
+             </figure>
+             <h2>The finished product</h2>
+             <p>If you're interested, you can read <a href="/2022/11/09/passport-hacking-script.js">the full source code</a>. For a few days I ran that for several hours at a time. Here's a little ten second taste of that experience.</p>
+             <figure>
+              <video poster="/2022/11/09/passport-hacking-running-poster@768x432.jpeg" src="/2022/11/09/passport-hacking-running@768x432.mp4" title="Macbook with the code linked above visible on screen and an excited baby repeatedly hitting the keyboard with his hand." controls playsinline></video>
+              <figcaption>The secret ingredient is violence.</figcaption>
+             </figure>
+             <h2>Climactic Ending</h2>
+             <p>Around about the same time as I got this running, the police increased their capacity and added a bunch of new times. The instant they did that I got a next-day booking the old fashioned way. lol.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

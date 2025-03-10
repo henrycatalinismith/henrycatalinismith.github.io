@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Debian Squeeze Vagrant Base Box – Henry Catalini Smith</title>
+  <meta name="description" content="In an effort to suck less at dealing with all the various sysadmin-related tasks
+that come hand-in-hand with being a web developer, I&#x27;m learning my way around
+Vagrant and Chef.
+">
+  <meta name="og:description" content="In an effort to suck less at dealing with all the various sysadmin-related tasks
+that come hand-in-hand with being a web developer, I&#x27;m learning my way around
+Vagrant and Chef.
+">
+  <meta name="og:title" content="Debian Squeeze Vagrant Base Box – Henry Catalini Smith">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2012/10/16/debian-squeeze-vagrant-base-box/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Debian Squeeze Vagrant Base Box</h1><time datetime="Tue Oct 16 2012 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">October 16, 2012</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>In an effort to suck less at dealing with all the various sysadmin-related tasks that come hand-in-hand with being a web developer, I'm learning my way around Vagrant and Chef.</p>
+             <p>One of the many things I've been struggling with is the lack of a Debian Squeeze vagrant box that actually works with my version of VirtualBox.</p>
+             <p>I'm not sure what the problem is here. One of the most common error messages complained that the guest additions in the base box were from a different version of VirtualBox from the one I'm using. If that's an issue, perhaps it might be better if the likes of <a href="https://virtualbox.es">virtualbox.es</a> made the VirtualBox version of each box available.</p>
+             <p>Thing is, it's Debian Squeeze or nothing as far as I'm concerned, so the only option remaining was to build my own base box. The documentation for this is pretty great, but in the end I had to resort to a lot of Googling to figure various things out so this blog post attempts to unite all the information I needed in one place.</p>
+             <h2>1. Install Debian in VirtualBox</h2>
+             <p>I started by downloading <a href="http://www.debian.org/releases/squeeze/debian-installer/"><code>debian-6.0.6-i386-netinst.iso</code></a> from the Debian homepage. Following <a href="http://vagrantup.com/v1/docs/base_boxes.html">Vagrant's base box guidelines</a>, I created a virtual machine with the following properties:</p>
+             <ul>
+              <li>40GB dynamically resizing drive</li>
+              <li>360MB of memory allocation</li>
+              <li>Audio disabled</li>
+              <li>USB disabled</li>
+              <li>NAT networking</li>
+             </ul>
+             <p>As per the recommendations, I chose a hostname of <code>vagrant-debian-squeeze</code> and a domain of vagrantup.com.</p>
+             <h2>2. Install Required Software</h2>
+             <p>Vagrant requires Ruby, RubyGems, Puppet, Chef and an SSH server to be present on the machine in order for it to work as a base box. To install these, I did this:</p>
+             <pre class="">wget -O- http://opscode.com/chef/install.sh | bash
+</pre>
+             <p>This is easier and more reliable than going through all the steps manually.</p>
+             <h2>3. Remove Unwanted Software</h2>
+             <p>Debian helpfully detects that you're installing it in VirtualBox and installs a bunch of related packages for you. We don't want them though, and they have to be removed in order to install the proper guest additions.</p>
+             <pre class="">apt-get remove --purge virtualbox-ose-guest-x11
+apt-get autoremove
+apt-get remove --purge virtualbox-ose-guest-utils
+</pre>
+             <p>This one was a pain to figure out. Much thanks to <a href="http://revcode.wordpress.com/2012/02/25/uninstalling-the-default-virtualbox-ose-guest-additions-on-debian/">a blog post on revcode.wordpress.com</a> for the life-saving Google search result.</p>
+             <h2>4. Install Guest Additions</h2>
+             <p>There's a button in VirtualBox that effectively inserts the guest additions as an imaginary CD-ROM. After pressing that, the commands to actually install them were as follows:</p>
+             <pre class="">apt-get install module-assistant
+mount /media/cdrom
+sh /media/cdrom/VBoxLinuxAdditions.run
+</pre>
+             <p>After this it politely suggested a reboot, so I did.</p>
+             <h2>5. Break All Security</h2>
+             <p>This next bit felt so wrong. The standard Vagrant base box has a pretty funky security model in order to make it convenient as a testing environment. The guidelines stipulate passwordless sudo privileges, which entails installing sudo and then immediately breaking off the locks.</p>
+             <pre class="">apt-get install sudo sudo
+visudo
+</pre>
+             <p>The line I added to /etc/sudoers was %admin ALL=NOPASSWD: ALL, or in English, "Everyone in the group called 'admin' can do anything they want to this box". After that, I ran /etc/init.d/sudo restart to make it so.</p>
+             <h2>6. Hand over the keys</h2>
+             <p>The standard vagrant username is 'vagrant', with password 'vagrant'. I set this user account up during Debian installation, but there was more to it than that. The user must be added to the admin group.</p>
+             <pre class="">groupadd admin
+usermod -G admin vagrant
+</pre>
+             <p>For good measure, I also decided to disable root login with passwd -l root.</p>
+             <h2>7. Enable SSH access</h2>
+             <p>In order to be able to access the vm with vagrant ssh, the guidelines recommend using their standard <a href="http://github.com/mitchellh/vagrant/tree/master/keys/">insecure SSH key pair</a> which vagrant will use by default when connecting.</p>
+             <pre class="">sudo apt-get install openssh-server
+wget https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub
+mkdir /home/vagrant/.ssh
+chmod 644 vagrant.pub
+mv vagrant.pub /home/vagrant/.ssh/authorized_keys
+</pre>
+             <p>The line <code>AuthorizedKeysFile %h/.ssh/authorized_keys</code> was added to <code>/etc/ssh/sshd_config</code> to allow passwordless SSH access to take effect after a quick <code>/etc/init.d/ssh</code> restart.</p>
+             <h2>8. Export box</h2>
+             <p>With everything configured correctly, the next step was to turn off the VM and export it.</p>
+             <pre class="">vagrant package --base debiansqueeze squeeze32.box
+</pre>
+             <p>The name debiansqueeze there is what I named the VM itself in VirtualBox.</p>
+             <h2>That's It</h2>
+             <p>After that the box was ready to roll. Just gotta add it to Vagrant.</p>
+             <pre class="">vagrant box add squeeze32 ~/squeeze32.box
+</pre>
+             <p>From here on out it's plain old Vagrant usage. Hopefully all this effort will pay off in the long run when I can sit back and push systems changes to production with a beer in my hand.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Fixing 666a (again) – Henry Catalini Smith</title>
+  <meta name="description" content="This time I think I&#x27;ve got it as close to perfect as I can.">
+  <meta name="og:description" content="This time I think I&#x27;ve got it as close to perfect as I can.">
+  <meta name="og:title" content="Fixing 666a (again) – Henry Catalini Smith">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2024/03/09/fixing-666a-again/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Fixing 666a (again)</h1><time datetime="Sat Mar 09 2024 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">March 9, 2024</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>So apparently <a href="https://666a.se/">666a</a> is still capable of surprising me. A few months ago I wrote about the work I'd done to address an issue I've been calling “<a href="/2024/01/09/operating-666a/">document lag</a>”. Since then, I've continued to keep a constant eye on the system's reliability. This week, something new cropped up.</p>
+             <p>The investigation began when I did my usual round of manual checks of Arbetsmiljöverket's public archive, comparing the canonical data there to the notifications I've received recently from 666a. There was a document listed that I hadn't received an email about, which is a worst case scenario for me. The whole point of the service is for that not to happen, so it's my most feared type of bug and basically a priority zero issue. Now that it's fixed, I wanted to write up what was wrong and how I resolved it.</p>
+             <h2>The old system</h2>
+             <p>At the core of 666a was this one cron job called the "day job". When it started, the first thing it did was to check how many documents it saw last time it ran. Then it'd add one to that number and start looking for more.</p>
+             <pre class="mermaid bg-white p-0">graph TD;
+A[DayJob] -->|Start| B(n = how many documents we've previously found for this day);
+B --> C(Try to fetch more documents starting at n + 1);
+C --> D{Were there any?}
+D -->|Yes| B;
+D -->|No| E[Done];
+</pre>
+             <p>This approach depended on the assumption that new documents would always appear at the end. I'd had my suspicions about this assumption, but it had always help up. Until last week anyway.</p>
+             <h2>Diagnosis</h2>
+             <p>Sometime around Tuesday I noticed <a href="https://www.av.se/om-oss/sok-i-arbetsmiljoverkets-diarium/?id=2024/006453-5">a document</a> had been filed backdated to last Friday but never got picked up by 666a. When I checked the data for Friday, I found the old “Day Job” was up to <a href="https://www.av.se/om-oss/sok-i-arbetsmiljoverkets-diarium/?page=95&#x26;sortDirection=Desc&#x26;sortOrder=Dokumentdatum&#x26;OnlyActive=False&#x26;FromDate=2024-03-01&#x26;ToDate=2024-03-01&#x26;ShowToolbar=True">page 95 of the results</a>.</p>
+             <p>Thing is, the missing document wasn't on page 95. It wasn't on any of the pages after it either. I took a deep breath and began clicking back through the previous pages one by one. Eventually I came to <a href="https://www.av.se/om-oss/sok-i-arbetsmiljoverkets-diarium/?page=95&#x26;sortDirection=Desc&#x26;sortOrder=Dokumentdatum&#x26;OnlyActive=False&#x26;FromDate=2024-03-01&#x26;ToDate=2024-03-01&#x26;ShowToolbar=True">page 84</a>, and there it was.</p>
+             <p>
+              <img src="/2024/03/09/diarium-p84.png" alt="Screenshot of the Work Environment Authority&#x27;s search tool showing results corresponding to the page 84 URL linked earlier.">
+             </p>
+             <h2>Implications</h2>
+             <p>This design flaw meant that 666a would miss something in the region of 5% of all documents filed. That's a bad enough number that there's no ifs or buts about whether it needed fixing or how soon. This was a "fix-it-today" job.</p>
+             <p>Fix-it-today jobs are tricky these days. We've got a lot going on at home. I have about 30 minutes tops in a given day for something like this. So not only did I need an immediate fix for a design-level defect, but also it needed to be a small code change that would be quick to implement and YOLO into production.</p>
+             <h2>The fix</h2>
+             <p>By the time the kids were in bed the quick fix had occurred to me: empty the search result cache for each day before updating it. This leads to the exact same algorithm as before, except with a "delete" step added at the very beginning.</p>
+             <pre class="mermaid bg-white p-0">graph TD;
+A[DayJob] -->|Start| F(Clear cache for this day)
+F --> B(n = how many documents we've previously found for this day);
+B --> C(Try to fetch more documents starting at n + 1);
+C --> D{Were there any?}
+D -->|Yes| B;
+D -->|No| E[Done];
+</pre>
+             <p>That forces the job to re-fetch everything from scratch, beginning at page 1. It means nothing gets missed. And importantly, it also made the fix easy to implement. In fact, it was damn near a one line fix.</p>
+             <p>
+              <img src="/2024/03/09/fix.png" alt="Version control diff showing the addition of a line that reads “day.searches.destroy_all if options[:purge]” in a file called “app/jobs/work_environment/day_job.rb”">
+             </p>
+             <h2>Scaling it up</h2>
+             <p>The downside of this fix is that dramatically increases the number of HTTP requests necessary to check if new documents have been filed. My informal budget I set for myself is that I try to keep the amount of requests I send to <code>av.se</code> within the region of 1000 per day so that I'm as good as unnoticeable in terms of the load I put on their service.</p>
+             <p>As part of my <a href="/2024/01/09/operating-666a/">previous fixes to account for backdated filings</a> I'd programmed 666a to check the past 64 days every day. Checking all 64 on a cold cache would blow that informal 1000 requests budget. I'm really happy with the compromise I came up with here. Instead of checking every day sequentially, like <code>1.days.ago</code>, <code>2.days.ago</code>, <code>3.days.ago</code>, <code>4.days.ago</code>, <code>5.days.ago</code> and so on up to 64, I switched to powers of two. So instead I'm checking <code>1.days.ago</code>, <code>2.days.ago</code>, <code>4.days.ago</code>, <code>8.days.ago</code> and so on.</p>
+             <p>In practice this won't lead to any significant notification delays, because the vast majority of documents are listed the day after their filing date anyway. And the decrease in days checked compensates <em>perfectly</em> for the increase in number of requests necessary to check a day. I actually keep statistics about how many requests to <code>av.se</code> I make per day, and the chart really drives home how steady the numbers stay despite the change.</p>
+             <p>
+              <img src="/2024/03/09/rpd.png" alt="Bar chart with a y axis ranging from 0 to 1500 and an x axis ranging from 2023-10-30 to the present day. The bars are typically between 700 and 1200 high. Near the end, a pink arrow and text annotates one of the bars as “First day with new algorithm”.">
+             </p>
+             <h2>What's next?</h2>
+             <p>It's great fun having this kind of side project to look after. This one in particular feels like maintaining an old motorbike or something. A Rails app with a cron job that sends email notifications is kind of a retro combination at this point. And it's running beautifully now. Dead happy with it.</p>
+             <p>By now, 666a has processed over a quarter of a million documents and sent over a thousand notification emails. It's crystal clear the demand exists for the service. The daily email volume still fits within SendGrid's free tier, but it's growing steadily enough that I've already taken the time to get pre-approved for a paid subscription when the time comes.</p>
+             <p>If I'd shipped it as a “beta” – and maybe I should have – this would probably be the moment I'd officially say it was “out of beta”. Right now my worst fear would be for somebody at Arbetsmiljöverket to suddenly ship a redesign of the diarium search feature. Especially if that redesign depended on JavaScript and reworked all the logic around sorting, filtering and pagination. So let's all cross our fingers for that not to happen!</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

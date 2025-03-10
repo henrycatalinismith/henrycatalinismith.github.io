@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>switch (true) – Henry Catalini Smith</title>
+  <meta name="description" content="Talking myself out of becoming obsessed with a cool syntax trick I just discovered.">
+  <meta name="og:description" content="Talking myself out of becoming obsessed with a cool syntax trick I just discovered.">
+  <meta name="og:title" content="switch (true) – Henry Catalini Smith">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2012/03/17/switch-true/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">switch (true)</h1><time datetime="Sat Mar 17 2012 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">March 17, 2012</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>A while ago I learned a quirky little programming trick which has occasionally come in handy. It's something I picked up from some random blog post about 'cool programming tricks' that I can no longer find. It involves the <code>switch</code> statement, which is fairly universal in programming languages and normally looks like this:</p>
+             <pre class="">switch (name) {
+ case 'henry':
+  tabWidth = 8
+  tabMode  = 'tabs'
+  break;
+ default:
+  tabWidth = 4
+  tabMode  = 'spaces'
+  break;
+}
+</pre>
+             <p>It's generally used to compare one variable, given in parentheses after the <code>switch</code> keyword, against a series of possible matches given in a list of <code>case</code> statements. The alternative usage of it that I've been very occasionally employing looks like this:</p>
+             <pre class="">switch (true) {
+ case name.length >= 20:
+ case name.match(/\d{3}):
+ case name.indexOf('test'):
+ case name === 'special_case':
+  do_this();
+  break;
+
+ default:
+  do_that();
+  break;
+}
+</pre>
+             <h2>The Good</h2>
+             <p>It looks a little confusing at first glance, but once you understand it, it's actually a means of improving readability. If you need a piece of code to test a very long list of conditions and then do one thing if they all pass or if one of them fails, then a <code>switch (true)</code> or <code>switch (false)</code> can do that for you without having to write one of those really unsightly over-long <code>if</code> statements that wrap across several lines.</p>
+             <p>It works in exactly the same way as <code>if (x || y || z)</code>, in that once one of the cases matches, execution hops past the other conditions and your actual code starts executing. Consider that <a href="http://framework.zend.com/manual/en/coding-standard.coding-style.html#coding-standard.coding-style.control-statements.if-else-elseif">the normal alternative</a> to my above example would look like this:</p>
+             <pre class="">if (name.length >= 20
+ || name.match(/\d{3}/)
+ || name.indexOf('test')
+ || name === 'special_case'
+) {
+ do_this();
+} else {
+ do_that();
+}
+</pre>
+             <p>I think that the <code>switch (true)</code> pattern can be a very elegant-looking way of handling large sets of conditions. It kind of forces the statement into either <a href="http://en.wikipedia.org/wiki/Disjunctive_normal_form">disjunctive normal form</a> or <a href="http://en.wikipedia.org/wiki/Conjunctive_normal_form">conjunctive normal form</a> depending on whether you use <code>switch (true)</code> or <code>switch (false)</code>. The <code>case</code> keyword is an absolute barrier to operator precedence, so your list of cases is guaranteed to be either a conjunction or disjunction, and no amount of parentheses can overcome this simplification. For example, take this slight variation on the above code snippet:</p>
+             <pre class="">if (name.length >= 20
+ || (name.match(/\d{3}/)
+ &#x26;&#x26; name.indexOf('test'))
+ || name === 'special_case')
+)
+</pre>
+             <p>Using a <code>switch (true)</code> statement, it would look like much clearer:</p>
+             <pre class="">switch (true) {
+ case name.length >= 20:
+ case name.match(/\d{3}/) &#x26;&#x26; name.indexOf('test'):
+ case name === 'special_case':
+}
+</pre>
+             <h2>The Bad</h2>
+             <p>For someone who isn't familiar with the trick, however, seeing it for the first time in some code they have to maintain, it probably looks quite quirky and maybe even a little daunting to change.</p>
+             <p>It's also technically a little bit of an abuse of the language constructs. The <code>if</code> statement is what you're <em>supposed</em> to use for doing something <em>if</em> something else. That's why it's called "if". In some parallel universe I can imagine myself quietly wondering about the motivations of some colleague who insisted on using a trick like this.</p>
+             <p>I wish I had some conclusive point to make at the end of all this, but if anything it's that "good code" is not always clear cut. One of the guiding principles that I try my best to stick to when coding is to <strong>avoid writing quirky code</strong>. I hate quirky code, where somebody has developed their own esoteric style in defiance of prevailing standards and refused to conform. Code style is not about freedom of artistic expression any more than your pronunciation is. Code has two functions:</p>
+             <ul>
+              <li>Tell a computer what to do and how</li>
+              <li>Tell a human what the computer is doing and why</li>
+             </ul>
+             <p>I don't know which order those two belong in, so I've used an unordered list. I'm someone who puts a lot of importance on the second one, probably more so than most developers because of my previous background in human languages. With a foreign language the aim is to sound like an authentic native speaker, and people who flat-out refuse to attempt part of the native accent, such as the rolled Spanish 'r', often don't realise that this shyness actually draws more attention to their accent than if they actually gave it a go.</p>
+             <p>The thing about programming is that each language that you learn comes in two parts, just like with human languages. All programmers learn the first part: the grammar and vocabulary. It's really easy to forget about the second part, though: learning how to imitate the way <a href="http://www.kernel.org/doc/Documentation/CodingStyle">native speakers</a> turn that <a href="http://framework.zend.com/manual/en/coding-standard.html">framework</a> of <a href="http://nodeguide.com/style.html">rules</a> into actual communication.</p>
+             <p>This is the main thing that puts me off the <code>switch (true)</code> pattern. It feels like using a really uncommon word or phrase just because technically it captures a meaning well, forgetting that the whole point of a word is to be instantly understandable by others. It may be kind of elegant semantically, but it kind of makes you sound like a beginner language learner directly translating an idiomatic phrase from their own native language.</p>
+             <h2>Damnit</h2>
+             <p>On reflection, I think I'm more against this pattern than for it. It's a shame, because I'm convinced that it's a good fit for a certain small set of programming problems. Consider this post, then, a public apology for writing weird, quirky code and violating the sacred <a href="http://en.wikipedia.org/wiki/Principle_of_least_astonishment">principle of least astonishment</a> . It's certainly not my only offense by a long shot.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

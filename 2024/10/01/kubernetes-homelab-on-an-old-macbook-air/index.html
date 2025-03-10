@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Kubernetes homelab on an old MacBook Air – Henry Catalini Smith</title>
+  <meta name="description" content="Piss off naughty boys">
+  <meta name="og:description" content="Piss off naughty boys">
+  <meta name="og:title" content="Kubernetes homelab on an old MacBook Air – Henry Catalini Smith">
+  <meta name="og:image" content="https://henry.catalinismith.com/2024/10/01/">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2024/10/01/kubernetes-homelab-on-an-old-macbook-air/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Kubernetes homelab on an old MacBook Air</h1><time datetime="Tue Oct 01 2024 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">October 1, 2024</span></time>
+            </header>
+            <figure>
+             <img src="/2024/10/01/kubernetes-homelab-on-an-old-macbook-air.jpg" alt="" class="mt-8 w-full object-cover">
+            </figure>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>Reflecting on <a href="/2024/08/18/ergodox-ten-years-later/">the ten year milestone of using my Ergodox</a> the other day really got me thinking. Tech's so dominated by consumerism. It's all very American really. Bigger is better and all that. Silly.</p>
+             <p>So instead here's a run through of quite a realistic, minimal homelab setup. It lives on the shelf above our front door. And it's grown organically over time, through reusing old equipment and avoiding buying loads of expensive new stuff.</p>
+             <h2>Modem</h2>
+             <p>The big chunky boy on the left is our modem. This belongs to our ISP, and isn't very good. I keep it standing up on its side like that so I can see the status lights when the connection drops out. That happens a lot.</p>
+             <p>We actually only have one choice of ISP in our building. Recently it came out in the news that <a href="https://www.dn.se/ekonomi/kickbacks-omsatter-miljarder-hamnar-pa-hyresgasternas-bredbandsnota/">landlords in Sweden are getting kickbacks from ISPs</a> for monopolies like this one. So maybe that's why.</p>
+             <p>Anyway, its range isn't good enough to get a WiFi signal to any of the parts of the apartment where it's needed. So it's bridged to the Google Nest WiFi router next to it.</p>
+             <h2>Router</h2>
+             <p>This Google Nest WiFi thing is practically a member of the family. It floods the entire apartment with glorious internet. "Hey Google, stop" were some of the kids' first words.</p>
+             <p>Sometimes I wonder what it must be like to grow up with a talking computer. What it must do to your expectations about what it's possible for the computer to do. Then I find myself doing a sarcastic impersonation of an American because it can't understand "Hey Google, play BBC Radio Merseyside" unless you say it like someone from California. Never mind.</p>
+             <p>It has a little ethernet port underneath, which is plugged into our NAS.</p>
+             <h2>NAS</h2>
+             <p>Way back in the old country I had one of those AirPort Time Capsule things that Apple don't make any more. There wasn't room for it when I packed to move to Sweden, so it went in a cupboard in my parents' house for a good six or seven years until they found it one day.</p>
+             <p>It'll be about ten years old soon and it still works. Homelab nerds would probably cringe at the thought of using such an old single disk NAS. And sure, it'll probably die soon. But we had zero disks before this showed up, and that was basically fine. Not trying to compete with the Arctic World Archive here.</p>
+             <h2>Server</h2>
+             <p>At some point in like 2021 I went to play <a href="https://open.spotify.com/album/3Nunc0C2S3K5heQ9VRQFPy">Casual Sex In The Cineplex</a> on Spotify and it said "This content is not available". Still does today, actually.</p>
+             <figure>
+              <img alt="Spotify screenshot where the tracks in the album Casual Sex In The Cineplex by Sultans of Ping FC are greyed out and a toast notification saying &#x27;This content is not available&#x27; is displayed" src="/2024/10/01/not-available.png">
+              <figcaption>Not available my arse.</figcaption>
+             </figure>
+             <p>Anyway something snapped in me that day. A real "Hey, that's not the wallet inspector" moment. I set up Plex on my laptop and put the album on there instead. After a few days I realised this was something I was probably going to keep using, so I dug out my old 2013 MacBook Air and moved the Plex server over onto that. And that laptop has been a Plex server ever since.</p>
+             <p>Those old MacBooks didn't come with tons of storage, so it didn't take long to fill up. Eventually I bought a 1TB external SSD. It still runs off that today. Sometimes it fills up and I'll delete a show or a film to make space. Over time I upgraded it to a nice Docker Compose &#x26; Traefik setup with some help from a friend. Then later I installed Minikube and upgraded it to Kubernetes.</p>
+             <p>Old laptops are underrated homelab servers. For one, the battery means it doesn't immediately die if the power goes out. That's a built-in UPS! Even better though are the built-in speakers. If I'm away on a work trip I'll often SSH into it while I'm FaceTiming with the kids and run <code>say -vDaniel -r90 "Piss off naughty boys"</code>. I see a lot of very fancy rackmount homelab clusters on YouTube and they never have speakers. Not one of them can deliver the joy of watching two little boys running around laughing and shouting "No <em>you</em> piss off Google".</p>
+             <h2>Oh yeah, Kubernetes</h2>
+             <p>Sorry, you're probably here from Google about the Kubernetes MacBook Air homelab thing aren't you. Let's get into it then.</p>
+             <p>I'm running Minikube on this thing. It's a fairly standard traefik &#x26; cert-manager setup. I've stopped bothering with setting up an automated dynamic DNS thing, to be honest. My modem's public IP changes rarely enough that I don't mind just logging into Cloudflare and updating it once every few weeks.</p>
+             <p>That's it though. It seems a bit maxed out with just that workload. I tried to spin up Authentik on it once and the whole thing kind of died on its arse. CPU fans roaring, pods getting evicted left and right, that kind of thing. It's gonna need replacing with something proper before I can do more with it. So if you're here from Google hoping to learn about running a badass k8s cluster on your old MacBook Air, too bad. Can't be done, sorry. But do give "Piss off naughty boys" a try sometime.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

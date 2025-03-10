@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Maining VSCode Terminal – Henry Catalini Smith</title>
+  <meta name="description" content="The bare minimum config to make VSCode&#x27;s built-in terminal emulator replace iTerm2 for everyday use.">
+  <meta name="og:description" content="The bare minimum config to make VSCode&#x27;s built-in terminal emulator replace iTerm2 for everyday use.">
+  <meta name="og:title" content="Maining VSCode Terminal – Henry Catalini Smith">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2024/01/30/maining-vscode-terminal/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Maining VSCode Terminal</h1><time datetime="Tue Jan 30 2024 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">January 30, 2024</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>Once upon a time, the main tools I used for work were Vim and tmux. And until recently, once every few months I'd get this compulsive urge to try to recapture those glory days. If you know, you know.. That urge has stopped lately though. Visual Studio Code has reached a tipping point where the Vim support and terminal emulator are a better package than anything I can hack together with lua plugins and tmux config.</p>
+             <p>Turning VSCode into something that feels cosy for this type of retro workflow preference doesn't even take a lot of configuration. Here's how I'm doing it.</p>
+             <h2>Editor</h2>
+             <p>The editor is basically good to go once you install the <a href="https://marketplace.visualstudio.com/items?itemName=vscodevim.vim">Vim plugin</a> and make one or two tweaks. By default, VSCode does a lot of automatic closing of brackets and tags and such. Some people love this. For me it just feels like that Sorcerer's Apprentice scene with the out-of-control magic brooms in Fantasia, so I gotta turn it all off.</p>
+             <pre class="">"editor.autoClosingBrackets": "never",
+"editor.autoClosingDelete": "never",
+"editor.autoClosingOvertype": "never",
+"editor.autoClosingQuotes": "never",
+"html.autoClosingTags": false,
+"javascript.autoClosingTags": false,
+"typescript.autoClosingTags": false,
+</pre>
+             <p>That's about it, actually. The rest is handled by <a href="https://github.com/stars/henrycatalinismith/lists/vscode">extensions</a>.</p>
+             <h2>Terminal</h2>
+             <p>The terminal is where most of the tweaking is necessary. The default setup caters for limited use cases – stuff like opening it in the morning to run <code>yarn start</code> and then closing it in the evening. If you're using the terminal more like an IDE, it needs a little bit of extra juice.</p>
+             <h3>Colors</h3>
+             <p>VSCode's terminal has this incredible <a href="https://code.visualstudio.com/docs/editor/accessibility#_minimum-contrast-ratio">minimum contrast ratio option</a> that I can't live without any more. This option alone might be enough to convince many people to switch from other terminal emulators. Ever used a program in the terminal whose ANSI colors contasted so little with your background color that the text became effectively invisible? Crank up this setting to 4.5 and VSCode will automatically detect and fix that whenever it happens.</p>
+             <pre class="">"terminal.integrated.minimumContrastRatio": 4.5,
+</pre>
+             <p>I've been using Solarized for pretty much my whole career, and I love that VSCode ships with it included. It also ships with what I consider to be Solarized's worst flaw: the "bright" version of the palette is a gross soup of grays and oranges. VSCode makes it real easy to patch this though. I tend to just duplicate the regular palette, and then trust the magic of the minimum contrast ratio setting to fix any trouble this causes.</p>
+             <pre class="">"workbench.colorTheme": "Solarized Dark",
+"workbench.colorCustomizations": {
+  "gitlens.trailingLineForegroundColor": "#93a1a1",
+  "terminal.ansiBrightBlack": "#002b36",
+  "terminal.ansiBrightBlue": "#268bd2",
+  "terminal.ansiBrightCyan": "#2aa198",
+  "terminal.ansiBrightGreen": "#9bb300",
+  "terminal.ansiBrightMagenta": "#d33682",
+  "terminal.ansiBrightRed": "#dc322f",
+  "terminal.ansiBrightWhite": "#fdf6e3",
+  "terminal.ansiBrightYellow": "#b58900"
+}
+</pre>
+             <h3>Keyboard</h3>
+             <p>The keyboard shortcuts to control the terminals are the other big thing to address. Once you've experienced tmux it's hard to accept the rigidity of just having one little panel you can toggle below the code that requires mouse interactions for half its functionality.</p>
+             <p>First up is the focus management. I need to be able to toggle focus back and forth between the editor and the terminal easily. The following <code>keybindings.json</code> entries configure ⌘↓ to focus the terminal and ⌘↑ to focus the editor.</p>
+             <pre class="">{
+	"key": "cmd+up",
+	"command": "workbench.action.focusActiveEditorGroup",
+	"when": "terminalFocus"
+},
+{
+	"key": "cmd+down",
+	"command": "workbench.action.terminal.toggleTerminal",
+	"when": "!terminalFocus"
+}
+</pre>
+             <p>When I'm working in the terminal, I want common shortcuts like ⌘T and ⌘W to open and close terminal tabs like they would in iTerm2. In VSCode there are two contexts a terminal can be open in: either the panel, or the editor area. The default keyboard controls for these two contexts are different, and the following <code>keybindings.json</code> entries standardise them across both.</p>
+             <pre class="">{
+  "key": "cmd+t",
+  "command": "workbench.action.terminal.newInActiveWorkspace",
+  "when": "terminalFocus"
+},
+{
+  "key": "cmd+t",
+  "command": "workbench.action.createTerminalEditor",
+  "when": "terminalEditorFocus"
+},
+{
+  "key": "cmd+w",
+  "command": "workbench.action.terminal.kill",
+  "when": "terminalFocus"
+},
+{
+  "key": "cmd+w",
+  "command": "workbench.action.terminal.killEditor",
+  "when": "terminalEditorFocus"
+},
+</pre>
+             <p>Another quality of life thing is to have ^⇥ and ^⇧⇥ always mean "focus next tab" and "focus previous tab". When I'm working in the panel with multiple terminal tabs open, I want these combos to switch over seamlessly so that they iterate through terminal tabs instead of editor tabs. The defaults here are a <em>long</em> way from this. This next bit of config makes ^⇥ and ^⇧⇥ do the right thing no matter what's focused.</p>
+             <pre class="">{
+  "key": "ctrl+tab",
+  "command": "workbench.action.nextEditor"
+},
+{
+  "key": "ctrl+shift+tab",
+  "command": "workbench.action.previousEditor"
+},
+{
+  "key": "ctrl+tab",
+  "when": "terminalFocus",
+  "command": "workbench.action.terminal.focusNext"
+},
+{
+  "key": "ctrl+shift+tab",
+  "when": "terminalFocus",
+  "command": "workbench.action.terminal.focusPrevious"
+},
+{
+  "key": "ctrl+tab",
+  "when": "terminalEditorFocus",
+  "command": "workbench.action.nextEditor"
+},
+{
+  "key": "ctrl+shift+tab",
+  "when": "terminalEditorFocus",
+  "command": "workbench.action.previousEditor"
+}
+</pre>
+             <p>Depending on the size of the VSCode window, the position of the panel might vary. Sometimes it needs to be on the right of the editor, and sometimes below. I do most of my window management using <a href="https://rectangleapp.com/">Rectangle.app</a>'s keyboard shortcuts, so it's most efficient if I can follow one of those combos with another in VSCode. The following bit of config sets up VSCode so that ⌘⇧→ and ⌘⇧↓ move it to those positions.</p>
+             <p>This is going to be more lines of config than you're probably expecting. The reason for the bloat here is that this way preserves keyboard focus. If you just run <code>workbench.action.positionPanelRight</code>, then afterwards you have to refocus whatever bit of UI you were working in. The keybindings here detect whether you're invoking the shortcuts from inside a terminal or not, and ensure you land back where you started.</p>
+             <pre class="">{
+  "key": "cmd+shift+right",
+  "when": "terminalFocus",
+  "command": "runCommands",
+  "args": {
+    "commands": [
+      "workbench.action.positionPanelRight",
+      "workbench.action.terminal.focus"
+    ]
+  }
+},
+{
+  "key": "cmd+shift+down",
+  "when": "terminalFocus",
+  "command": "runCommands",
+  "args": {
+    "commands": [
+      "workbench.action.positionPanelBottom",
+      "workbench.action.terminal.focus"
+    ]
+  }
+},
+{
+  "key": "cmd+shift+right",
+  "when": "!terminalFocus &#x26;&#x26; !terminalEditorFocus",
+  "command": "runCommands",
+  "args": {
+    "commands": [
+      "workbench.action.positionPanelRight",
+      "workbench.action.focusActiveEditorGroup"
+    ]
+  }
+},
+{
+  "key": "cmd+shift+down",
+  "when": "!terminalFocus &#x26;&#x26; !terminalEditorFocus",
+  "command": "runCommands",
+  "args": {
+    "commands": [
+      "workbench.action.positionPanelBottom",
+      "workbench.action.focusActiveEditorGroup"
+    ]
+  }
+}
+</pre>
+             <p>VSCode's support for placing terminals in the editor area is brilliant when you're doing something really terminal centric. Sometimes a little panel off to the side isn't big enough. By default, this is a mouse-driven interaction though. If I'm in a terminal in a bottom panel, I want ⌘⇧↑ to move it into the editor area, hide the panel, and focus the terminal. This next bit of config makes that happen.</p>
+             <pre class="">{
+  "key": "cmd+shift+up",
+  "when": "terminalFocus",
+  "command": "runCommands",
+  "args": {
+    "commands": [
+      "workbench.action.togglePanel",
+      "workbench.action.terminal.moveToEditor",
+      "workbench.action.focusActiveEditorGroup"
+    ]
+  }
+},
+</pre>
+             <p>For the reverse scenario, when I want to clear away my editor area terminal back down into the panel, this entry makes ⌘⇧↓ do that.</p>
+             <pre class="">{
+  "key": "cmd+shift+down",
+  "when": "terminalEditorFocus",
+  "command": "runCommands",
+  "args": {
+    "commands": [
+      "workbench.action.terminal.moveToTerminalPanel",
+      "workbench.action.positionPanelBottom"
+    ]
+  }
+},
+</pre>
+             <p>That's pretty much it. It's just enough so that I can shuffle around the position of the panel and move terminals in and out of it using the keyboard. Apparently that's all I ever actually wanted. It feels pretty fantastic to have the keyboard-driven terminal winxow management I love without sacrificing any of the benefits that come from using the most popular tool in my corner of the industry. Much like <a href="/2024/01/14/my-sqlite-in-production-epiphany">using SQLite in production</a>, it feels like it shouldn't even be possible. I'm certainly in a real happy place these days regarding devtools.</p>
+             <h2>Future Tweaks</h2>
+             <p>Yesterday, I decided the final piece of the puzzle would be to have VSCode start up with the terminal open in the editor area. I chucked <code>vscode startupeditor terminal</code> into Google and found my way to a GitHub issue thread titled "<a href="https://github.com/microsoft/vscode/issues/154366"><code>workbench.startupEditor</code> should support opening a terminal in editor area</a>". It had a bunch of other people back in 2022 describing exactly what I was looking for.</p>
+             <p>This is a type of search result I normally associate with disappointment. The purple "Closed" badge here normally means "thanks, but no thanks". Not this time though. I scrolled to the bottom and could hardly believe what I was seeing: a pull request, merged 4 days ago, titled <a href="https://github.com/microsoft/vscode/pull/203567">Add terminal as a startup editor</a>. OMFG! So when that commit makes it into a shipped build, the config line to use it will be like this.</p>
+             <pre class="">"workbench.startupEditor": "terminal",
+</pre>
+             <p>Can't wait! In the meantime, the <a href="https://gist.github.com/henrycatalinismith/1358f66b029d8a0a358c159b1ce1c146">entire config all together</a> is available as a gist.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

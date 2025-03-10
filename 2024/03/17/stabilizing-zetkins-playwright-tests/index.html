@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Stabilizing Zetkin's Playwright Tests – Henry Catalini Smith</title>
+  <meta name="description" content="Reducing end-to-end test flakiness in a real-world open source app.">
+  <meta name="og:description" content="Reducing end-to-end test flakiness in a real-world open source app.">
+  <meta name="og:title" content="Stabilizing Zetkin&#x27;s Playwright Tests – Henry Catalini Smith">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2024/03/17/stabilizing-zetkins-playwright-tests/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Stabilizing Zetkin's Playwright Tests</h1><time datetime="Sun Mar 17 2024 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">March 17, 2024</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>I recently did <a href="https://github.com/zetkin/app.zetkin.org/pull/1807">some work addressing the flakiness of some end-to-end playwright tests</a> for Zetkin Foundation. This class of reliability issue is something I've seen affect almost every team I've worked with throughout my career. It's hard, but for once I think we actually secured a win with this PR. It's a bloody <em>messy</em> PR though. So let's zoom in on what we actually changed and why it helped.</p>
+             <h2>Works On My Machine</h2>
+             <p>A typical playwright test for a web app feature involves a series of button clicks leading to an assertion at the end. It's common for each UI event to depend on the ones before it. For example, a click on a menu item depends on the previous click which opens the menu. We can distil this down to an example like the one below, in which we click three buttons in turn and then see a status message.</p>
+             <p>
+              <img src="/2024/03/17/fast.gif" alt="Animation in which a button labeled “one” is clicked, which reveals a button labeled “two”. When “two” is clicked it reveals button “three”. When “three” is clicked a message appears that reads “success”. In each case, the effect of the button presses is immediate.">
+             </p>
+             <p>If you've done any end-to-end testing before, you can probably imagine how you'd automate a test for that. You'd have three automated clicks and then at the end you'd assert the presence of the <code>success</code> text.</p>
+             <pre class="javascript">await page.click("text=one");
+await page.click("text=two");
+await page.click("text=three");
+expect(await page.locator("text=success").isVisible()).toBeTruthy();
+</pre>
+             <p>This would be a perfectly normal thing to write, and you'd see it working just fine when you tested it locally too. So you'd commit, push and it'd probably get merged without comment as well.</p>
+             <h2>Results May Vary</h2>
+             <p>Developer laptops tend to have fairly stable performance, whereas CI environments are under much heavier and more variable system load. Let's take our example page from before and simulate running it under shitty conditions where each click takes an entire second to process.</p>
+             <p>
+              <img src="/2024/03/17/slow.gif" alt="Animation in which a button labeled “one” is clicked, which reveals a button labeled “two”. When “two” is clicked it reveals button “three”. When “three” is clicked a message appears that reads “success”. In each case, the button presses take one second to process.">
+             </p>
+             <p>The test fails when things slow down this much. Playwright tries to find an element matching the <code>text=success</code> selector at the end and gives up when it doesn't find it immediately after clicking on button three.</p>
+             <p>That might happen to a random end-to-end test in a CI build for an unrelated code change you're trying to merge. That's when you say “God damn these stupid fucking flaky tests” and you retrigger the build, hoping for a better outcome next time. And if you get a green build on the retry, it's probably because system load is lower on the cloud instance your second attempt runs on.</p>
+             <h2>Wait For It</h2>
+             <p>The trick is in replacing that final <code>isVisible()</code> assertion with something that doesn't fail if the <code>success</code> text takes a moment to appear. Here's an example using Playwright's <a href="https://playwright.dev/docs/api/class-locator#locator-wait-for"><code>waitFor</code></a> method.</p>
+             <pre class="javascript">const status = page.locator("#status");
+await status.waitFor({ state: "visible" });
+expect(await status.textContent()).toBe("success");
+</pre>
+             <p>The first line there doesn't do much. It just instantiates a <a href="https://playwright.dev/docs/api/class-locator">locator</a> object for the status text. The second line tells Playwright to chill for a second until the status appears. Then finally, line three asserts that its text content is <code>success</code>.</p>
+             <p>Whereas the code in the original example will randomly fail depending on system load at runtime, this approach is robust enough to pass reliably even if it's running on a struggling, overworked CI server.</p>
+             <h2>Locators For Everything</h2>
+             <p>It goes beyond just the assertion at the end, actually. The first thing <a href="https://playwright.dev/docs/api/class-page#page-click">Playwright's documentation for <code>page.click()</code></a> says about it is not to use it.</p>
+             <p>
+              <img src="/2024/03/17/click.png" alt="Discouraged. Use locator-based locator.click() instead. Read more about locators.">
+             </p>
+             <p><a href="https://playwright.dev/docs/locators">Playwright's docs for locators</a> describe them as “the central piece of Playwright's auto-waiting and retry-ability”. Nice! Sounds like a great all-purpose flakiness vaccine to me.</p>
+             <p>For our example test, that means that it ends up looking like this.</p>
+             <pre class="">const one = page.locator("text=one");
+const two = page.locator("text=two");
+const three = page.locator("text=three");
+const status = page.locator("#status");
+
+await one.click();
+await two.click();
+await three.click();
+
+await status.waitFor({ state: "visible" });
+expect(await status.textContent()).toBe("success");
+</pre>
+             <p>That's about as good as I understand what I did in <a href="https://github.com/zetkin/app.zetkin.org/pull/1807">the Zetkin PR</a>. I always resort to a bit of guesswork and superstitious coding when dealing with tricky stuff like this, and this time was no different. We managed to catch and remove <a href="https://github.com/zetkin/app.zetkin.org/pull/1807#discussion_r1503611724">some of it</a> but who knows if that was all of it.</p>
+             <p>Was every <code>waitFor()</code> call I added 100% necessary? Honestly not sure. I sure as hell didn't replace all the <code>page.click()</code> calls with locators either. Maybe I should have? IDK, it's tricky cos that would have <em>felt</em> superstitious unless I could reliably reproduce a test failure that was fixed by swapping to locators, but OTOH the very nature of this problem is that you can't reliably reproduce them. This stuff is bloody hard, but at least we scored ourselves a clear win here.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

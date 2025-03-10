@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Monty Is Wrong – Henry Catalini Smith</title>
+  <meta name="description" content="An angry response to sexist remarks by MySQL creator Monty Widenius.">
+  <meta name="og:description" content="An angry response to sexist remarks by MySQL creator Monty Widenius.">
+  <meta name="og:title" content="Monty Is Wrong – Henry Catalini Smith">
+  <meta name="og:image" content="https://henry.catalinismith.com/2014/10/20/monty-is-wrong-opengraph@1200x630.jpeg">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2014/10/20/monty-is-wrong/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Monty Is Wrong</h1><time datetime="Mon Oct 20 2014 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">October 20, 2014</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>Last Friday, at All Your Base 2014, MySQL creator Monty Widenius said some controversial stuff about women. There was a lot of backlash.</p>
+             <figure>
+              <blockquote class="twitter-tweet" lang="en">
+               <p>
+                So Monty just went on stage at <a href="https://twitter.com/hashtag/ayb14?src=hash">#ayb14</a> and said that women don't really "get" hacking.
+                Feel like I should get my coat...
+               </p>— Lorna Mitchell (@lornajane)
+               <a href="https://twitter.com/lornajane/status/523150640747667457">October 17, 2014</a>
+              </blockquote>
+              <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+              <figcaption>You gobshite Monty.</figcaption>
+             </figure>
+             <p>Today, in an attempt to address the criticism, an interview was published in which Monty explained <a href="http://isit.kajarno.com/2014/10/on-obsession-monty-and-gender-issues.html">his views in more detail</a>.</p>
+             <blockquote>
+              <p>My personal feeling is that men get more easily obsessed with things, including computers. They forget their surroundings, neglect their families and friends. And I think that's more insulting to men than to women, who I think are better at combining work and having a life. This type of male obsession I find to be mostly a negative trait, even though single-minded focus on coding from the early teens, followed by 16 hour coding days at work, is what has enabled many successful pieces of software.</p>
+             </blockquote>
+             <p>If anything, this statement makes matters worse. Instead of retracting and apologising for his generalisations, Monty has reiterated them and explained them in more detail. It's unclear why anybody would think this might make a good preamble for a heartfelt apology about their sexist remarks, but there you go. Anyway, here is why I think Monty is wrong.</p>
+             <p>In 2008, a report called <a href="http://documents.library.nsf.gov/edocs/HD6060-.A84-2008-PDF-Athena-factor-Reversing-the-brain-drain-in-science,-engineering,-and-technology.pdf">The Athena Factor</a> was published exploring the many reasons why women leave science, engineering and tech jobs at such a higher rate than men. It painted a damning picture of a male-dominated industry structured in a way that systematically disadvantages women at every turn. It's worth a read, but here's the most damning thing from it. It's a diagram illustrating the disproportionate rate of attrition among women in tech.</p>
+             <figure>
+              <img alt="Diagram illustrating a 47% rate of quitting among women in science, 39% in engineering, and 56% in technology." src="/2014/10/20/monty-is-wrong-quit@700x380.png">
+              <figcaption>Slightly confusing visuals here but the key takeaway is that over half of the engineers stop being engineers.</figcaption>
+             </figure>
+             <p>Right off the bat we're looking at a very different picture of the world than the one Monty describes. Rather than a simple pipeline problem (not enough women coming in), we're instead seeing women <em>driven out</em> of the industry at a worrying rate. In fact, the report even suggests that remarks like Monty's are a likely contributing factor to this the problem.</p>
+             <blockquote>
+              <p>Another sobering finding is the degree to which women at SET companies believe that their male colleagues consider females to be intrinsically less capable. In engineering and technology, more than a quarter of female respondents feel they are seen as genetically disadvantaged in SET fields. When Larry Summers, then-president of Harvard University, talked about how women have a “different availability of aptitude” in his infamous speech of January 2005, he was perhaps merely giving voice to a standard view!</p>
+              <p>Some researchers are convinced that “the societal assumption that women are innately less able than men” is the foremost factor contributing to women's slow advance in SET careers</p>
+             </blockquote>
+             <p>As well as driving away existing contributors, Monty's words also contribute to the very pipeline problem that they claim to explain. Remarks like these are a part of the oppressive framework that tells men and women that their lives have already been predetermined for them by their genetics, and that they should favour life choices that play to their “natural” strengths.</p>
+             <blockquote>
+              <p>
+               When women are obsessed, I find they tend to focus on social aspects, which is why there have been much more of an uptake in women in senior management, rather than among introverted, solitary hackers.
+               <em>(more questionable wisdom from the interview containing Monty's apology)</em>
+              </p>
+             </blockquote>
+             <p>This is bullshit. It makes me angry to imagine some young woman who was at AYB or maybe read Monty's interview afterwards and is now questioning whether she's “obsessive enough” to contribute to open source projects or otherwise experience success in her software career. After all, if that really popular clever guy said it under the legitimising stage lights of a conference venue, couldn't it be true? We all suffer from the occasional bout of impostor syndrome. The last thing any of us needs is leading open source personalities telling anyone their gender makes them less obsessive and therefore less likely to create great stuff.</p>
+             <p>I do believe that there are obstacles for women who want to become big-time open source developers. But I believe that these obstacles are socially constructed and thus potentially fixable. Things like:</p>
+             <ul>
+              <li>Outdated social expectations about gender roles discourage young women from entering the field in the first place.</li>
+              <li>Systematic oppression and harassment drives women out of the software industry at a rate something like twice that of men.</li>
+             </ul>
+             <p>That's the final thing that I hate about this belief that the lack of women in software can be explained away by these “innate” differences: it absolves the believer of any responsibility to do anything about it. If it's predetermined by nature, then it's not your problem. Whereas if you dare to look at the issue as something humans can fix, you might even <a href="http://wiselit.com/arts-culture/voices/internet-got-godaddy-stop-objectifying-women-sexist-commercials">make a dent in it</a>.</p>
+             <p>Monty says he feels bad to be thought of as a sexist. Unfortunately, if you believe in innate differences between men and women that make women less likely to succeed in software, then you fucking <em>are</em> a sexist. And you will stand alone as such because the rest of us will not be complicit in our silence.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>That Weird Keyboard – Henry Catalini Smith</title>
+  <meta name="description" content="My experience building an Ergodox, relearning to type, and saving myself from an otherwise career-ending RSI.">
+  <meta name="og:description" content="My experience building an Ergodox, relearning to type, and saving myself from an otherwise career-ending RSI.">
+  <meta name="og:title" content="That Weird Keyboard – Henry Catalini Smith">
+  <meta name="og:image" content="https://henry.catalinismith.com/2014/11/16/that-weird-keyboard-opengraph@1200x630.jpeg">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2014/11/16/that-weird-keyboard/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">That Weird Keyboard</h1><time datetime="Sun Nov 16 2014 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">November 16, 2014</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>At the start of 2014 I started to pay the price for years and years of typing. A horrible RSI was causing shooting pains in my wrists by mid-afternoon each day. Something had to change, but obviously not typing any more wasn't an option. The solution I settled on was an ergonomic keyboard, specifically the <a href="https://www.ergodox.io/">Ergodox</a>.</p>
+             <p>The Ergodox is an open source hardware design. Like almost anything involving the words “open” and “source”, some assembly is required. The equipment you need is fairly standard, and the <a href="https://www.instructables.com/ErgoDox-Mechanical-Keyboard/">assembly instructions</a> list it all. The only extra I'd recommend is a magnifying glass, to help inspect those tiny diode solder joints and so on. Here's what it all looked like just before I got started. The <a href="https://www.youtube.com/watch?v=x1irVrAl3Ts">video playing on the laptop</a> is a 35 minute close-up of somebody who knows what they're doing completing the whole build. It really helped.</p>
+             <figure>
+              <img alt="
+   Photo of my desk during the assembly process.
+   A Macbook with a fullscreen video showing a closeup of the circuit board is on top of a large red Ferrari flag alongside many bags of parts.
+   On the desk itself are a soldering iron, several tools, a plate full of components, and the keyboard&#x27;s circuit boards." src="/2014/11/16/that-weird-keyboard-equipment@700x525.jpeg">
+              <figcaption>Everyone knows you do better soldering if there's a Brazilian flag nearby.</figcaption>
+             </figure>
+             <p>The big thing that people worry about is whether they'll be able to cope with soldering the surface mount diodes. It really isn't that hard, and once you get into a rhythm it's kind of fun. The part I think is actually the most difficult is stripping all the plastic off the USB connector. Unlike the diodes, you don't build up any practice with that step, so it's a one shot deal. I actually fucked it up the first time and had to get another one and do it again.</p>
+             <p>Once the whole thing was put together, the left hand keyboard didn't work at all. This was pretty bad news. I don't know anywhere near enough about electronics to debug a circuit board. It started to look like I'd spent all this time and money on a failed project. I was out of ideas, so I spent about a day miserably retouching solder joints and checking things with the multimeter. Against all the odds, my desperate, clueless poking around randomly fixed whatever was wrong. Easily one of the most undeserved moments of success in my life.</p>
+             <figure>
+              <img alt="Close-up photo of my keyboard&#x27;s circuit boards with the surface mount diodes all soldered." src="/2014/11/16/that-weird-keyboard-board@700x400.jpeg">
+              <figcaption>This picture is quite lo-res and you can't really see these joints much better than this in real life without a magnifying glass.</figcaption>
+             </figure>
+             <p>The sheer difficulty of learning a new keyboard with no key labels was a major surprise. It took a week of practice before I could type a whole sentence slowly without a mistake. It took months for me to regain enough speed to use it in my day job. Months. After almost a year, I can type as naturally and fast on my Ergodox as I can on my laptop keyboard. Switching between the two is no problem at all either. But it took about six months of daily use before I could type without thinking about it.</p>
+             <p>Massdrop provide an excellent web-based <a href="https://www.massdrop.com/ext/ergodox">keyboard layout configurator</a>. Customising the layout was an experience full of lessons about ergonomics. Many of the Ergodox's buttons are great as modifiers or special keys, but terrible for typing regular characters. The default layout pretends that this isn't the case, and mixes both types of key haphazardly across all the different locations. Eventually I settled on <a href="https://www.massdrop.com/ext/ergodox/?referer=G9MWLU&#x26;hash=ee3b6bf44643182a0ddc2ec08222be69">the layout below</a>.</p>
+             <figure>
+              <img alt="A fairly standard-looking QWERTY layout with all the keys more or less where they&#x27;d be on a normal keyboard." src="/2014/11/16/that-weird-keyboard-layout@700x277.png">
+              <figcaption>Adding a modifier-free colon key and putting it right on the thumb cluster was a masterstroke.</figcaption>
+             </figure>
+             <p>The main principle behind my layout is that it mimics a normal QWERTY layout as much as possible. Learning to type all over again is hard enough without throwing in a new layout as well. Punctuation keys are as close to their usual homes as possible too. Just a few of them are squeezed out onto the thumb key clusters.</p>
+             <p>The left thumb keys deal with <code>[LCtrl]</code> and <code>[Esc]</code>, with <code>[Enter]</code> and <code>[Backspace]</code> on the right thumb. These are some of the most frequently used buttons on the keyboard, and it's so much more physically comfortable having the strong, dexterous thumbs deal with them instead of those poor overworked little fingers.</p>
+             <p>Apart from the number keys on the top row, I've kept the edges of the keyboard clear of keys that enter characters. I found it uncomfortable reaching for those keys while typing. You have to move your wrists to do it, which I felt undermined the whole reason for choosing the Ergodox. They're better suited for less frequently used special keys.</p>
+             <figure>
+              <img alt="
+   My completed keyboard fully-assembled and plugged in on a desk.
+   It&#x27;s a split keyboard with the two pieces connected by a cable.
+   The keycaps are unlabeled and black." src="/2014/11/16/that-weird-keyboard-done@700x465.jpeg">
+              <figcaption>Behold.</figcaption>
+             </figure>
+             <p>The Ergodox is a great keyboard, but that almost seems irrelevant. It's definitely solved the original problem: no more shooting pains. And typing on it is really enjoyable. But at the end of the day it's a fun project that just happens to produce a nice keyboard as a byproduct.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

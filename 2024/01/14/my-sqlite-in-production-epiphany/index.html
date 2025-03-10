@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>My SQLite in production epiphany – Henry Catalini Smith</title>
+  <meta name="description" content="I got swept up in the production SQLite hype and it&#x27;s totally reignited my creativity.
+">
+  <meta name="og:description" content="I got swept up in the production SQLite hype and it&#x27;s totally reignited my creativity.
+">
+  <meta name="og:title" content="My SQLite in production epiphany – Henry Catalini Smith">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2024/01/14/my-sqlite-in-production-epiphany/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">My SQLite in production epiphany</h1><time datetime="Sun Jan 14 2024 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">January 14, 2024</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>My work environment email alerts service – <a href="https://666a.se/">666a</a> – is a Rails app using SQLite for its production database. I'm super happy with this stack, but it wasn't an obvious choice from the start, and I know a lot of folks still haven't heard the growing hype about using SQLite in production in the Rails community. Here's how I ended up shipping a production app with a SQLite database, and how it helped me rediscover some joy in full-stack work.</p>
+             <h2>Back on Rails</h2>
+             <p>I built the very first prototype version of 666a in Rails. Nothing beats Active Record when you need to iterate really quick on a concept for a database schema. It ran on our old MacBook Air where our Plex server lives. Then, in late August, I got sidetracked by the idea that for the "real" version I needed to redo it in a more "modern" web stack like Next.js.</p>
+             <p>What a waste of a month this turned out to be. You have to jump through so many hoops for this new edge computing paradigm, but none of the benefits are applicable to an app like 666a with relatively stable load whose users are concentrated in one geographic location. Plus, the core things 666a actually <em>needs</em> – mundane stuff like an ORM or a nice mature localisation framework – are all third party plugins in Next.js. Afterthoughts.</p>
+             <p>I churned through so many libraries and platforms trying to make this mismatch work. The ones I can remember include <a href="https://kysely.dev/">Kysely</a>, <a href="https://www.prisma.io/">Prisma</a>, <a href="https://planetscale.com/">Planetscale</a>, <a href="https://vercel.com/docs/storage/vercel-postgres">Vercel Postgres</a>, and <a href="https://www.inngest.com/">Inngest</a>. It seemed like no matter what I picked, it was going to get expensive fast, and yet at the same time nothing's fully working right yet because the whole edge functions thing is still so bleeding edge.</p>
+             <p>By the end of September I was fed up. I deleted my Next.js app and ran <code>rails new</code> with some considerable relief.</p>
+             <h2>But… SQLite? In production?</h2>
+             <p>As I was making that decision to jump back to Rails, I was aware of a growing wave of hype about using SQLite in production. I eagerly followed Stephen Margheim's series of <a href="https://fractaledmind.github.io/tags/sqlite/">SQLite-related blog posts</a>, <a href="https://blog.appsignal.com/2023/09/27/an-introduction-to-litestack-for-ruby-on-rails.html">AppSignal's series on LiteStack</a>, as well as <a href="https://fly.io/ruby-dispatch/sqlite-and-rails-in-production/">anything Fly.io published about it</a>.</p>
+             <p>This used to be unthinkable. In fact it's only in the past month that the Rails core team <a href="https://github.com/rails/rails/pull/50463">removed the warning message about running SQLite in production</a>. I reckon it's a combination of factors: it's enabled by technological advances, and driven by a reduced focus on exponential growth due to high interest rates.</p>
+             <p>Whatever the underlying reason for the mindset shift, it doesn't seem to be news to the folks behind SQLite itself. The quote below has been on their site <a href="https://web.archive.org/web/20050204022544/https://www.sqlite.org/whentouse.html">since at least 2005</a>.</p>
+             <blockquote>
+              <p>SQLite works great as the database engine for most low to medium traffic websites (which is to say, most websites). Generally speaking, any site that gets fewer than a 100,000 hits/day should work fine with SQLite.</p>
+             </blockquote>
+             <p>666a is right in the centre of the sweet spot for a SQLite in production use-case. It's a service targeting a niche interest group in a tiny country of 10 million people. I reckon the entire Swedish labour movement could sign up before I'd even need to starting googling for performance tips.</p>
+             <h2>The experience so far</h2>
+             <p>It's rare for me to find this much joy in the back-end &#x26; infrastructure side of a project. Normally it's the front-end work that gives me these feelings, but there's something truly special about this tech stack. And the fact that it's cheaper – 666a currently fits within the Fly.io free tier – is only part of it.</p>
+             <p>The sensation of being able to ship an entire full-stack app as a single Docker image and not even have a <code>docker-compose.yml</code> at all is difficult to describe. There's something weirdly cosy about it. It also feels like it shouldn't even be possible, and brings back nostalgic memories of the 2000s-era trend for PHP features to use a "flat file" for storage instead of a database.</p>
+             <p>Four months in, there have been no downsides to speak of. It's literally just… fantastic. My database is around 350MB, doing something on the order of 1000ish writes and (<em>really</em> guessing now) 10,000ish reads per day. It's got indexes, I'm doing joins and group by statements and all that normal stuff, and I'm never being confronted with unexpected barriers resulting from the choice of SQLite.</p>
+             <p>In fact I'm even using <a href="https://fractaledmind.github.io/2023/09/22/enhancing-rails-sqlite-ulid-primary-keys/">ULID primary keys</a> cos I didn't want the infosec headaches of autoincrementing integers (any labour movement-related software always deserves a bit of paranoia) or the awkward ergonomics of regular UUIDs. Setting that up was a piece of piss too.</p>
+             <p>The contrast I find the most striking in all this is that in Next.js I was just setting up a normal app the normal way, yet somehow still it felt like swimming against the tide, whereas with Rails, even configuring a quirky primary key format on a non-standard database was easy and actually kind of fun.</p>
+             <p>When you consider the fact that I have zero professional Rails experience, and that I've spent the better part of a decade working mostly with React, it does seem a bit weird. I mean I even really <em>like</em> React for fuck's sake. Seems silly that it's somehow not the easiest way for me to ship a simple app like this one.</p>
+             <p>My gut feeling is that it's partly an incentives thing. Vercel's in the PaaS business, so obviously the product strategy for Next.js is wrapped up in that and it makes sense to prioritise promoting the serverless paradigm they've bet their entire company on over e.g. integrating a production-ready i18n solution. By contrast, nothing about 37signals' SaaS business incentivises Rails to double as the top of a freemium conversion funnel.</p>
+             <p>Nothing showcases that difference in incentives better than production SQLite. We use Next.js at my current job, where it's a great fit, and I think I kinda get it: this new serverless stuff is way more worth the trouble when you're hoping to scale up as fast and as big as possible. For more modest projects with smaller troubleshooting time budgets, maybe it’s natural that a tool built by and for the VC ecosystem doesn't fit so great. It feels great that this production SQLite adventure has helped me understand all this a bit better, and after a decade of React I'm stoked about the prospect of having a new go-to stack with more batteries included.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Lost in space – Henry Catalini Smith</title>
+  <meta name="description" content="Trying to simulate gravity and failing.">
+  <meta name="og:description" content="Trying to simulate gravity and failing.">
+  <meta name="og:title" content="Lost in space – Henry Catalini Smith">
+  <meta name="og:image" content="https://henry.catalinismith.com/2015/11/06/lost-in-space-opengraph@1200x630.png">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2015/11/06/lost-in-space/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Lost in space</h1><time datetime="Fri Nov 06 2015 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">November 6, 2015</span></time>
+            </header>
+            <div class="prose mt-8 dark:prose-invert">
+             <h1>Lost In Space</h1>
+             <p>Simulating gravity has made all the other space-related code I’ve written so far for this project seem easy. This has been one of those demoralising problems that you think you’ve solved until you try a new test scenario and suddenly you’re back at square one because it turns out it was never really working right at all. For a good while I genuinely didn’t think I was going to be able to make it work at all.</p>
+             <h2>The equation</h2>
+             <p>On the face of it, gravity’s really simple. It’s a tiny little formula that converts a body’s mass and your distance from it into your gravitational acceleration.</p>
+             <figure>
+              <img src="/2015/11/06/lost-in-space-equation@640x360.png" alt="Newton&#x27;s law of universal gravitation: g = GM/r2">
+              <figcaption>Easy.</figcaption>
+             </figure>
+             <h2>First attempts</h2>
+             <p>At least, it would have been that simple if I’d done a better job of the initial research. My first attempts were using a totally different and wrong equation that I hacked together based on an incomplete understanding of various things I’d hastily skim-read from Google.</p>
+             <p>I threw a bunch of code together, all excited to see some proper space stuff happening. The first test run felt so climactic that I recorded it. Here it is. Even if you really sucked at physics in school, I promise you’re gonna be able to spot the problem. Check it out.</p>
+             <figure>
+              <video poster="/2015/11/06/lost-in-space-first-attempt-poster@564x472.png" src="/2015/11/06/lost-in-space-first-attempt@564x472.mp4" title="The Earth and Sun moving away from each other instead of towards each other." controls playsinline></video>
+              <figcaption>You had one job.</figcaption>
+             </figure>
+             <p>You had one job.</p>
+             <p>Yep, it’s backwards. The Earth takes one look at the Sun, turns around, and heads off into deep space. Even worse, the Sun itself seems to be being affected way more than it should by Earth’s comparatively tiny gravitational force.</p>
+             <h2>If at first you don't succeed</h2>
+             <p>There were lots more failed attempts shortly after this. Each one was more confusing than the last. I didn’t know what I was doing. I kept making little tweaks to the calculations without really understanding why. No wonder none of them worked.</p>
+             <p>This went on for a few days. Gradually I started to slow down and get a bit more methodical. Lots of stepping through equations to try to get a feel for the numbers. And yes, I use the word “Sol” instead of just “Sun” in one of the diagrams, purely because it felt more sciencey to write 😎</p>
+             <figure>
+              <img src="/2015/11/06/lost-in-space-board1@700x525.jpg" alt="Whiteboard diagram with Newton&#x27;s gravity formula and some planets with lots of little numbers and arrows.">
+              <figcaption>Maths is hard.</figcaption>
+             </figure>
+             <p>After a few more days, the gravity calculation was sort of working. It was still miles away from being anything close to correct, but good enough progress to keep me interested.</p>
+             <h2>Bodge it and scarper</h2>
+             <p>I thought I was close to nailing it. When I saw it get the Moon to orbit the Earth, I was so happy I took another screen recording. This was around about the same time I discovered that deleting the call to clearRect made it leave behind a cool orbit trail.</p>
+             <figure>
+              <video poster="/2015/11/06/lost-in-space-one-moon-poster@474x414.png" src="/2015/11/06/lost-in-space-one-moon@474x414.mp4" title="The Moon moving around the Earth, leaving a little white trail as it goes." controls playsinline></video>
+              <figcaption>The bit at the very end where it completes the orbit and returns to its exact point of origin is my favorite.</figcaption>
+             </figure>
+             <p>Wow, I was so pleased with that. Thing is, I’d had to grossly inflate the mass of the Earth to make it work like that, and I had no idea why. Everything was sort of working, but full of these weird little hacky tweaks that I didn’t know why they helped.</p>
+             <p>By now I was using the right gravity equation. But I had to subtract the result from 0 to make it work. Again, no idea why. It was just something I did at one point to see if it helped, and it did, so I left it in.</p>
+             <pre class="">const acceleration = 0 - (
+  (G * subject.mass) /
+  (Math.pow(distance, 2))
+)
+</pre>
+             <h2>Me reaping: Well this fucking sucks. What the fuck.</h2>
+             <p>So I definitely had a rude awakening coming. It came when I decided to test it with four Moons orbiting the Earth. They were positioned equidistant around the Earth and initialised with what should have been anti-clockwise orbits of equal sizes. What should happen in this next video is basically the same as in the last one except with four circles instead of one.</p>
+             <figure>
+              <video poster="/2015/11/06/lost-in-space-terrible-poster@950x656.png" src="/2015/11/06/lost-in-space-terrible@950x656.mp4" title="Four moons orbiting the Earth, except it all goes immediately wrong and they fly away." controls playsinline></video>
+              <figcaption>Not a single thing that happens in this video is right.</figcaption>
+             </figure>
+             <p>Backwards gravity was back, and yet again, I had no idea why. It was demoralising as fuck.</p>
+             <p>The only thing to do was keep on going and try to get a little bit more serious and careful with each step. The thing about building this is that the gravity calculation is only a tiny part of it. Most of the work so far has gone into the geometry code. You need to be able to calculate angles and distances between points, add vectors together, and calculate vectors from an angle and a magnitude. Lots of Math.atan2 and that sort of thing.</p>
+             <p>The gravity calculation was okay, so I knew the problem was elsewhere and started digging around accordingly. There was something wrong with how I was applying the gravity to the planets. I started to try to tighten up my understanding of the basic geometry of this imaginary universe I’d built.</p>
+             <p>
+              <img src="/2015/11/06/lost-in-space-board3@700x456.jpg" alt="
+Whiteboard diagram of a 2D grid with two points on it and an angle drawn between them.
+Next to that, a pair of arrows compare &#x27;current direction&#x27; with &#x27;actual direction&#x27;.">
+             </p>
+             <figure>
+              <img src="/2015/11/06/lost-in-space-board3@700x456.jpg" alt="
+   Whiteboard diagram of a 2D grid with two points on it and an angle drawn between them.
+   Next to that, a pair of arrows compare &#x27;current direction&#x27; with &#x27;actual direction&#x27;.">
+              <figcaption>I literally didn't understand radians until this point.</figcaption>
+             </figure>
+             <p>Once I understood the basics a little better, I did what I always do when I’m as lost as this: I wrote tests. So many fucking tests… Just, basic things like putting two points next to each other and checking that the distances and angles are being calculated right. I wrote dozens of tests like that.</p>
+             <p>While I was writing a crapload of tests, I made a few teeny tiny little tweaks along the way. None of it seemed major. Somehow, though, things started working a bit better. I set the “four moons” test case back up, ready to be disappointed and feel stupid.</p>
+             <figure>
+              <video poster="/2015/11/06/lost-in-space-four-moons-poster@744x604.png" src="/2015/11/06/lost-in-space-four-moons@744x604.mp4" title="Four moons orbiting the Earth beautifully and producing a lovely geometric pattern." controls playsinline></video>
+              <figcaption>Holy shit.</figcaption>
+             </figure>
+             <p>Almost perfect! This is where I’m at right now, and it’s good enough to consider moving on to whatever the next problem will be. It’s still a long way from perfect, but I haven’t seen any “backwards gravity” and to be honest, that’ll do.</p>
+             <p>Earth’s orbit around the Sun takes about 10 days longer than it should. And the Moon’s orbit around the Earth takes about half the time it should. Just like before, I haven’t got the slightest idea why. But this project doesn’t really have any explicit goals beyond “build something that makes my computer do some cool space stuff, and have fun doing it”. And it’s doing the cool space stuff well enough to be fun now!</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>

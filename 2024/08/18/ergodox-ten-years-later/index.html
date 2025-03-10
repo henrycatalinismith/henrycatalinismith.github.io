@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased light">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="webmention" href="https://webmention.io/henry.catalinismith.com/webmention">
+  <title>Ergodox, Ten Years Later – Henry Catalini Smith</title>
+  <meta name="description" content="A little hardware review after ten years of almost daily use.">
+  <meta name="og:description" content="A little hardware review after ten years of almost daily use.">
+  <meta name="og:title" content="Ergodox, Ten Years Later – Henry Catalini Smith">
+  <meta name="og:image" content="https://henry.catalinismith.com/2024/08/18/">
+  <link rel="alternate" type="application/rss+xml" href="https://henry.catalinismith.com/feed.xml">
+  <link rel="canonical" href="https://henry.catalinismith.com/2024/08/18/ergodox-ten-years-later/">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles/tailwind.css">
+ </head>
+ <body class="flex h-full bg-zinc-50 dark:bg-black">
+  <div class="flex w-full">
+   <div class="fixed inset-0 flex justify-center sm:px-8">
+    <div class="flex w-full max-w-7xl lg:px-8">
+     <div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div>
+    </div>
+   </div>
+   <div class="relative flex w-full flex-col">
+    <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
+     <div class="top-0 z-10 h-16 pt-6" style="position:var(--header-position)">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full" style="position:var(--header-inner-position)">
+       <div class="mx-auto w-full max-w-7xl lg:px-8">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="relative flex gap-4">
+           <div class="flex flex-1">
+            <div class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"><a aria-label="Home" class="pointer-events-auto" href="/"><img alt="" fetchpriority="high" width="374" height="374" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-9 w-9" sizes="2.25rem" src="/2023/02/25/malmo-live-2@128x128.jpg" style="color: transparent;"></a></div>
+           </div>
+           <div class="flex flex-1 justify-end md:justify-center">
+            <div class="pointer-events-auto md:hidden"><button class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20" type="button" aria-expanded="false">Menu
+<svg viewBox="0 0 8 6" aria-hidden="true" class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+               <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg></button>
+             <dialog>
+              <div class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" aria-hidden="true"></div>
+              <div class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800" tabindex="-1">
+               <div class="flex flex-row-reverse items-center justify-between"><button aria-label="Close menu" class="-m-1 p-1" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-zinc-500 dark:text-zinc-300">
+                  <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                 </svg></button>
+                <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-300">Navigation</h2>
+               </div>
+               <nav class="mt-6">
+                <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                 <li><a class="block py-2" href="/about">About</a></li>
+                 <li><a class="block py-2" href="https://henry.catalinismith.se/">Writing</a></li>
+                 <li><a class="block py-2" href="/projects">Projects</a></li>
+                 <li><a class="block py-2" href="/gallery">Gallery</a></li>
+                 <li><a class="block py-2" href="/speaking">Speaking</a></li>
+                </ul>
+               </nav>
+              </div>
+             </dialog>
+            </div>
+            <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const menuButton = document.querySelector("button[aria-expanded]");
+                            const closeButton = document.querySelector("button[aria-label='Close menu']");
+                            const dialog = document.querySelector("dialog");
+                            let listener
+
+                            function openMenu() {
+                              menuButton.ariaExpanded = "true";
+                              dialog.showModal();
+                              listener = document.addEventListener("keypress", (event) =>
+                                event.key === "Escape" && closeMenu()
+                              );
+                            }
+
+                            function closeMenu() {
+                              menuButton.ariaExpanded = "false";
+                              dialog.close();
+                              document.removeEventListener("keypress", listener);
+                            }
+
+                            menuButton.addEventListener("click", () => openMenu())
+                            closeButton.addEventListener("click", () => closeMenu())
+                          })
+                        </script>
+            <div style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
+            <nav class="pointer-events-auto hidden md:block">
+             <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/about/">About</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/writing/">Writing</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/projects/">Projects</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/gallery/">Gallery</a></li>
+              <li><a class="relative block px-3 py-2 transition hover:text-sky-300 hover:underline" href="/speaking/">Speaking</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <script>
+    window.location.replace(
+      window.location.href.replace(
+        "henry.catalinismith.com",
+        "henry.catalinismith.se"
+      )
+    )
+  </script>
+    <main class="flex-auto">
+     <div class="mt-16 sm:px-8 lg:mt-32">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+         <div class="xl:relative">
+          <div class="mx-auto max-w-2xl">
+           <article>
+            <header class="flex flex-col">
+             <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl" lang="">Ergodox, Ten Years Later</h1><time datetime="Sun Aug 18 2024 00:00:00 GMT+0000 (Coordinated Universal Time)" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-400"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">August 18, 2024</span></time>
+            </header>
+            <figure>
+             <img src="/2024/08/18/ergodox.jpg" alt="" class="mt-8 w-full object-cover">
+            </figure>
+            <div class="prose mt-8 dark:prose-invert">
+             <p>It's been about a decade since I <a href="/2014/11/16/that-weird-keyboard/">built my Ergodox</a>. I'm still using it! I don't think I've ever had anything I've used so frequently last so long. Here's everything I've learned about it. A little hardware review after ten years of almost daily use.</p>
+             <h2>Blank Keycaps</h2>
+             <p>The blank keycaps are fine for most typing. The layout becomes muscle memory really quickly. The fact that they remove any reason to stare down at the keyboard while typing is probably a good thing.</p>
+             <p>But blank keycaps are terrible for entering long numerical sequences such as credit card numbers, one-time passwords, phone numbers and so on. A decade in and I'm still unable to do this kind of thing without making mistakes. Printed keycaps are a lot better for this.</p>
+             <p>I chose blank keycaps because I didn't want to limit my layout options. In practice this wouldn't have been a problem. On balance I'm still happy with this choice, but it would have been fine either way.</p>
+             <h2>MX Clear Switches</h2>
+             <p>I love typing on this keyboard, and the switches are why. MX clears push back a bit. It makes the whole keyboard feel expensive and sturdy. They're nice and quiet too, by mechanical keyboard standards.</p>
+             <p>For a short while, I had a Moonlander. It came with MX browns, which I chose because that was the closest they had to clears. I didn't like it quite as much, but it was still <em>fine</em>. I rarely noticed the difference. People stress too much about choosing switches, I think.</p>
+             <h2>Acrylic Case</h2>
+             <p>The acrylic case does a great job of damping the typing noise. During my short time with the Moonlander, I found it very loud in comparison to the Ergodox, and I think the case is partly the reason for the difference. The Ergodox's acrylic case engulfs the switches from all sides, whereas the Moonlander's more minimalist chassis exposes them. Does make cleaning the Ergodox a little more troublesome in comparison to the Moonlander, though.</p>
+             <p>Once a year I take the case apart and clean everything out. One year, I fucked up and broke one of the layers of the case during this process. Due to the open source nature of the Ergodox hardware design it was easy to find <a href="https://falbatech.click/products/One-Hand-ErgoDox-Standard-Acrylic-Case-Colorless-p613842440">a replacement</a>.</p>
+             <h2>Keyboard Layout</h2>
+             <p>Four of the thumb cluster keys are hard to reach. Back in 2014 I mapped a bunch of punctuation characters to those keys. In the years since, I moved all that stuff back to more standard positions. This is an ergonomic detail ZSA have gotten 100% right in the Moonlander, where they've completely removed these keys from each thumb cluster. They're just not useful.</p>
+             <p>Still very happy with having the escape key right there in the thumb cluster. Such an underrated key. You're probably pressing it more often than you realise.</p>
+             <h3>Original layout from 2014</h3>
+             <figure>
+              <img alt="" src="/2024/08/18/ergodox-layout-2014.png">
+              <figcaption></figcaption>
+             </figure>
+             <h3>Current layout in 2024</h3>
+             <figure>
+              <img alt="" src="/2024/08/18/ergodox-layout-2024.png">
+              <figcaption></figcaption>
+             </figure>
+             <h2>Software</h2>
+             <p>The screenshot from 2014 there is of a layout configuration tool created by a company called Massdrop. I bought the parts for my Ergodox from them, and they provided an online configuration tool as part of their promotional campaign for the kit. The 2024 screenshot looks so different because that original tool no longer exists. It was a proprietary tool hosted by Massdrop, and at some point they took it offline. The company's not even called Massdrop any more, in fact.</p>
+             <p>Fortunately, ZSA sell an Ergodox-based product called the Ergodox EZ, and so they created <a href="https://configure.zsa.io/ergodox-ez/layouts/default/latest/0">their own layout configuration tool</a> for that. And mostly thanks to the Ergodox firmware being free software, that tool is compatible with older models like mine.</p>
+             <h2>Repairs &#x26; Longevity</h2>
+             <p>The TRRS cable that connects the two halves of the Ergodox requires more force to plug in and unplug than e.g. a USB C cable. That force puts a bit of strain on the solder joints holding the TRRS jack onto the PCB.</p>
+             <p>After many years of use, this strain wore out the solder joint, and the connection between the two halves of the keyboard became unreliable. That was what led me to try a Moonlander for a while. Eventually it felt like a missed opportunity that I'd bought a new thing instead of repairing my Ergodox, so I sold the Moonlander and fired up the soldering iron.</p>
+             <p>It was an easy 30 minute job to fix it, too. It was enough to heat the solder up and gently push the TRRS jack back into place. After fixing it, I also replaced the original TRRS cable with a <a href="https://falbatech.click/products/Braided-Cable-TRRS-Jack-Jack-1-m-p613853174">coiled one</a>. It feels a little bit gentler on that solder joint.</p>
+             <p>It’s a rare pleasure to have a piece of computer equipment last an entire decade of almost daily use. There's no reason it can't last another decade, either. As long as I keep it out of reach of the kids.</p>
+             <h2>Successful RSI Treatment</h2>
+             <p>When I first bought it, I was wary of it becoming a gateway into a materialistic hobby. Never been a fan of the "basically just buying things" category of hobbies. Nerd culture is prone to a really shallow and very capitalist form of individualism based on defining yourself primarily in terms of what kind of labour you sell, who you sell it to, and what specific treats and goodies you buy with the leftovers of the wage you receive for that labour.</p>
+             <p>I think a far more compelling vision of individual empowerment involves working together to eliminate the barriers that turn people's identities and bodies into limiting factors in their own lives. That's why I try not to forget that my Ergodox is actually a piece of assistive technology that I bought to save my tech career from ending early due to wrist pain. It's succeeded wonderfully at this, and the strong copyleft license of the hardware design &#x26; firmware seems to be doing a great job of ensuring it's a lasting solution as well.</p>
+            </div>
+           </article>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script type="module" async>import mermaid from "https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs";document.addEventListener('DOMContentLoaded', mermaid.initialize({"loadOnSave":true}));</script>
+    <footer class="mt-32 flex-none">
+     <div class="sm:px-8">
+      <div class="mx-auto w-full max-w-7xl lg:px-8">
+       <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
+        <div class="relative px-4 sm:px-8 lg:px-12">
+         <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+           <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/about">About
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/projects">Projects
+</a><a class="transition hover:text-sky-500 dark:hover:text-sky-400" href="/speaking">Speaking</a></div>
+           <p class="text-sm text-zinc-500 dark:text-zinc-400">
+            ©
+            <!-- -->2024<!-- -->
+            Henry Catalini Smith. All rights reserved.
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>
