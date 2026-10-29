@@ -1,0 +1,16 @@
+<div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      {% for link in site.data.footer_links %}
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="{{ link.href }}"
+          >
+            {{- link.label -}}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </footer>
+</div>

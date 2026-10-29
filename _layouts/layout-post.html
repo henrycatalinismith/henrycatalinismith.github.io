@@ -1,0 +1,65 @@
+{% assign h2_count = content | split: '< h2' | size | minus: 1 %}
+{% assign h3_count = content | split: '< h3' | size | minus: 1 %}
+{% assign section_count = h2_count | plus: h3_count %}
+{% assign date = page.date | date: '%Y-%m-%d' %}
+{% capture trail %}Henry Catalini Smith|/;Blog|/blog/;{{ page.title | escape }}{% endcapture %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {{ page.title | escape }}
+      – Henry Catalini Smith
+    </title>
+    {% if page.description %}
+      <meta name="description" content="{{ page.description | escape }}" />
+    {% endif %}
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
+  </head>
+  <body class="page-grid">
+    {% include header.html title=page.title subtitle=date %}
+    {% include breadcrumbs.html crumbs=trail %}
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        {% if section_count >= 3 %}
+          <nav
+            aria-label="Sections"
+            class="section-nav lg:hidden flex flex-col gap-y-6"
+          >
+            <h2 class="section-heading">Contents</h2>
+            <ul class="flex flex-col">
+              <li>
+                <a class="text-link underline" href="#top">{{ page.title | escape }}</a>
+                <div class="section-links">{% toc %}</div>
+              </li>
+            </ul>
+          </nav>
+        {% endif %}
+
+        <div class="body-text post-body">{{ content }}</div>
+
+        {% if section_count >= 3 %}
+          <aside
+            class="section-nav hidden lg:block lg:sticky lg:top-8 lg:self-start lg:h-fit body-text"
+          >
+            <nav aria-label="Sections" class="font-lilex">
+              <ul class="flex flex-col">
+                <li>
+                  <a class="text-link underline" href="#top">{{ page.title | escape }}</a>
+                  <div class="section-links">{% toc %}</div>
+                </li>
+              </ul>
+            </nav>
+          </aside>
+        {% endif %}
+      </div>
+    </main>
+    {% include footer.html %}
+    {% if section_count >= 3 %}
+      <script src="{{ '/section-nav.js' | relative_url }}"></script>
+    {% endif %}
+  </body>
+</html>

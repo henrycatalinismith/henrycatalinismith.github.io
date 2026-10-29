@@ -1,0 +1,72 @@
+url: "https://henry.catalinismith.se"
+
+exclude:
+  - .jekyll-cache/
+  - mise.toml
+  - node_modules
+  - postcss.config.js
+  - pnpm-lock.yaml
+  - package.json
+
+plugins:
+  - jekyll-postcss
+  - jekyll-toc
+
+postcss:
+  cache: false
+
+permalink: /:year/:month/:day/:title/
+
+toc:
+  min_level: 2
+  max_level: 3
+  list_class: flex flex-col
+  sublist_class: flex flex-col pl-1
+  item_class: relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      toc: true
+
+  - scope:
+      path: ""
+      type: roles
+    values:
+      toc: true
+
+  - scope:
+      path: ""
+      type: projects
+    values:
+      toc: true
+
+  - scope:
+      path: ""
+      type: education
+    values:
+      toc: true
+
+  - scope:
+      path: ""
+      type: certifications
+    values:
+      toc: true
+
+collections:
+  roles:
+    output: true
+  projects:
+    output: true
+  education:
+    output: true
+  certifications:
+    output: true
+  pullrequests:
+    output: false
+  issues:
+    output: false
+  commits:
+    output: false

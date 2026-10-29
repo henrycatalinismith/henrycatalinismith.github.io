@@ -1,0 +1,279 @@
+---
+---
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lilex:ital,wght@0,100..700;1,100..700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xxs: 300px;
+  --breakpoint-xs: 380px;
+  --color-background: #fafafa;
+  --color-background-secondary: lightgray;
+  --color-foreground: #171717;
+  --color-link: royalblue;
+  --font-lilex: "Lilex", monospace;
+  --font-serif: "IBM Plex Serif", serif;
+  --color-media-frame-border: #d4d4d4;
+  --color-media-frame-background: #ffffff;
+  --color-media-frame-inner: rgb(0 0 0 / 0.04);
+  --color-media-frame-shadow: rgb(0 0 0 / 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #292c32;
+    --color-foreground: #adb2bd;
+    --color-background-secondary: darkslategray;
+    --color-link: royalblue;
+    --color-link: #80abe4;
+  }
+}
+
+body {
+  color: var(--color-foreground);
+  background: var(--color-background);
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, calc(100vw - 2rem)) 1fr;
+  grid-template-rows:
+    1rem auto 2rem auto 2rem minmax(calc(100vh - 4rem), auto)
+    4rem auto 1rem;
+  grid-template-areas:
+    ". . ."
+    ". breadcrumbs ."
+    ". . ."
+    ". header ."
+    ". . ."
+    ". content ."
+    ". . ."
+    ". footer ."
+    ". . .";
+  min-height: 100vh;
+}
+
+@media (min-width: 66rem) {
+  .page-grid {
+    grid-template-columns: 1fr 64rem 1fr;
+  }
+}
+
+@media (min-width: 40rem) {
+  .page-grid {
+    grid-template-rows:
+      0rem 4rem 1rem auto 2rem minmax(calc(100vh - 4rem), auto)
+      4rem auto 1rem;
+  }
+}
+
+body,
+.body-text {
+  @apply font-lilex text-sm leading-normal tracking-normal;
+}
+
+.section-heading {
+  @apply font-serif text-2xl lg:text-2xl leading-8 lg:leading-9 border-b-1 border-slate-300 pb-1 dark:border-slate-500;
+}
+
+.subsection-heading {
+  @apply font-serif text-xl lg:text-xl font-bold leading-8 lg:leading-9;
+}
+
+.subtitle {
+  @apply font-lilex text-sm leading-normal tracking-normal text-slate-500 dark:text-slate-400;
+  font-optical-sizing: auto;
+}
+
+.page-heading {
+  @apply font-serif text-2xl md:text-3xl font-bold italic leading-none;
+}
+
+.post-body {
+  @apply max-w-[65ch];
+}
+
+.post-body > * + * {
+  margin-top: 1.5rem;
+}
+
+@layer utilities {
+  :where(a[href]) {
+    @apply text-link underline;
+  }
+
+  .section-links a.current {
+    @apply font-bold text-foreground;
+  }
+}
+
+div.highlight {
+  background: var(--code-block-background);
+  border: 1px solid var(--code-block-border);
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  /*padding: 1.5rem;*/
+  overflow-x: auto;
+  font-family: var(--font-mono);
+}
+
+div.highlight pre {
+  margin: 0;
+  font-family: inherit;
+}
+
+.highlight .c,
+.highlight .cm,
+.highlight .c1,
+.highlight .cs {
+  color: #93a1a1;
+  font-style: italic;
+}
+
+.highlight .err {
+  color: #dc322f;
+}
+
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kp,
+.highlight .kr,
+.highlight .ow {
+  color: #859900;
+  font-weight: bold;
+}
+
+.highlight .o {
+  color: #657b83;
+  font-weight: bold;
+}
+
+.highlight .kt {
+  color: #b58900;
+  font-weight: bold;
+}
+
+.highlight .m,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .mo,
+.highlight .il {
+  color: #2aa198;
+}
+
+.highlight .s,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .s1,
+.highlight .s2,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .ss {
+  color: #cb4b16;
+}
+
+.highlight .na,
+.highlight .nc,
+.highlight .nf,
+.highlight .nb,
+.highlight .no,
+.highlight .nn,
+.highlight .nt,
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
+.highlight .bp,
+.highlight .ni {
+  color: #268bd2;
+}
+
+.highlight .gr,
+.highlight .gd {
+  color: #dc322f;
+}
+
+.highlight .gi {
+  color: #859900;
+}
+
+.highlight .go,
+.highlight .gp,
+.highlight .gh,
+.highlight .gu,
+.highlight .w {
+  color: #93a1a1;
+}
+
+.highlight .ge {
+  font-style: italic;
+}
+
+.highlight .gs {
+  font-weight: bold;
+}
+
+@media (prefers-color-scheme: dark) {
+  .highlight .c,
+  .highlight .cm,
+  .highlight .c1,
+  .highlight .cs {
+    color: #586e75;
+  }
+
+  .highlight .k,
+  .highlight .kc,
+  .highlight .kd,
+  .highlight .kp,
+  .highlight .kr,
+  .highlight .ow {
+    color: #b58900;
+  }
+
+  .highlight .o {
+    color: #93a1a1;
+  }
+
+  .highlight .kt {
+    color: #268bd2;
+  }
+
+  .highlight .m,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .mo,
+  .highlight .il {
+    color: #2aa198;
+  }
+
+  .highlight .na,
+  .highlight .nc,
+  .highlight .nf,
+  .highlight .nb,
+  .highlight .no,
+  .highlight .nn,
+  .highlight .nt,
+  .highlight .nv,
+  .highlight .vc,
+  .highlight .vg,
+  .highlight .vi,
+  .highlight .bp,
+  .highlight .ni {
+    color: #268bd2;
+  }
+
+  .highlight .go,
+  .highlight .gp,
+  .highlight .gh,
+  .highlight .gu,
+  .highlight .w {
+    color: #93a1a1;
+  }
+}

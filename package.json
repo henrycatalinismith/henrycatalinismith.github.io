@@ -1,0 +1,21 @@
+{
+  "name": "henry.catalinismith.se",
+  "version": "1.0.0",
+  "license": "CC-SA-BY-4.0'",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.15.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.15.0",
+  "devDependencies": {
+    "@shopify/prettier-plugin-liquid": "^1.11.3",
+    "@tailwindcss/postcss": "^4.3.3",
+    "cssnano": "^9.9.0",
+    "postcss": "^8.5.31",
+    "prettier": "^3.9.10",
+    "tailwindcss": "^4.3.3"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "format_on_save": "on",
+  "formatter": {
+    "external": {
+      "command": "pnpm",
+      "arguments": ["exec", "prettier", "--stdin-filepath", "{buffer_path}"]
+    }
+  },
+  "tab_size": 2
+}
