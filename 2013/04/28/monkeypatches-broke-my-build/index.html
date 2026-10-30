@@ -1,0 +1,184 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Monkeypatches broke my build
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Monkeypatches broke my build</h1>
+  <p class="subtitle">2013-04-28</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Monkeypatches broke my build</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>The prevalence of monkey patching as a Ruby development practice is a complete
+pain in the arse. Sure, some of Ruby’s expressiveness as a tool for building
+DSLs is derived from the ability to monkey patch things like 10.days.ago into
+the core classes. Admittedly, I occasionally indulge my sweet tooth at the Rails
+all-you-can-eat syntactic sugar buffet. But it’s not my favourite approach to
+software development by a long shot.</p>
+
+<p>A couple of months ago I wrote a little about the general awkwardness resulting
+from monkey patching. I’ve been burnt worse since then, and now I have a
+concrete example which I think supports my point of view quite strongly.</p>
+
+<h2 id="coverallscolorizedcolored-clusterfuck" class="section-heading">Coveralls/Colorized/Colored Clusterfuck</h2>
+
+<p>Today I wanted to add a service called Coveralls to ppl’s build process.
+Coveralls measures test coverage, provides statistics about test coverage over
+time, and supplies a dynamic README badge for advertising your project’s
+commitment to thorough testing. It’s a perfect fit for a project like ppl, so I
+was keen to get it running.</p>
+
+<p>Take a quick look at the commit which added Coveralls to ppl. It’s a tiny
+commit, and seemingly harmless. To my great surprise, it broke the build on
+Travis CI. And which test did it break?</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Failures:
+
+1) Ppl::Format::Table#to_s should colorize columns if requested
+Failure/Error: @table.to_s.should eq "\e[31m12345  \e[0m\e[33mJohn Doe  \e[0m\e[34mjdoe@example.org  \e[0m"
+
+expected: "\e[31m12345  \e[0m\e[33mJohn Doe  \e[0m\e[34mjdoe@example.org  \e[0m"
+        got: "\e[0;31;49m12345  \e[0m\e[0;33;49mJohn Doe  \e[0m\e[0;34;49mjdoe@example.org  \e[0m"
+
+(compared using ==)
+# ./spec/ppl/format/table_spec.rb:80:in `block (3 levels) in &lt;top (required)&gt;'
+</code></pre></div></div>
+
+<p>The design of that test is actually a bit of a minor mistake on my part. The
+color adapter probably ought to be mocked out, as this test isn’t really about
+the ANSI color escape codes themselves.</p>
+
+<p>On the plus side, this has exposed something very interesting: the escape codes
+surrounding the strings have changed subtly. And why is that? Because the
+Coveralls gem depends on a string colorization library called colorize. When
+Coveralls is loaded by the line require “coveralls”, colorize’s String class
+monkey patches overwrite the ones previously made by
+Ppl::Adapter::Color::Colored when it loads the colored gem.</p>
+
+<h2 id="what-the-fuck" class="section-heading">What. The. Fuck.</h2>
+
+<p>Did you catch that? My project’s test suite failed because one of Coveralls’
+dependencies changed the behaviour of Ruby’s core String class in a way that
+overwrites changes previously made to that class by a dependency of ppl. This is
+absolute chaos. It’s not even anybody’s fault, but rather an inevitable
+consequence of monkey patching.</p>
+
+<p>I’m quite new to Ruby, so I have to rely on others for perspective on this
+approach to Ruby development. Judging by Avdi Grimm’s 2008 post, “Monkeypatching
+is Destroying Ruby”, it was considered quite hip five years ago. Here we are in
+2013, and installing a code coverage tool has literally changed the output of my
+code. It’s pretty clear that Avdi was right, anyway.</p>
+
+<p>Refinements look set to right some of these wrongs, but Ruby 2.0 is still warm
+from the oven, and projects like ppl will probably be supporting 1.9 for a long
+time to come. In the meantime, I’ve decided to start treating monkey patches
+more or less like a bad idea. Not because they are necessarily fragile in
+themselves, but because of the fragility they so inscrutably create in other
+code.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

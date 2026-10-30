@@ -1,0 +1,258 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Passport Hacking
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Passport Hacking</h1>
+  <p class="subtitle">2022-11-09</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Passport Hacking</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>The passport system in Sweden collapsed earlier this year when pandemic travel
+restrictions lifted and half the country tried to renew their passports at once.
+In March I tried to book an appointment to get passports for the kids so they
+could visit their extended family for the first time. The date I got was in
+October.</p>
+
+<figure>
+ <img src="/2022/11/09/passport-hacking-passexpedition@768x640.webp" alt="Waiting room with fluorescent lights and an LED sign showing current queue positions. Wooden benches in the foreground. Behind them are several booths with curtains around them for taking flash photos inside." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  In Sweden you have to go to one of these special offices where a cop literally watches you pose for your passport photo.
+ </figcaption>
+</figure>
+
+<h2 id="pass-für-alle" class="section-heading">Pass für alle</h2>
+
+<p>By May the crisis was so bad that
+<a href="https://github.com/jonkpirateboy/Pass-fur-alle">Pass für alle</a> went viral. This
+was a bit of JavaScript that could automatically refresh the passport booking
+page and grab earlier slots.</p>
+
+<p>It helped a few Stockholm people I knew get a better appointment, but it wasn’t
+working for me down in Skåne. In Stockholm there was more of everything: more
+passport offices, more cancellations, more new booking slots available. In Skåne
+there was less activity, so the script needed to run longer to get results. And
+there’s only one passport office per town here, so the logistics are more
+complicated.</p>
+
+<p>I <em>really</em> wanted to get the kids to the UK during the summer if possible so
+that we wouldn’t spend the whole trip indoors. So I set about building my own
+Skåne-friendly version of Pass für alle.</p>
+
+<h2 id="beep-boop" class="section-heading">Beep boop</h2>
+
+<p>The first thing I did was make it beep. Skåne’s slower pace meant it wasn’t
+practical to sit and watch the screen. The beeping meant the laptop could be
+across the room and I’d know how it was going without looking.</p>
+
+<h3 id="beep-beep" class="subsection-heading">Beep beep</h3>
+
+<p>First up: some constant high pitched beeping.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">sfx</span><span class="p">(</span><span class="nf">pow2</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span> <span class="dl">"</span><span class="s2">triangle</span><span class="dl">"</span><span class="p">,</span> <span class="nf">pow2</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="p">},</span> <span class="nf">pow2</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="nf">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">sfx</span><span class="p">(</span><span class="nf">pow2</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span> <span class="dl">"</span><span class="s2">triangle</span><span class="dl">"</span><span class="p">,</span> <span class="nf">pow2</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="p">},</span> <span class="nf">pow2</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
+</code></pre></div></div>
+
+<figure>
+ <audio controls="" src="/2022/11/09/passport-hacking-beep-beep.mp3"></audio>
+ <figcaption>
+  Beep beep
+ </figcaption>
+</figure>
+
+<p>That made for a nice loud heartbeat so that the sudden silence would be
+noticeable if anything broke and it stopped running. It’s quite a high-pitched
+and annoying sound, but it had to compete with the noise from two small kids.</p>
+
+<h3 id="boop-boooooop" class="subsection-heading">Boop boooooop</h3>
+
+<p>The most common thing to happen after reloading the page was for no appointments
+to be found. This needed a noise too.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sfx</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="dl">"</span><span class="s2">square</span><span class="dl">"</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">wait</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">sfx</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="dl">"</span><span class="s2">square</span><span class="dl">"</span><span class="p">,</span> <span class="mi">4000</span><span class="p">))</span>
+</code></pre></div></div>
+
+<figure>
+ <audio controls="" src="/2022/11/09/passport-hacking-boop-boooop.mp3"></audio>
+ <figcaption>
+  Boop booooop.
+ </figcaption>
+</figure>
+
+<p>I kept the pitch low for this one. The script failed like 99.99% of the time so
+this didn’t need a lot of attention. Plus from a musical perspective it combined
+quite nicely with the high pitch of the page load heartbeat like this.</p>
+
+<h3 id="beep-beep-boop" class="subsection-heading">Beep beep boop</h3>
+
+<p>Sometimes there would be an appointment a few towns away. As long as it was late
+enough to get there in time by train this was great news! A nice high pitched
+alert sound announced this scenario.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sfx</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="dl">"</span><span class="s2">sawtooth</span><span class="dl">"</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">wait</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">sfx</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="dl">"</span><span class="s2">sawtooth</span><span class="dl">"</span><span class="p">,</span> <span class="mi">420</span><span class="p">))</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">wait</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">sfx</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="dl">"</span><span class="s2">sawtooth</span><span class="dl">"</span><span class="p">,</span> <span class="mi">440</span><span class="p">))</span>
+</code></pre></div></div>
+
+<figure>
+ <audio controls="" src="/2022/11/09/passport-hacking-beep-beep-boop.mp3"></audio>
+ <figcaption>
+  Beep beep boop.
+ </figcaption>
+</figure>
+
+<h3 id="boop-boop-beep" class="subsection-heading">Boop boop beep</h3>
+
+<p>The best case scenario was an appointment here in Malmö. A triumphant little
+chirp was the sound for this.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sfx</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="dl">"</span><span class="s2">triangle</span><span class="dl">"</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">wait</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">sfx</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="dl">"</span><span class="s2">triangle</span><span class="dl">"</span><span class="p">,</span> <span class="mi">220</span><span class="p">))</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">wait</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">sfx</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="dl">"</span><span class="s2">triangle</span><span class="dl">"</span><span class="p">,</span> <span class="mi">240</span><span class="p">))</span>
+</code></pre></div></div>
+
+<figure>
+ <audio controls="" src="/2022/11/09/passport-hacking-boop-boop-beep.mp3"></audio>
+ <figcaption>
+  Boop boop beep!
+ </figcaption>
+</figure>
+
+<h2 id="the-finished-product" class="section-heading">The finished product</h2>
+
+<p>If you’re interested, you can read
+<a href="/2022/11/09/passport-hacking-script.js">the full source code</a>. For a few days I
+ran that for several hours at a time. Here’s a little ten second taste of that
+experience.</p>
+
+<figure>
+ <video poster="/2022/11/09/passport-hacking-running-poster@768x432.webp" src="/2022/11/09/passport-hacking-running@768x432.mp4" title="Macbook with the code linked above visible on screen and an excited baby repeatedly hitting the keyboard with his hand." controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  The secret ingredient is violence.
+ </figcaption>
+</figure>
+
+<h2 id="climactic-ending" class="section-heading">Climactic Ending</h2>
+
+<p>Around about the same time as I got this running, the police increased their
+capacity and added a bunch of new times. The instant they did that I got a
+next-day booking the old fashioned way. lol.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

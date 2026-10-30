@@ -1,0 +1,250 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Do you really need those line-clamps and nowraps?
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Do you really need those line-clamps and nowraps?</h1>
+  <p class="subtitle">2026-03-20</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Do you really need those line-clamps and nowraps?</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>After getting
+<a href="https://codeberg.org/forgejo/forgejo/pulls/11607">my first Forgejo PR</a> merged
+today I was struck by the realisation that I finally have a linkable public
+example of a type of accessibility bugfix that’s been a recurring thing for
+years across basically every site and app I’ve ever worked on. So I can finally
+get this off my chest. Everyone’s CSS is full of line-clamps and nowraps that
+serve little to no practical purpose, and prevent visually impaired users from
+accessing content.</p>
+
+<h2 id="whats-line-clamp-and-nowrap" class="section-heading">What’s line-clamp and nowrap?</h2>
+
+<p>The
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/line-clamp">line-clamp</a>
+CSS property lets you limit how many lines a given piece of text can take up. If
+you set <code class="language-plaintext highlighter-rouge">line-clamp: 2</code>, for example, then that element’s content will be
+truncated to two lines, and everything after that is chopped off and hidden.</p>
+
+<p>The
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/white-space">white-space</a>
+CSS property has a value called <code class="language-plaintext highlighter-rouge">nowrap</code> that lets you force the text in an
+element not to wrap onto multiple lines. By setting <code class="language-plaintext highlighter-rouge">white-space: nowrap</code>,
+you’re disabling text reflow on your element’s text content in favour of one
+long line. Tailwind’s <code class="language-plaintext highlighter-rouge">truncate</code> class demonstrates the most commonly used
+nowrap setup.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.truncate</span> <span class="p">{</span>
+  <span class="nl">white-space</span><span class="p">:</span> <span class="nb">nowrap</span><span class="p">;</span>
+  <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+  <span class="nl">text-overflow</span><span class="p">:</span> <span class="n">ellipsis</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The above forces your text to fit on one line and adds a “…” ellipsis on the end
+if anything needs chopping off to make it fit.</p>
+
+<h2 id="and-this-is-everywhere-is-it" class="section-heading">And this is “everywhere”, is it?</h2>
+
+<p>Not only is it absolutely everywhere, it <em>has been</em> everywhere for ages.</p>
+
+<p>Right now, in 2026, shadcn/ui is the most popular open source component library
+in the world. Its button component includes <code class="language-plaintext highlighter-rouge">nowrap</code>.</p>
+
+<p>Ten years ago, back in 2016, I was at a well known global tech company who were
+hiring a lot, and so I spent a lot of time in coding interviews. Part of the
+interview had candidates build a button in HTML and CSS. Including <code class="language-plaintext highlighter-rouge">nowrap</code> in
+your solution gave you <em>extra credit</em> in the evaluation criteria for that
+interview, because that’s the level of mindshare that this practice has enjoyed.</p>
+
+<h2 id="and-thats-a-problem" class="section-heading">And that’s a problem?</h2>
+
+<p>People with visual impairments tend to configure their devices to use larger
+text. This adaptation reduces the impact that their impaired vision has on their
+lives. That this is possible at all is a very cool thing about computers! If you
+think about it, digitalisation is society’s big chance to deprecate lots of this
+sort of structural oppression.</p>
+
+<p>The whole point of line-clamp and nowrap is that they limit how much space text
+can take up on the screen. And when text is larger, it takes up more space on
+the screen. So users of large text almost always lose access to some of the
+content in elements where line-clamp or nowrap are applied.</p>
+
+<p>Here’s an example of a very typical card component that any web developer
+anywhere might be tasked with implementing. The heading and button have
+<code class="language-plaintext highlighter-rouge">nowrap</code>, and the text has <code class="language-plaintext highlighter-rouge">line-clamp: 5</code>. It’s at normal 100% text size here,
+where those styles aren’t affecting the content.</p>
+
+<figure>
+ <img src="/2026/03/20/100@1026x1200.webp" alt="
+    Duck photo.
+    Heading reads 'Navy Seal Copypasta'.
+    Paragraph reads 'What the fuck did you just fucking say about me, you little bitch? I'll have you know I graduated top of my class in the Navy Seals, and I've been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills.'
+    Button reads 'Check MOT history of a vehicle'
+  " class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>It’s a really common defensive practice to chuck those kinds of styles on card
+components like these. You’re working from a Figma design that showcases a few
+of them in a row or column, and they look <em>great</em> there, thanks to the neat,
+rhythmic uniformity of the layout. You’re taking pride in your work, and you
+really want the users of your component to enjoy that same gorgeous design
+vision that you saw in Figma. You add these layout constraints in good faith,
+with love in your heart.</p>
+
+<p>But here’s what a visually impaired user with text at 200% sees.</p>
+
+<figure>
+ <img src="/2026/03/20/200@1026x1208.webp" alt="
+    Duck photo.
+    Heading reads 'Navy Seal Co…'.
+    Paragraph reads 'What the fuck did you just fucking say about me, you little bitch? I'll have you know I graduated top of my class in the Navy…'
+    Button reads 'Check MOT history of a v…'
+  " class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>Navy Seal Contest? Navy Seal Cough Medicine? Check MOT history of a van? Of a
+Volkswagen? Your visually impaired user may never find out.</p>
+
+<p>This is what
+<a href="https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html">WCAG success criterion 1.4.4</a>
+is all about.</p>
+
+<blockquote>
+  <p>Except for captions and images of text, text can be resized without assistive
+technology up to 200 percent without loss of content or functionality.</p>
+</blockquote>
+
+<h2 id="what-should-i-do-instead" class="section-heading">What should I do instead?</h2>
+
+<p>The best move here is to stay out of it and let the browser do its thing. If you
+find yourself tempted to chuck in a line-wrap or a nowrap, challenge the
+impulse. Do you need it for an important reason such as for constraining the
+height of an element inside a virtualised list? If not, probably just don’t
+bother then.</p>
+
+<p>It can be tempting to try fine-tuning your line-clamps to make things just
+barely compliant at 200% zoom. I think this is the wrong mindset, and stems from
+a misconception that since accessibility can sometimes be challenging, then
+practicing it well must require an <em>increase</em> in engineering effort. Handling
+text resizing is a wonderful example of how accessibility often wants you to do
+<em>less</em> rather than <em>more</em>.</p>
+
+<p>It’s true, your button component won’t look quite as good when its text content
+reflows onto multiple lines at 200% zoom. But the entire reason why your button
+component exists is for people to read its label and then click it if the text
+matches their current goal. So what’s more important?</p>
+
+<p>Your visually impaired users care more about accomplishing their goals than
+experiencing a particular layout. And your platform – the web browser – is great
+at reflowing text to help them with that. The web browser is a piece of
+real-world magic capable of breaking down a barrier in a way that would have
+been unimaginable 100 years ago, and as a web developer, all you have to do is
+to let it.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

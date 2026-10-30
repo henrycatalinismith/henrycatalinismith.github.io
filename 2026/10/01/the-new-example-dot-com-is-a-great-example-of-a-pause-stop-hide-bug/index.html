@@ -1,0 +1,154 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      The new example.com is a great example of a Pause, Stop, Hide bug
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">The new example.com is a great example of a Pause, Stop, Hide bug</h1>
+  <p class="subtitle">2026-10-01</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">The new example.com is a great example of a Pause, Stop, Hide bug</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>The IANA put up a new version of <a href="https://example.com/">example.com</a> recently, and in doing so have unintentionally provided a useful example of a <a href="https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide.html">2.2.2 Pause, Stop, Hide</a> bug. I love a chance to dissect a common accessibility bug in a neutral public context like this, so let’s go.</p>
+
+<p>Until recently, example.com looked like this.</p>
+
+<figure>
+ <img alt="Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more" src="/2026/10/01/old@2048x1570.png" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>As of this week, it uses quite an elegant-looking animation to cycle through a bunch of different languages automatically.</p>
+
+<figure>
+ <video src="/2026/10/01/example.mp4" poster="/2026/10/01/example@2048x1568.png" title="This domain is for use in documentation examples without needing permission. This is not a service, avoid relying on it for testing and monitoring purposes." controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+</figure>
+
+<p>In order to comply with the Pause, Stop, Hide success criterion, you have to provide a means of pausing, stopping or hiding any automatically updating information on a page. The reason why is that this kind of behaviour can range from very distracting for some people to unreadable for others, depending on each person’s unique combination of cognitive disability and vision impairment.</p>
+
+<p>The text on example.com updates every five seconds, which means once the text in the language you speak appears, you have five seconds to read before it’s gone again. There’s no way to pause it, so it’s noncompliant.</p>
+
+<p>I <em>love</em> Pause, Stop, Hide. It’s one of those wonderfully broad success criteria that reminds me how accessibility really is for everyone. It’s commmon to imagine that accessibility is for the benefit of an unseen disabled third party, but Pause, Stop, Hide bugs can affect all of us at different stages of our lives. For our older selves whose eyesight may have deteriorated with age, and our younger selves whose reading comprehension isn’t fully developed, designs like these erect little digital barriers into our very own lives.</p>
+
+<p>It’s an easy mistake to make, so little bugs like these crop up time and time again. And I often struggle to talk people out of them. Unlike implementation-level bugs where some missing ARIA attribute magic can be quietly added to an existing design without challenging anyone’s grand idea, you can’t fix a Pause, Stop, Hide bug unless someone compromises on their vision.</p>
+
+<p>Unfortunately I haven’t yet figured out a way to talk to people about these bugs that reliably leads to a satisfying outcome. There is admittedly a sense of magic about any design with a bit of looping animation in it. It makes it very difficult to formulate a Pause, Stop, Hide bug report to come off more like an invitation into a more inclusive world than a fart in an elevator. If you’ve figured out a way please do let me know.</p>
+
+<h2 id="update-october-5th-four-days-later" class="section-heading">Update: October 5th (four days later)</h2>
+
+<p>They’ve only gone and bloody fixed it! The new design shows all the translations, one after another, as plain old static text.</p>
+
+<figure>
+ <img alt="This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes. هذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة. 该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。 L’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter." src="/2026/10/01/fixed@2048x1570.png" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>Did this blog post somehow get seen by the right people at the IANA? If so, huge congratulations! Partly for being extremely cool in fixing this at all, but also for tweaking the design in a way that provides a great example of how accessibility can often be improved by simplifying a design.</p>
+
+<p>The animation <strong><em>could</em></strong> have been made compliant by <strong><em>adding</em></strong> a pause button. But dropping the animation entirely achieves WCAG compliance while simultaneously improving <strong><em>and</em></strong> simplifying the design. As a result of this change, a Chinese speaker can now access the Chinese translation immediately upon page load, whereas previously they would have had to wait in limbo for 10 seconds wondering if their language might appear soon.***Genuinely a fantastic example of how the compliance retrofit (in this case a pause button) can often leave value on the table compared to a ground-up usability rethink that factors in accessibility as a first-class concern. Thank you!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

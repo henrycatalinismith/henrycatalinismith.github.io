@@ -1,0 +1,144 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Lessons learned from the Forgejo v15 release blocker
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Lessons learned from the Forgejo v15 release blocker</h1>
+  <p class="subtitle">2026-04-15</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Lessons learned from the Forgejo v15 release blocker</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>A <a href="https://codeberg.org/forgejo/forgejo/pulls/11846">pull request of mine</a> recently needed to be <a href="https://codeberg.org/forgejo/forgejo/pulls/12088">reverted</a> due to a <a href="https://codeberg.org/forgejo/forgejo/issues/12082">visual bug</a> in order to unblock the release of Forgejo version 15. This was about 10% embarrassing, 10% frustrating, and 80% really really interesting. I learned a whole bunch about Forgejo’s code and release process, as well as my own biases and focus areas to become a better contributor. It would be a good problem to have if more people like me came along to contribute and made mistakes like these. I figured I’d write down what I learned so that it’s easy to pay it forward.</p>
+
+<p>Open source release cycles are so different to typical private sector release cycles. It’s been more than ten years since I last worked somewhere where something like backporting fixes to older releases was a concern. Every job since then has been somewhere between continuous deployment and biweekly releases. You can afford to have more of a push-and-pray attitude to quality in that kind of environment, since mistakes can be mopped up in the next release. I hadn’t noticed how much my habits had been shaped by that context until seeing them fail in this one.</p>
+
+<p>Another bias it helped me to notice is related to tools. The dominance of components as the primary front end building block in recent years has taught me to think of each UI element as its own self-contained little world. I’d updated the HTML template and the most relevant-looking associated CSS so the job <em>felt</em> very done at some subconscious level. The idea that other layers of further-away CSS might also be in play simply did not occur to me due to this component-centric mindset.</p>
+
+<p>A third bias I discovered was that I had a little too much faith in my own process. For example, I’m utterly meticulous about providing “before” &amp; “after” screen recording demos for fixes like these. The act of producing these videos is a key moment in my process. Because it requires distilling the change down into a bitesize comparison and capturing it visually, it’s the moment where I catch most of my “oh shit, I nearly missed that!” bugs. In this case, due to the bug being in a visual detail I wasn’t trying to change and relating to CSS code that wasn’t in the diff, I missed this one anyway even though it’s clearly visible in <a href="https://codeberg.org/attachments/73375292-d749-4e5c-84e1-203b6b56b6f5">the “after” video on the pull request</a>.</p>
+
+<p>Something that went very well here, though, was the fast turnaround on the revert pull request. In the regression issue thread I estimated that fixing it would take several days and offered to revert the original PR instead to unblock the release. I’m glad we went with that option. My stress level was immediately back at baseline once I’d created the revert pull request.</p>
+
+<p>Another positive was that the new perspective resulting from the mistake made me understand how overextended and sloppy I’d become. The <a href="https://codeberg.org/forgejo/forgejo/pulls/11953#issuecomment-13026201">same mistake</a> was present in another open pull request of mine, I learned. So I closed it, along with a few others, to give myself some thinking time and free up maintainer resources to work on the release instead.</p>
+
+<p>That thinking time went more or less like this: I feel utterly determined to continue contributing to this project, but also some embarrassment and frustration about the level of quality of some of my work so far. How can I tweak my approach in order to get those levels somewhere satisfactory despite being quite unfamiliar with the code still?</p>
+
+<p>One technique I love for catching unexpected visual differences between two versions of a webpage is to open the old version and the new one in adjacent tabs and rapidly jump back and forth between the two tabs. The speed is key, because it gives the differences an almost animation-like quality and makes them jump out of the screen at you. I decided to figure out a workflow to bring this check into my process.</p>
+
+<p>What I came up with involves checking out the <code class="language-plaintext highlighter-rouge">forgejo</code> (i.e. main) branch, building and running the application and opening a tab showing the feature being worked on, then switching branches and repeating the process there. At that point you have a “before” tab and an “after” tab and can use the rapid tab switching technique to surface any unexpected changes.</p>
+
+<p>Here’s a demo! I run each command in sequence on the left, and then at around 00:36 when both tabs are ready I begin switching back and forth between them. The visual bug jumps out at you very clearly.</p>
+
+<figure>
+ <video src="/2026/04/15/demo@1024x620.mp4" poster="/2026/04/15/demo@1024x620.webp" controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+</figure>
+
+<p>Given that structural HTML changes are such a key part of accessibility retrofitting and that Forgejo’s approach to selectors couples its CSS quite tightly to the structure of the HTML, I think this technique is going to be critically important to be able to deliver the necessary amount of retrofitting work without these kinds of regressions. And hopefully it can be of use to others who show up to help in the future too!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

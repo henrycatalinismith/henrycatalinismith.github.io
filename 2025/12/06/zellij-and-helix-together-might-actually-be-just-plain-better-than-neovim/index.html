@@ -1,0 +1,180 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Zellij and Helix together might actually be just plain better than Neovim
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Zellij and Helix together might actually be just plain better than Neovim</h1>
+  <p class="subtitle">2025-12-06</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Zellij and Helix together might actually be just plain better than Neovim</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>For starters Helix is a masterpiece. Imagine Neovim with
+<a href="https://github.com/nvim-telescope/telescope.nvim">telescope</a>,
+<a href="https://github.com/neovim/nvim-lspconfig">lspconfig</a>,
+<a href="https://github.com/nvim-telescope/telescope.nvim">lspsaga</a>,
+<a href="https://github.com/lewis6991/gitsigns.nvim">gitsigns</a>, and
+<a href="https://github.com/folke/which-key.nvim">which-key</a> all built-in. It’s a
+finished piece of software as far as I’m concerned. The maintainers could
+permanently feature freeze it today and I’d be happy. They’re shipping a plugin
+engine soon and I almost wish they wouldn’t.</p>
+
+<p>The reason I find the prospect of a plugin engine in Helix almost unnecessary is
+that Zellij already acts as a limited plugin API. It’s limited but it’s enough.
+By configuring keyboard shortcuts to fire up terminal utilities against the
+current file in a Zellij pane you can easily streamline any workflows that would
+otherwise require context switching into a shell.</p>
+
+<p>For most of my career my workflow to read the commit log for a file has been to
+<a href="/2025/11/27/copy-relative-path-to-file-in-helix/">copy its relative path to the clipboard</a>
+and then paste that into a terminal command. With Zellij and Helix I can
+automate that with config like this.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">[</span><span class="n">keys</span><span class="k">.</span><span class="n">normal</span><span class="k">.</span><span class="n">backspace</span><span class="k">]</span>
+<span class="n">h</span> <span class="o">=</span><span class="w"> </span><span class="s">":sh zellij run --close-on-exit -f -x=1%% -y=4%% --width=99%% --height=92%% -- lazygit --filter </span><span class="se">\"</span><span class="s">%{buffer_name}</span><span class="se">\"</span><span class="s">"</span>
+</code></pre></div></div>
+
+<p>This enables me to invoke that same workflow with two keystrokes. Then I can
+browse the history and when I’m finished, closing it drops me right back where I
+was. I get to keep the exact same terminal-driven workflow as before and simply
+upgrade its efficiency. Looks like this.</p>
+
+<figure>
+ <video poster="/2025/12/06/lazygit-filename@1024x598.webp" src="/2025/12/06/lazygit-filename@1024x598.mp4" title="Terminal screenshot showing lazygit inside a Zellij pane" controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+</figure>
+
+<p>So you have a core editor that’s ready to use out of the box. And a terminal
+workspace that makes it easy to integrate that editor with other terminal
+software.</p>
+
+<p>I think this is arguably superior to Neovim’s excellent Lua plugin API and
+ecosystem. The editor ships as a coherent finished product instead of a DIY kit.
+Then the extensibility that does exist in the form of the Zellij magic is there
+for streamlining integrations with external tools rather than for finishing off
+an incomplete core editor.</p>
+
+<p>Another thing I love about Helix is that the selection first approach to editing
+makes it easier to visually follow what’s going on. This is a lovely boost to
+pair- or mob-programming sessions where the relative suddenness of Vim’s editing
+rhythm easily leaves collaborators feeling excluded and confused by what’s
+happening on the screen. The same is true of Helix’s quick reference, which
+means many keyboard shortcuts will be visually explained on the screen
+immediately before they’re invoked.</p>
+
+<p>Integrating tools like lazygit is a natural extension of this inclusiveness.
+<em>Loads</em> of people use lazygit these days. Building workflows around well-known
+tools like these instead of esoteric editor-specific plugins is a small but
+meaningful opportunity to be a more inclusive collaborator.</p>
+
+<p>I’m very happy with this setup. It’s especially exciting that it’s starting to
+inspire me with little ideas for self-contained tools that would work well
+within this workflow but don’t yet exist. I hope I actually get around to
+building one or two of them.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

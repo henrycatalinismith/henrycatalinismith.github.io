@@ -1,0 +1,244 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Fixing 666a (again)
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Fixing 666a (again)</h1>
+  <p class="subtitle">2024-03-09</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Fixing 666a (again)</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>So apparently <a href="https://666a.se/">666a</a> is still capable of surprising me. A few
+months ago I wrote about the work I’d done to address an issue I’ve been calling
+“<a href="/2024/01/09/operating-666a/">document lag</a>”. Since then, I’ve continued to
+keep a constant eye on the system’s reliability. This week, something new
+cropped up.</p>
+
+<p>The investigation began when I did my usual round of manual checks of
+Arbetsmiljöverket’s public archive, comparing the canonical data there to the
+notifications I’ve received recently from 666a. There was a document listed that
+I hadn’t received an email about, which is a worst case scenario for me. The
+whole point of the service is for that not to happen, so it’s my most feared
+type of bug and basically a priority zero issue. Now that it’s fixed, I wanted
+to write up what was wrong and how I resolved it.</p>
+
+<h2 id="the-old-system" class="section-heading">The old system</h2>
+
+<p>At the core of 666a was this one cron job called the “day job”. When it started,
+the first thing it did was to check how many documents it saw last time it ran.
+Then it’d add one to that number and start looking for more.</p>
+
+<pre><code class="language-mermaid">graph TD;
+A[DayJob] --&gt;|Start| B(n = how many documents we've previously found for this day);
+B --&gt; C(Try to fetch more documents starting at n + 1);
+C --&gt; D{Were there any?}
+D --&gt;|Yes| B;
+D --&gt;|No| E[Done];
+</code></pre>
+
+<p>This approach depended on the assumption that new documents would always appear
+at the end. I’d had my suspicions about this assumption, but it had always help
+up. Until last week anyway.</p>
+
+<h2 id="diagnosis" class="section-heading">Diagnosis</h2>
+
+<p>Sometime around Tuesday I noticed
+<a href="https://www.av.se/om-oss/sok-i-arbetsmiljoverkets-diarium/?id=2024/006453-5">a document</a>
+had been filed backdated to last Friday but never got picked up by 666a. When I
+checked the data for Friday, I found the old “Day Job” was up to
+<a href="https://www.av.se/om-oss/sok-i-arbetsmiljoverkets-diarium/?page=95&amp;sortDirection=Desc&amp;sortOrder=Dokumentdatum&amp;OnlyActive=False&amp;FromDate=2024-03-01&amp;ToDate=2024-03-01&amp;ShowToolbar=True">page 95 of the results</a>.</p>
+
+<p>Thing is, the missing document wasn’t on page 95. It wasn’t on any of the pages
+after it either. I took a deep breath and began clicking back through the
+previous pages one by one. Eventually I came to
+<a href="https://www.av.se/om-oss/sok-i-arbetsmiljoverkets-diarium/?page=95&amp;sortDirection=Desc&amp;sortOrder=Dokumentdatum&amp;OnlyActive=False&amp;FromDate=2024-03-01&amp;ToDate=2024-03-01&amp;ShowToolbar=True">page 84</a>,
+and there it was.</p>
+
+<p><img src="/2024/03/09/diarium-p84@1024x1024.webp" alt="Screenshot of the Work Environment Authority's search tool showing results corresponding to the page 84 URL linked earlier." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<h2 id="implications" class="section-heading">Implications</h2>
+
+<p>This design flaw meant that 666a would miss something in the region of 5% of all
+documents filed. That’s a bad enough number that there’s no ifs or buts about
+whether it needed fixing or how soon. This was a “fix-it-today” job.</p>
+
+<p>Fix-it-today jobs are tricky these days. We’ve got a lot going on at home. I
+have about 30 minutes tops in a given day for something like this. So not only
+did I need an immediate fix for a design-level defect, but also it needed to be
+a small code change that would be quick to implement and YOLO into production.</p>
+
+<h2 id="the-fix" class="section-heading">The fix</h2>
+
+<p>By the time the kids were in bed the quick fix had occurred to me: empty the
+search result cache for each day before updating it. This leads to the exact
+same algorithm as before, except with a “delete” step added at the very
+beginning.</p>
+
+<pre><code class="language-mermaid">graph TD;
+A[DayJob] --&gt;|Start| F(Clear cache for this day)
+F --&gt; B(n = how many documents we've previously found for this day);
+B --&gt; C(Try to fetch more documents starting at n + 1);
+C --&gt; D{Were there any?}
+D --&gt;|Yes| B;
+D --&gt;|No| E[Done];
+</code></pre>
+
+<p>That forces the job to re-fetch everything from scratch, beginning at page 1. It
+means nothing gets missed. And importantly, it also made the fix easy to
+implement. In fact, it was damn near a one line fix.</p>
+
+<p><img src="/2024/03/09/fix@1220x600.webp" alt="Version control diff showing the addition of a line that reads “day.searches.destroy_all if options[:purge]” in a file called “app/jobs/work_environment/day_job.rb”" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<h2 id="scaling-it-up" class="section-heading">Scaling it up</h2>
+
+<p>The downside of this fix is that dramatically increases the number of HTTP
+requests necessary to check if new documents have been filed. My informal budget
+I set for myself is that I try to keep the amount of requests I send to <code class="language-plaintext highlighter-rouge">av.se</code>
+within the region of 1000 per day so that I’m as good as unnoticeable in terms
+of the load I put on their service.</p>
+
+<p>As part of my
+<a href="/2024/01/09/operating-666a/">previous fixes to account for backdated filings</a>
+I’d programmed 666a to check the past 64 days every day. Checking all 64 on a
+cold cache would blow that informal 1000 requests budget. I’m really happy with
+the compromise I came up with here. Instead of checking every day sequentially,
+like <code class="language-plaintext highlighter-rouge">1.days.ago</code>, <code class="language-plaintext highlighter-rouge">2.days.ago</code>, <code class="language-plaintext highlighter-rouge">3.days.ago</code>, <code class="language-plaintext highlighter-rouge">4.days.ago</code>, <code class="language-plaintext highlighter-rouge">5.days.ago</code> and so
+on up to 64, I switched to powers of two. So instead I’m checking <code class="language-plaintext highlighter-rouge">1.days.ago</code>,
+<code class="language-plaintext highlighter-rouge">2.days.ago</code>, <code class="language-plaintext highlighter-rouge">4.days.ago</code>, <code class="language-plaintext highlighter-rouge">8.days.ago</code> and so on.</p>
+
+<p>In practice this won’t lead to any significant notification delays, because the
+vast majority of documents are listed the day after their filing date anyway.
+And the decrease in days checked compensates <em>perfectly</em> for the increase in
+number of requests necessary to check a day. I actually keep statistics about
+how many requests to <code class="language-plaintext highlighter-rouge">av.se</code> I make per day, and the chart really drives home
+how steady the numbers stay despite the change.</p>
+
+<p><img src="/2024/03/09/rpd@1896x708.webp" alt="Bar chart with a y axis ranging from 0 to 1500 and an x axis ranging from 2023-10-30 to the present day. The bars are typically between 700 and 1200 high. Near the end, a pink arrow and text annotates one of the bars as “First day with new algorithm”." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<h2 id="whats-next" class="section-heading">What’s next?</h2>
+
+<p>It’s great fun having this kind of side project to look after. This one in
+particular feels like maintaining an old motorbike or something. A Rails app
+with a cron job that sends email notifications is kind of a retro combination at
+this point. And it’s running beautifully now. Dead happy with it.</p>
+
+<p>By now, 666a has processed over a quarter of a million documents and sent over a
+thousand notification emails. It’s crystal clear the demand exists for the
+service. The daily email volume still fits within SendGrid’s free tier, but it’s
+growing steadily enough that I’ve already taken the time to get pre-approved for
+a paid subscription when the time comes.</p>
+
+<p>If I’d shipped it as a “beta” – and maybe I should have – this would probably be
+the moment I’d officially say it was “out of beta”. Right now my worst fear
+would be for somebody at Arbetsmiljöverket to suddenly ship a redesign of the
+diarium search feature. Especially if that redesign depended on JavaScript and
+reworked all the logic around sorting, filtering and pagination. So let’s all
+cross our fingers for that not to happen!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

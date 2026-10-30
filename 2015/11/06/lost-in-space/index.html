@@ -1,0 +1,288 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Lost in space
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Lost in space</h1>
+  <p class="subtitle">2015-11-06</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Lost in space</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>Simulating gravity has made all the other space-related code I’ve written so far
+for this project seem easy. This has been one of those demoralising problems
+that you think you’ve solved until you try a new test scenario and suddenly
+you’re back at square one because it turns out it was never really working right
+at all. For a good while I genuinely didn’t think I was going to be able to make
+it work at all.</p>
+
+<h2 id="the-equation" class="section-heading">The equation</h2>
+
+<p>On the face of it, gravity’s really simple. It’s a tiny little formula that
+converts a body’s mass and your distance from it into your gravitational
+acceleration.</p>
+
+<figure>
+ <img src="/2015/11/06/lost-in-space-equation@640x360.webp" alt="Newton's law of universal gravitation: g = GM/r2" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  Easy.
+ </figcaption>
+</figure>
+
+<h2 id="first-attempts" class="section-heading">First attempts</h2>
+
+<p>At least, it would have been that simple if I’d done a better job of the initial
+research. My first attempts were using a totally different and wrong equation
+that I hacked together based on an incomplete understanding of various things
+I’d hastily skim-read from Google.</p>
+
+<p>I threw a bunch of code together, all excited to see some proper space stuff
+happening. The first test run felt so climactic that I recorded it. Here it is.
+Even if you really sucked at physics in school, I promise you’re gonna be able
+to spot the problem. Check it out.</p>
+
+<figure>
+ <video poster="/2015/11/06/lost-in-space-first-attempt-poster@564x472.webp" src="/2015/11/06/lost-in-space-first-attempt@564x472.mp4" title="The Earth and Sun moving away from each other instead of towards each other." controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  You had one job.
+ </figcaption>
+</figure>
+
+<p>Yep, it’s backwards. The Earth takes one look at the Sun, turns around, and
+heads off into deep space. Even worse, the Sun itself seems to be being affected
+way more than it should by Earth’s comparatively tiny gravitational force.</p>
+
+<h2 id="if-at-first-you-dont-succeed" class="section-heading">If at first you don’t succeed</h2>
+
+<p>There were lots more failed attempts shortly after this. Each one was more
+confusing than the last. I didn’t know what I was doing. I kept making little
+tweaks to the calculations without really understanding why. No wonder none of
+them worked.</p>
+
+<p>This went on for a few days. Gradually I started to slow down and get a bit more
+methodical. Lots of stepping through equations to try to get a feel for the
+numbers. And yes, I use the word “Sol” instead of just “Sun” in one of the
+diagrams, purely because it felt more sciencey to write 😎</p>
+
+<figure>
+ <img src="/2015/11/06/lost-in-space-board1@700x525.webp" alt="Whiteboard diagram with Newton's gravity formula and some planets with lots of little numbers and arrows." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  Maths is hard.
+ </figcaption>
+</figure>
+
+<p>After a few more days, the gravity calculation was sort of working. It was still
+miles away from being anything close to correct, but good enough progress to
+keep me interested.</p>
+
+<h2 id="bodge-it-and-scarper" class="section-heading">Bodge it and scarper</h2>
+
+<p>I thought I was close to nailing it. When I saw it get the Moon to orbit the
+Earth, I was so happy I took another screen recording. This was around about the
+same time I discovered that deleting the call to clearRect made it leave behind
+a cool orbit trail.</p>
+
+<figure>
+ <video poster="/2015/11/06/lost-in-space-one-moon-poster@474x414.webp" src="/2015/11/06/lost-in-space-one-moon@474x414.mp4" title="The Moon moving around the Earth, leaving a little white trail as it goes." controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  The bit at the very end where it completes the orbit and returns to its exact point of origin is my favorite.
+ </figcaption>
+</figure>
+
+<p>Wow, I was so pleased with that. Thing is, I’d had to grossly inflate the mass
+of the Earth to make it work like that, and I had no idea why. Everything was
+sort of working, but full of these weird little hacky tweaks that I didn’t know
+why they helped.</p>
+
+<p>By now I was using the right gravity equation. But I had to subtract the result
+from 0 to make it work. Again, no idea why. It was just something I did at one
+point to see if it helped, and it did, so I left it in.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">acceleration</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">-</span> <span class="p">(</span>
+  <span class="p">(</span><span class="nx">G</span> <span class="o">*</span> <span class="nx">subject</span><span class="p">.</span><span class="nx">mass</span><span class="p">)</span> <span class="o">/</span>
+  <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">distance</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="me-reaping-well-this-fucking-sucks-what-the-fuck" class="section-heading">Me reaping: Well this fucking sucks. What the fuck.</h2>
+
+<p>So I definitely had a rude awakening coming. It came when I decided to test it
+with four Moons orbiting the Earth. They were positioned equidistant around the
+Earth and initialised with what should have been anti-clockwise orbits of equal
+sizes. What should happen in this next video is basically the same as in the
+last one except with four circles instead of one.</p>
+
+<figure>
+ <video poster="/2015/11/06/lost-in-space-terrible-poster@950x656.webp" src="/2015/11/06/lost-in-space-terrible@950x656.mp4" title="Four moons orbiting the Earth, except it all goes immediately wrong and they fly away." controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  Not a single thing that happens in this video is right.
+ </figcaption>
+</figure>
+
+<p>Backwards gravity was back, and yet again, I had no idea why. It was
+demoralising as fuck.</p>
+
+<p>The only thing to do was keep on going and try to get a little bit more serious
+and careful with each step. The thing about building this is that the gravity
+calculation is only a tiny part of it. Most of the work so far has gone into the
+geometry code. You need to be able to calculate angles and distances between
+points, add vectors together, and calculate vectors from an angle and a
+magnitude. Lots of Math.atan2 and that sort of thing.</p>
+
+<p>The gravity calculation was okay, so I knew the problem was elsewhere and
+started digging around accordingly. There was something wrong with how I was
+applying the gravity to the planets. I started to try to tighten up my
+understanding of the basic geometry of this imaginary universe I’d built.</p>
+
+<p><img src="/2015/11/06/lost-in-space-board3@700x456.webp" alt="
+Whiteboard diagram of a 2D grid with two points on it and an angle drawn between them.
+Next to that, a pair of arrows compare 'current direction' with 'actual direction'." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<figure>
+ <img src="/2015/11/06/lost-in-space-board3@700x456.webp" alt="
+   Whiteboard diagram of a 2D grid with two points on it and an angle drawn between them.
+   Next to that, a pair of arrows compare 'current direction' with 'actual direction'." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  I literally didn't understand radians until this point.
+ </figcaption>
+</figure>
+
+<p>Once I understood the basics a little better, I did what I always do when I’m as
+lost as this: I wrote tests. So many fucking tests… Just, basic things like
+putting two points next to each other and checking that the distances and angles
+are being calculated right. I wrote dozens of tests like that.</p>
+
+<p>While I was writing a crapload of tests, I made a few teeny tiny little tweaks
+along the way. None of it seemed major. Somehow, though, things started working
+a bit better. I set the “four moons” test case back up, ready to be disappointed
+and feel stupid.</p>
+
+<figure>
+ <video poster="/2015/11/06/lost-in-space-four-moons-poster@744x604.webp" src="/2015/11/06/lost-in-space-four-moons@744x604.mp4" title="Four moons orbiting the Earth beautifully and producing a lovely geometric pattern." controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  Holy shit.
+ </figcaption>
+</figure>
+
+<p>Almost perfect! This is where I’m at right now, and it’s good enough to consider
+moving on to whatever the next problem will be. It’s still a long way from
+perfect, but I haven’t seen any “backwards gravity” and to be honest, that’ll
+do.</p>
+
+<p>Earth’s orbit around the Sun takes about 10 days longer than it should. And the
+Moon’s orbit around the Earth takes about half the time it should. Just like
+before, I haven’t got the slightest idea why. But this project doesn’t really
+have any explicit goals beyond “build something that makes my computer do some
+cool space stuff, and have fun doing it”. And it’s doing the cool space stuff
+well enough to be fun now!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

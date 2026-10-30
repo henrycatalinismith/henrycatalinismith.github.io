@@ -1,0 +1,220 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Atuin and chezmoi are the dog&#39;s bollocks
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Atuin and chezmoi are the dog's bollocks</h1>
+  <p class="subtitle">2024-02-25</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Atuin and chezmoi are the dog&#39</span>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 2"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">s bollocks</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>My <a href="https://github.com/henrycatalinismith/dotfiles">dotfiles repo</a> is the
+oldest one I still have. Its
+<a href="https://github.com/henrycatalinismith/dotfiles/commit/0f498b9">first commit</a>
+is from 2012. The message I wrote for that commit tells a familiar story.</p>
+
+<blockquote>
+  <p>Fresh start for config files<br /> The old config repo had become bloated and
+unwieldy</p>
+</blockquote>
+
+<p>I don’t remember what went wrong, but evidently, things had had gotten out of
+control. Synchronising development tools across multiple computers has always
+been such a pain in the ass. Not any more though. 12 years later, I finally have
+a setup in place that I’m happy with.</p>
+
+<h2 id="atuin" class="section-heading">Atuin</h2>
+
+<p>Losing shell history when swapping back and forth between different terminal
+tabs or different computers has always been frustrating. It’s an annoyance I’d
+accepted as inevitable. For no particular reason, I recently became inspired to
+question that inevitability, and found <a href="https://atuin.sh/">Atuin</a> soon after.</p>
+
+<p>No idea how I lived without this tool before. In particular, as
+<a href="/2024/02/07/screencasting-secrets">someone who uses <code class="language-plaintext highlighter-rouge">ffmpeg</code> frequently</a>, it’s
+been amazing to be able to refer back to any given set of filters I’ve ever
+used.</p>
+
+<p>The end-to-end encrypted sync feature is a game changer as well. Having access
+to your full shell history on every computer you use feels like it changes what
+the terminal <em>is</em> somehow. Brings it a bit closer to being an extension of you
+or something, I don’t know.</p>
+
+<p>The stats are cool too. For example, <code class="language-plaintext highlighter-rouge">atuin stats -c 3</code> prints your top three
+most-used commands.</p>
+
+<p><img style="object-fit: none" src="/2024/02/25/atuin-stats@672x256.webp" alt="[▮▮▮▮▮▮▮▮▮▮] 1626 git s [▮▮▮ ] 616 git b [▮▮▮ ] 604 yarn test Total commands: 10268 Unique commands: 2091" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<p>My top command there – <code class="language-plaintext highlighter-rouge">git s</code> – is my alias for <code class="language-plaintext highlighter-rouge">git status</code>. Learning that I’m
+running that so often made me realise that those fancy terminal prompts that
+include git status info are worth the trouble. I’d stopped bothering with them
+because of the dotfiles syncing problem, and this inspired me to check in and
+see if it was solved yet. It was!</p>
+
+<h2 id="chezmoi" class="section-heading">chezmoi</h2>
+
+<p>There are a lot of <a href="https://dotfiles.github.io/utilities/">dotfiles tools</a>. Most
+of them are effectively proof-of-concept in terms of the maturity level of the
+implementation. Someone has a core idea they’re excited about, they implement
+that, then the project quietly goes into maintenance mode. What makes
+<a href="https://www.chezmoi.io/">chezmoi</a> the best isn’t any particular concept – it’s
+the work that’s gone into polishing the annoying details around the edges.</p>
+
+<p>In my case, I just wanted to use it to set up oh-my-zsh automatically and keep
+the config in sync between different computers. There’s an
+<a href="https://www.chezmoi.io/user-guide/include-files-from-elsewhere/">example in the chezmoi docs showing how to do exactly this thing</a>.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">[</span><span class="s">".oh-my-zsh"</span><span class="k">]</span>
+    <span class="n">type</span> <span class="o">=</span><span class="w"> </span><span class="s">"archive"</span>
+    <span class="n">url</span> <span class="o">=</span><span class="w"> </span><span class="s">"https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"</span>
+    <span class="n">exact</span> <span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+    <span class="n">stripComponents</span> <span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+    <span class="n">refreshPeriod</span> <span class="o">=</span><span class="w"> </span><span class="s">"168h"</span>
+</code></pre></div></div>
+
+<p>I was blown away by how easy it was to set that up. Syncing a few little
+personal config files has always been the easy part, and it’s generally these
+externally-sourced configs where things become difficult. You always get it
+syncing eventually, but it breaks along the way and so the end result feels
+brittle. Somehow chezmoi has cracked it. For once this feels like it will work
+on the first try when I next have to set up a new computer.</p>
+
+<h2 id="things-are-good" class="section-heading">Things are good</h2>
+
+<p>I’m in a really good place at the moment when it comes to tools. Shipping 666a
+with
+<a href="/2024/01/14/my-sqlite-in-production-epiphany">SQLite as its production database</a>
+was a huge personal revelation, going
+<a href="/2024/01/30/maining-vscode-terminal">all-in on VSCode terminal</a> has decluttered
+my workflow, and doing a bunch of React Native at work is scratching a really
+longstanding itch. I’m getting tons done and feeling happy in the process.</p>
+
+<p>Interestingly, the creator of Atuin has
+<a href="https://ellie.wtf/posts/i-quit-my-job-to-work-full-time-on-my-open-source-project">quit her day job to found a company and work on Atuin full time</a>.
+Will be fun to see what happens next there.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

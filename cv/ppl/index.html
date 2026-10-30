@@ -1,0 +1,192 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex">
+    <title>
+      ppl
+      – Henry Catalini Smith
+    </title>
+    
+      <meta name="description" content="ppl was a command-line address book program I wrote in Ruby in 2012. The idea was to have a terminal-based alternative to your typical &quot;contacts&quot; app. It was a minor success for a time thanks to a successful Hacker News post, but it&#39;s defunct now.
+" />
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body class="page-grid">
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/cv/">CV</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">ppl</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">ppl</h1>
+  <p class="subtitle">Command-line address book using Git to sync</p>
+</header>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <nav class="section-nav lg:hidden flex flex-col gap-y-6">
+          <ul class="flex flex-col">
+            <li>
+              <a class="text-link underline" href="#top">ppl</a>
+              <div class="section-links"><ul id="toc" class="flex flex-col">
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#beyond-clean-code">Beyond Clean Code</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#behavioural-test-automation">Behavioural Test Automation</a></li>
+</ul></div>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="flex flex-col gap-6 min-w-0 max-w-[65ch]">
+          
+            <p class="max-w-[65ch]">ppl was a command-line address book program I wrote in Ruby in 2012. The idea was to have a terminal-based alternative to your typical "contacts" app. It was a minor success for a time thanks to a successful Hacker News post, but it's defunct now.
+</p>
+          
+
+          <dl
+            class="body-text flex flex-col gap-y-4 py-4 dark:border-slate-500"
+          >
+            
+              <div class="flex flex-col sm:flex-row sm:gap-x-4">
+                <dt class="font-bold sm:w-32 sm:shrink-0">Repository</dt>
+                <dd>
+                  <a href="https://github.com/henrycatalinismith/ppl">henrycatalinismith/ppl</a>
+                </dd>
+              </div>
+            
+            
+              <div class="flex flex-col sm:flex-row sm:gap-x-4">
+                <dt class="font-bold sm:w-32 sm:shrink-0">Technologies</dt>
+                <dd>Ruby, vCard, Git</dd>
+              </div>
+            
+          </dl>
+
+          <div class="body-text post-body"><h2 id="beyond-clean-code" class="section-heading">Beyond Clean Code</h2>
+
+<p>I was going through my “Clean Code” phase while working on ppl. Unable to fully put the philosophy to the test at work, I crammed every idea I could from that book into this source code. The result was just about the most Java-like Ruby code you’re ever likely to see.</p>
+
+<p>In practice I found the architectural strictness to be an oppressive, inspiration-draining headwind with few practical upsides, and the experience helped me to grow beyond the “Clean Code” fixation. I consider myself fortunate to have learned this lesson relatively early in my career.</p>
+
+<h2 id="behavioural-test-automation" class="section-heading">Behavioural Test Automation</h2>
+
+<p>ppl was my first time maintaining something people actually used and cared about all on my own. Silly mistakes led to embarassing bug reports. Despite the ultra-orthodox TDD of my “Clean Code” mania I found it was more than possible for bugs to form in the spaces between the units of code.</p>
+
+<p>In order to be able to ship new versions without anxiety I poured my heart into a comprehensive suite of Cucumber tests that exercised the end-to-end user-facing behaviour.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Scenario</span><span class="pi">:</span> <span class="s">Remove a contact from the address book</span>
+  <span class="s">Given I am in an address book with a blank contact called bob</span>
+  <span class="s">And I run "ppl rm bob"</span>
+  <span class="s">Then there should be 0 contacts</span>
+</code></pre></div></div>
+
+<p>Tests like these gave me the confidence to quickly push quick fixes without feeling a need to engage in manual exploratory testing of each release. This paid off handsomely once the project’s honeymoon period wore off and I no longer had the motivation for that kind of work.</p>
+</div>
+
+          <p class="body-text">
+            <a class="text-link underline" href="/cv/">Back to CV</a>
+          </p>
+        </div>
+
+        <aside
+          class="section-nav hidden lg:block lg:sticky lg:top-8 lg:self-start lg:h-fit body-text"
+        >
+          <nav aria-label="Sections" class="font-lilex">
+            <ul class="flex flex-col">
+              <li>
+                <a class="text-link underline" href="#top">ppl</a>
+                <div class="section-links"><ul id="toc" class="flex flex-col">
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#beyond-clean-code">Beyond Clean Code</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#behavioural-test-automation">Behavioural Test Automation</a></li>
+</ul></div>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    <script src="/section-nav.js"></script>
+  </body>
+</html>

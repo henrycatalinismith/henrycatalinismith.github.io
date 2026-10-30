@@ -1,0 +1,155 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      C# LSP in Helix on macOS
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">C# LSP in Helix on macOS</h1>
+  <p class="subtitle">2026-01-27</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">C# LSP in Helix on macOS</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>Found myself writing C# in Helix on macOS a bit lately. Weird combination. It
+took a moment to tweak things so that it all plays nice together.</p>
+
+<figure>
+ <img alt="Helix screenshot showing some C# code with the cursor on a Reverse() call and a popup window displaying the API documentation for Reverse()" src="/2026/01/27/lsp@1908x1424.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  Works great once it's configured!
+ </figcaption>
+</figure>
+
+<p>To set up the actual SDK and the language server I did the following.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>dotnet
+dotnet tool <span class="nb">install</span> <span class="nt">--global</span> csharp-ls
+</code></pre></div></div>
+
+<p>That puts the tools in place, but I found that running <code class="language-plaintext highlighter-rouge">hx --health c-sharp</code>
+after this step revealed that Helix couldn’t find the <code class="language-plaintext highlighter-rouge">csharp-ls</code> binary. Adding
+<code class="language-plaintext highlighter-rouge">~/.dotnet/tools</code> to my <code class="language-plaintext highlighter-rouge">$PATH</code> fixed it.</p>
+
+<pre><code class="language-fish">set -U fish_user_paths $fish_user_paths ~/.dotnet/tools
+</code></pre>
+
+<p>From here I had a green checkmark in <code class="language-plaintext highlighter-rouge">hx --health c-sharp</code> but it still didn’t
+quite work. Inspecting the language server logs in Helix with <code class="language-plaintext highlighter-rouge">:log-open</code>, I saw
+that <code class="language-plaintext highlighter-rouge">csharp-ls</code> was unable to find the dotnet SDK. Setting the <code class="language-plaintext highlighter-rouge">DOTNET_ROOT</code>
+environment variable in the language server config in
+<code class="language-plaintext highlighter-rouge">~/.config/helix/languages.toml</code> fixed this.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">[</span><span class="n">language-server</span><span class="k">.</span><span class="n">csharp</span><span class="k">]</span>
+<span class="n">command</span> <span class="o">=</span><span class="w"> </span><span class="s">"csharp-ls"</span>
+<span class="n">environment</span> <span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">DOTNET_ROOT</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"/opt/homebrew/Cellar/dotnet/10.0.102/libexec"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>This was everything. Annoying that C#’s devtools are so badly integrated with
+each other and with macOS that you have to manually aim everything at each other
+like that. But nothing too strenous.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

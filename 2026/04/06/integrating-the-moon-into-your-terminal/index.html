@@ -1,0 +1,175 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Integrating the moon into your terminal
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Integrating the moon into your terminal</h1>
+  <p class="subtitle">2026-04-06</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Integrating the moon into your terminal</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>As I write this, a spaceship full of astronauts is flying around the moon for
+the first time in my life. They don’t even have a working toilet right now
+either so they’re all gasping for a piss while they do it. It’s all very
+exciting.</p>
+
+<p>Moon shit is some of the best kind of science IMO. I’m into basically anything
+moon-related. A while back I decided even on my computer I’m more interested in
+the moon than any of  the stereotypial nerd telemetry like CPU graphs and
+whatever. I reckon it’s a healthy grounding thing to rig your computer to
+remind you of the passage of time and your tiny place in the universe instead of
+focusing your attention on a bunch of meaningless blinkenlights about an
+environment under your full control.</p>
+
+<p>So whenever I open a new terminal, I get this little ASCII art thing
+that shows me the current phase of the moon.</p>
+
+<figure>
+ <img src="/2026/04/06/phoon@2866x1692.webp" alt="Terminal screenshot showing an ASCII art representation of the moon in multiple colours" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>Since the moon is cool as fuck right now, let’s see if we can hype some more
+people up into making their terminals do this. First up, you need <code class="language-plaintext highlighter-rouge">phoon</code> and
+<code class="language-plaintext highlighter-rouge">lolcat</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>phoon lolcat
+</code></pre></div></div>
+
+<p>The first one – phoon – prints the ASCII art moon phase. The second one –
+lolcat – applies some rainbow colourisation to it. All you have to do to get
+that cool rainbow moon as the splash screen for every new terminal you open
+for the rest of your life is to pipe phoon into lolcat.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>phoon | lolcat
+</code></pre></div></div>
+
+<p>You can chuck that into <code class="language-plaintext highlighter-rouge">~/.zshrc</code> or <code class="language-plaintext highlighter-rouge">~/.bashrc</code> and you’re good to go. I’ve
+been using <a href="https://fishshell.com/">fish</a> lately, where this sort of thing
+belongs in <a href="https://fishshell.com/docs/current/cmds/fish_greeting.html"><code class="language-plaintext highlighter-rouge">fish_greeting</code></a>.</p>
+
+<pre><code class="language-fish">function fish_greeting
+  phoon | lolcat
+end
+</code></pre>
+
+<p>Highly recommended! While watching tonight’s livestream of the Artemis fly-by, I
+noticed that the shadow in the top left of the moon was different from the top
+right shadow in the Earth perspective, despite the moon not being visible from
+my window in Malmö tonight.</p>
+
+<figure>
+ <img src="/2026/04/06/phases@1172x562.webp" alt="Composite image. Left hand side shows a moon with the top right hand side blacked out by shadow. Right hand side shows a moon with the top left blacked out by shadow. The right-hand moon is markedly flatter." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>Earth perspective on the left, Artemis II perspective on the right</figcaption>
+</figure>
+
+<p>This sense of perspective really enhanced the coolness of the livestream. And I
+wouldn’t have picked up on this if it hadn’t been for the fact that my computer
+reminds me of what’s going on with the moon basically every time I use it.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

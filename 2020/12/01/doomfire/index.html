@@ -1,0 +1,257 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      doomfire
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">doomfire</h1>
+  <p class="subtitle">2020-12-01</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">doomfire</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><video controls="" preload="none" poster="/2020/12/01/doomfire-demo-poster@512x512.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ <source src="/2020/12/01/doomfire-demo@512x512.mp4" type="video/mp4" />
+</video>
+
+<p>Fire animation in pure CSS inspired by the PlayStation version of DOOM.</p>
+
+<iframe height="300" style="width: 100%" scrolling="no" title="doomfire" src="https://codepen.io/henrycatalinismith/embed/preview/jOrraKw?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="" allowfullscreen=""></iframe>
+
+<h2 id="how-this-works" class="section-heading">How This Works</h2>
+
+<p>The algorithm for the fire itself is from Fabien Sanglard’s
+<a href="https://fabiensanglard.net/doom_fire_psx/">How DOOM fire was done</a>. Fabien’s
+write-up was so helpful that it inspired me to try and pay it forward by
+explaining how my implementation works. So here goes!</p>
+
+<h3 id="pure-css" class="subsection-heading">Pure CSS</h3>
+
+<p>It’s quite common for CSS animation demos like these to include a bunch of
+placeholder HTML elements. Typically it’ll be like a bunch of <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> elements
+for the CSS to animate.</p>
+
+<p>This one doesn’t have any of that, which is what I mean when I call it a “pure
+CSS” implementation. There’s no HTML involved except for the bare minimum
+required to deliver the CSS in a valid way. What this means is that at its very
+core, the whole animation piggybacks off a pseudo element on the <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> tag.</p>
+
+<h3 id="one-square-one-frame" class="subsection-heading">One square, one frame</h3>
+
+<p>We need one static black square as a starting point.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">body</span><span class="nd">::after</span> <span class="p">{</span>
+  <span class="nl">background</span><span class="p">:</span> <span class="nx">black</span><span class="p">;</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s1">""</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">128px</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">128px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<figure>
+ <img alt="White square with a black square in the top left." src="/2020/12/01/doomfire-example-output-1@256x256.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  The black square is the <code>::after</code> pseudo-element.
+ </figcaption>
+</figure>
+
+<p>The black square is the <code class="language-plaintext highlighter-rouge">::after</code> pseudo-element.</p>
+
+<h3 id="two-squares-one-frame" class="subsection-heading">Two squares, one frame</h3>
+
+<p>The next step is to turn that 1x1 black square into a whole 2D screen, and the
+magic words for that is box-shadow. In most everyday web development, box
+shadows are blurry and obscured by the element they belong to. To use them for
+this kind of magic, there are three rules:</p>
+
+<ol>
+  <li>Hide the element itself: no background color.</li>
+  <li>Position them so that they’re completely outside the element.</li>
+  <li>Don’t set a blur radius.</li>
+</ol>
+
+<p>So here’s an updated example using the above technique to increase the
+resolution from 1x1 to 1x2.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">body</span><span class="nd">::after</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s1">""</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">128px</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">128px</span><span class="p">;</span>
+  <span class="nl">box-shadow</span><span class="p">:</span>
+    <span class="m">128px</span> <span class="nf">calc</span><span class="p">(</span><span class="m">128px</span> <span class="o">*</span> <span class="m">0</span><span class="p">)</span> <span class="nx">yellow</span><span class="p">,</span>
+    <span class="m">128px</span> <span class="nf">calc</span><span class="p">(</span><span class="m">128px</span> <span class="o">*</span> <span class="m">1</span><span class="p">)</span> <span class="nx">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<figure>
+ <img alt="White square with a yellow square in the top right and a red one in the bottom right." src="/2020/12/01/doomfire-example-output-2@256x256.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  The yellow square is drawn by the first <code>box-shadow</code> and the red square is drawn by the second one.
+ </figcaption>
+</figure>
+
+<p>The yellow square is drawn by the first <code class="language-plaintext highlighter-rouge">box-shadow</code> and the red square is drawn
+by the second one.</p>
+
+<h3 id="two-squares-three-frames" class="subsection-heading">Two squares, three frames</h3>
+
+<p>From here, increasing the resolution beyond 1x2 is a matter of adding more box
+shadows to the list. And making them update to look like a fire is a keyframe
+animation.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@keyframes</span> <span class="n">fire</span> <span class="p">{</span>
+  <span class="m">33%</span> <span class="p">{</span>
+    <span class="nl">box-shadow</span><span class="p">:</span>
+      <span class="m">128px</span> <span class="nf">calc</span><span class="p">(</span><span class="m">128px</span> <span class="o">*</span> <span class="m">0</span><span class="p">)</span> <span class="nx">white</span><span class="p">,</span>
+      <span class="m">128px</span> <span class="nf">calc</span><span class="p">(</span><span class="m">128px</span> <span class="o">*</span> <span class="m">1</span><span class="p">)</span> <span class="nx">white</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="m">66%</span> <span class="p">{</span>
+    <span class="nl">box-shadow</span><span class="p">:</span>
+      <span class="m">128px</span> <span class="nf">calc</span><span class="p">(</span><span class="m">128px</span> <span class="o">*</span> <span class="m">0</span><span class="p">)</span> <span class="nx">white</span><span class="p">,</span>
+      <span class="m">128px</span> <span class="nf">calc</span><span class="p">(</span><span class="m">128px</span> <span class="o">*</span> <span class="m">1</span><span class="p">)</span> <span class="nx">red</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="m">99%</span> <span class="p">{</span>
+    <span class="nl">box-shadow</span><span class="p">:</span>
+      <span class="m">128px</span> <span class="nf">calc</span><span class="p">(</span><span class="m">128px</span> <span class="o">*</span> <span class="m">0</span><span class="p">)</span> <span class="nx">yellow</span><span class="p">,</span>
+      <span class="m">128px</span> <span class="nf">calc</span><span class="p">(</span><span class="m">128px</span> <span class="o">*</span> <span class="m">1</span><span class="p">)</span> <span class="nx">red</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<figure>
+ <img alt="White square with a black square in the top left." src="/2020/12/01/doomfire-example-output-1@256x256.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  The black square is the <code>::after</code> pseudo-element.
+ </figcaption>
+</figure>
+
+<p>Now it’s starting to look like a fire.</p>
+
+<h3 id="performance-trade-offs" class="subsection-heading">Performance trade-offs</h3>
+
+<p>One of the downsides of this technique is how inefficient it is. Box shadows
+don’t animate efficiently even at small scale and this takes them to an extreme.
+On the bright side, the heating effect this fire animation has on your CPU adds
+an extra level of immersion and realism to the experience.</p>
+
+<p>And because every pixel in every frame of the animation needs to be declared
+explicitly, this is a bandwidth hog too. This 16 second animation is 3.5
+megabytes of CSS! Rather than have it cut out abruptly after 16 seconds, I’ve
+made it loop infinitely. And fortunately enough, the loop is really seamless.
+But to make it loop, I’ve had to cut the part at the beginning where the fire
+spreads in from the bottom, which is a shame.</p>
+
+<p>It’s not all downsides though. The original DOOM implementation has a real
+videogame look to it, and the reason this implementation looks a bit more like
+real flames is thanks to CSS. While the example code above uses a square pseudo
+element, the real animation uses a long thin one. This stretches the flames out
+a bit vertically, without changing anything about the algorithm powering it.
+Combined with the blur filter, I think it produces a pretty neat effect!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

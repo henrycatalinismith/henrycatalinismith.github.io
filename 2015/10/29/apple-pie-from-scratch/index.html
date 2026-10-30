@@ -1,0 +1,233 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Apple Pie From Scratch
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Apple Pie From Scratch</h1>
+  <p class="subtitle">2015-10-29</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Apple Pie From Scratch</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>This is a quick write-up of my solution to one of the first problems I bumped
+into in my latest project. I’m building a JavaScript model of the solar system,
+which in the end will hopefully feature all the planets orbiting the Sun
+according to some approximation of Newtonian gravity.</p>
+
+<p>The problem arose because it’s easier to implement the equations if your data
+model uses SI units: meters, kilograms and seconds. Plus, if you adopt a nice
+convention like SI units, it makes the code so much more readable. I find names
+like distanceInKm or massInKg super ugly. It’s nicer if you can use distance and
+mass and just infer the units from the convention.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Planet</span> <span class="p">{</span>
+  <span class="nf">constructor </span><span class="p">({</span> <span class="nx">mass</span><span class="p">,</span> <span class="nx">position</span><span class="p">,</span> <span class="nx">radius</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">mass</span> <span class="o">=</span> <span class="nx">mass</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="nx">position</span><span class="p">;</span> <span class="c1">// { x, y }</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">radius</span> <span class="o">=</span> <span class="nx">radius</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This is lovely, but the CanvasRenderingContext2D API works in pixels. Take it or
+leave it. So the code in charge of rendering planets needs to know how to
+convert between meters and pixels.</p>
+
+<p>It’s the kind of problem that’s tempting to sort of hack your way through. Just
+keep throwing code at the wall and eventually something will stick. Easy enough,
+but the result is usually not great. It’s bad enough not understanding your own
+code a few weeks after writing it. Not understanding it while you’re still
+writing it is just… no fun.</p>
+
+<p>So I made a cup of tea, cleared a whiteboard, and had a bit of a think. The
+resulting diagram is a bit incomprehensible, but I sometimes think it’d be nice
+if people were more open about how lost they get with even simple stuff like
+this, so here it is.</p>
+
+<p>The gist of the solution is to have a scale property somewhere, denoting the
+conversion rate between pixels and meters. Next, I needed there to be a “thing”
+in my system to actually own that property and apply it. The name I settled on
+for that “thing” was Viewport.</p>
+
+<p>The Viewport needs to a few things to do its job. It needs that scale value, for
+starters. It needs a reference to the rendering context, too. And I figured it
+also needs to know which part of the universe it’s centered on, which I pass in
+as an object called center with an x and a y property. Because x and y are
+spatial values, you can just assume they’re in meters. See how nice that is?</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Viewport</span> <span class="p">{</span>
+  <span class="nf">constructor</span><span class="p">({</span> <span class="nx">center</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">scale</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">center</span> <span class="o">=</span> <span class="nx">center</span><span class="p">;</span> <span class="c1">// { x, y }</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">context</span> <span class="o">=</span> <span class="nx">context</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">scale</span> <span class="o">=</span> <span class="nx">scale</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The last thing that’s missing is a Viewport method to render planets. Rendering
+circles is nice and simple because it’s part of the browser API, so that’s a
+freebie. What’s less simple is that I’ve designed the Viewport to accept the
+coordinates of its center point in meters, whereas the built-in arc method
+expects the coordinates of the circle in pixels from the top-left corner.</p>
+
+<p>This is important, because I need it to be easy to center the viewport on a
+given planet. I want it to be as simple as viewport.center = planet.position. As
+usual, the price of simplicity somewhere is complexity elsewhere.</p>
+
+<p>Converting between those two points is a two-step calculation. First, you have
+to calculate the position of the top-left pixel of the canvas in imaginary space
+meters. Then you subtract the coordinates of that position from the coordinates
+of the planet, and multiply the results by the scale property from earlier. This
+gives you the pixel position of the planet within the canvas. The resulting code
+is really heavy on arithmetic and took a while to get right.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">drawPlanet </span><span class="p">(</span><span class="nx">planet</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">height</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">canvas</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">topLeft</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="p">(</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="p">((</span><span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">scale</span><span class="p">)),</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="p">((</span><span class="nx">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">scale</span><span class="p">))</span>
+  <span class="p">);</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">planet</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nf">beginPath</span><span class="p">();</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nf">arc</span><span class="p">(</span>
+  <span class="p">(</span><span class="nx">planet</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">topLeft</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">scale</span><span class="p">,</span>
+  <span class="p">(</span><span class="nx">planet</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">topLeft</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">scale</span><span class="p">,</span>
+  <span class="nx">planet</span><span class="p">.</span><span class="nx">radius</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">scale</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="mi">2</span>
+  <span class="p">);</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nf">closePath</span><span class="p">();</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nf">fill</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>With that in place, I now have a working graphical layer that understands how to
+render my SI units data model onto a 2D canvas element.</p>
+
+<p>It’s a really fundamental part of the system, so you don’t end up with much to
+show for all the effort, but I did manage to squeeze one cool thing out of it.
+By gradually shrinking the value of the scale property, I can generate a “flying
+backwards through space” effect. Check it out. Right at the very end you can see
+the Moon whizz by on the right once we’re far enough from Earth.</p>
+
+<figure>
+ <video src="/2015/10/29/apple-pie-from-scratch-zoom@960x540.mp4" poster="/2015/10/29/apple-pie-from-scratch-zoom@960x540.webp" title="2D earth fading into the distance as the camera moves backwards" controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  Fun, fun, fun.
+ </figcaption>
+</figure>
+
+<p>Now that the basics are in place to display what’s going on, the next step is to
+get everything moving. Right now I’m still struggling to make gravity work
+right. It’s a lot harder than this was.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

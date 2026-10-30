@@ -1,0 +1,209 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Scalable spacetime
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Scalable spacetime</h1>
+  <p class="subtitle">2015-11-02</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Scalable spacetime</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>After building last week’s Solar System renderer, I was excited to move on to
+the fun stuff and see some planets moving around. I rushed on into implementing
+motion, which on the face of it is pretty simple. If Earth is moving along at
+30,000m/s, for example, then you can just add its velocity to its current
+position once per second and get its new location.</p>
+
+<figure>
+ <img alt="
+   Two blue circles separated horizontally by an arrow pointing right labelled 30,000m.
+   The circle on the left is labelled ‘0 seconds’ and the one on the right is labelled ‘1 second later'." src="/2015/11/02/scalable-spacetime-simple@640x360.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  We're moving, Rosie!
+ </figcaption>
+</figure>
+
+<p>The code for this is an easy read. I threw together a little Motion class. So if
+Earth has a vector of 30000 horizontally and 0 vertically, then each tick of
+this method counts as one second of motion in my imaginary 2D universe, and it
+moves the earth along by 30km each time.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Motion</span> <span class="p">{</span>
+  <span class="nf">affect </span><span class="p">(</span><span class="nx">universe</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">universe</span><span class="p">.</span><span class="nx">planets</span><span class="p">.</span><span class="nf">map</span><span class="p">((</span><span class="nx">planet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">planet</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">planet</span><span class="p">.</span><span class="nx">vector</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This worked on my first try, which as usual, meant I’d barely broken the surface
+of the problem. To give you a sense of perspective, here’s ten seconds of motion
+in plain old 1:1 time. It’s not exactly riveting. Earth’s 12,000km diameter
+makes 30km/s look slow. Honestly, I kind of thought it’d be a bit quicker, even
+at 1:1 scale. Remember this next time somebody’s talking about how we’re
+“hurtling through space on a giant rock”. It barely moves at all in this clip.</p>
+
+<figure>
+ <video poster="/2015/11/02/scalable-spacetime-slow-poster@540x346.webp" src="/2015/11/02/scalable-spacetime-slow@540x346.mp4" title="2D earth moving almost imperceptibly slowly." controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  Hurtling my arse.
+ </figcaption>
+</figure>
+
+<p>No way I’m waiting an entire real-life year to see my simulated Earth make its
+way around the Sun once. What I needed was a way to speed up time.</p>
+
+<p>Something I quickly realised was that this was more or less the same problem as
+the viewport scaling, just dressed up a little differently. The symmetry carries
+over into the solution, too, because just like in the graphical layer, I ended
+up creating a scale property to represent the conversion rate. This time, it was
+for converting between real life seconds and imaginary space seconds. So a scale
+of 1 gives you one second per real second, and a scale of 60 gives you a minute
+per real second, and so on.</p>
+
+<p>The timing code is too involved (💤) to show a decent summarised version here.
+The gist of it is that for each tick, it multiplies the real life tick interval
+length by the scale factor, and passes that to any physics calculations so that
+they can multiply their results by that. For motion, that just means multiplying
+the planet’s vector by the number of seconds elapsed before adding it to the
+planet’s position.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Motion</span> <span class="p">{</span>
+  <span class="nf">affect </span><span class="p">(</span><span class="nx">universe</span><span class="p">,</span> <span class="nx">seconds</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">universe</span><span class="p">.</span><span class="nx">planets</span><span class="p">.</span><span class="nf">map</span><span class="p">((</span><span class="nx">planet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">planet</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
+    <span class="nx">planet</span><span class="p">.</span><span class="nx">vector</span><span class="p">.</span><span class="nf">scale</span><span class="p">(</span><span class="nx">seconds</span><span class="p">)</span>
+    <span class="p">);</span>
+  <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now here’s the Earth again, this time with scale pumped up to 600. That’s 10
+imaginary space minutes for every real world second. If you’re good at maths you
+might notice that this video is 18 seconds long, and the timer doesn’t make it
+to 3 hours like it should at this scale. But then if you were paying that kind
+of attention you’d have noticed that only 10 seconds pass in the 12 second video
+earlier! Still got some minor issues to iron out there 😇</p>
+
+<figure>
+ <video poster="/2015/11/02/scalable-spacetime-fast-poster@538x342.webp" src="/2015/11/02/scalable-spacetime-fast@538x342.mp4" title="2D earth moving much faster." controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  Now <strong>this</strong> is podracing.
+ </figcaption>
+</figure>
+
+<p>This is going great so far. It isn’t perfect, but I’m reasonably pleased with
+it. Getting the foundational stuff like graphics and timing right makes it so
+much more enjoyable to build the complicated stuff on top.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

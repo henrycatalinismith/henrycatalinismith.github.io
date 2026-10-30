@@ -1,0 +1,259 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Debian Squeeze Vagrant Base Box
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Debian Squeeze Vagrant Base Box</h1>
+  <p class="subtitle">2012-10-16</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Debian Squeeze Vagrant Base Box</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>In an effort to suck less at dealing with all the various sysadmin-related tasks
+that come hand-in-hand with being a web developer, I’m learning my way around
+Vagrant and Chef.</p>
+
+<p>One of the many things I’ve been struggling with is the lack of a Debian Squeeze
+vagrant box that actually works with my version of VirtualBox.</p>
+
+<p>I’m not sure what the problem is here. One of the most common error messages
+complained that the guest additions in the base box were from a different
+version of VirtualBox from the one I’m using. If that’s an issue, perhaps it
+might be better if the likes of <a href="https://virtualbox.es">virtualbox.es</a> made the
+VirtualBox version of each box available.</p>
+
+<p>Thing is, it’s Debian Squeeze or nothing as far as I’m concerned, so the only
+option remaining was to build my own base box. The documentation for this is
+pretty great, but in the end I had to resort to a lot of Googling to figure
+various things out so this blog post attempts to unite all the information I
+needed in one place.</p>
+
+<h2 id="1-install-debian-in-virtualbox" class="section-heading">1. Install Debian in VirtualBox</h2>
+
+<p>I started by downloading
+<a href="http://www.debian.org/releases/squeeze/debian-installer/"><code class="language-plaintext highlighter-rouge">debian-6.0.6-i386-netinst.iso</code></a>
+from the Debian homepage. Following
+<a href="http://vagrantup.com/v1/docs/base_boxes.html">Vagrant’s base box guidelines</a>, I
+created a virtual machine with the following properties:</p>
+
+<ul>
+  <li>40GB dynamically resizing drive</li>
+  <li>360MB of memory allocation</li>
+  <li>Audio disabled</li>
+  <li>USB disabled</li>
+  <li>NAT networking</li>
+</ul>
+
+<p>As per the recommendations, I chose a hostname of <code class="language-plaintext highlighter-rouge">vagrant-debian-squeeze</code> and a
+domain of vagrantup.com.</p>
+
+<h2 id="2-install-required-software" class="section-heading">2. Install Required Software</h2>
+
+<p>Vagrant requires Ruby, RubyGems, Puppet, Chef and an SSH server to be present on
+the machine in order for it to work as a base box. To install these, I did this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget <span class="nt">-O-</span> http://opscode.com/chef/install.sh | bash
+</code></pre></div></div>
+
+<p>This is easier and more reliable than going through all the steps manually.</p>
+
+<h2 id="3-remove-unwanted-software" class="section-heading">3. Remove Unwanted Software</h2>
+
+<p>Debian helpfully detects that you’re installing it in VirtualBox and installs a
+bunch of related packages for you. We don’t want them though, and they have to
+be removed in order to install the proper guest additions.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get remove <span class="nt">--purge</span> virtualbox-ose-guest-x11
+apt-get autoremove
+apt-get remove <span class="nt">--purge</span> virtualbox-ose-guest-utils
+</code></pre></div></div>
+
+<p>This one was a pain to figure out. Much thanks to
+<a href="http://revcode.wordpress.com/2012/02/25/uninstalling-the-default-virtualbox-ose-guest-additions-on-debian/">a blog post on revcode.wordpress.com</a>
+for the life-saving Google search result.</p>
+
+<h2 id="4-install-guest-additions" class="section-heading">4. Install Guest Additions</h2>
+
+<p>There’s a button in VirtualBox that effectively inserts the guest additions as
+an imaginary CD-ROM. After pressing that, the commands to actually install them
+were as follows:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get <span class="nb">install </span>module-assistant
+mount /media/cdrom
+sh /media/cdrom/VBoxLinuxAdditions.run
+</code></pre></div></div>
+
+<p>After this it politely suggested a reboot, so I did.</p>
+
+<h2 id="5-break-all-security" class="section-heading">5. Break All Security</h2>
+
+<p>This next bit felt so wrong. The standard Vagrant base box has a pretty funky
+security model in order to make it convenient as a testing environment. The
+guidelines stipulate passwordless sudo privileges, which entails installing sudo
+and then immediately breaking off the locks.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get <span class="nb">install sudo sudo
+</span>visudo
+</code></pre></div></div>
+
+<p>The line I added to /etc/sudoers was %admin ALL=NOPASSWD: ALL, or in English,
+“Everyone in the group called ‘admin’ can do anything they want to this box”.
+After that, I ran /etc/init.d/sudo restart to make it so.</p>
+
+<h2 id="6-hand-over-the-keys" class="section-heading">6. Hand over the keys</h2>
+
+<p>The standard vagrant username is ‘vagrant’, with password ‘vagrant’. I set this
+user account up during Debian installation, but there was more to it than that.
+The user must be added to the admin group.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>groupadd admin
+usermod <span class="nt">-G</span> admin vagrant
+</code></pre></div></div>
+
+<p>For good measure, I also decided to disable root login with passwd -l root.</p>
+
+<h2 id="7-enable-ssh-access" class="section-heading">7. Enable SSH access</h2>
+
+<p>In order to be able to access the vm with vagrant ssh, the guidelines recommend
+using their standard
+<a href="http://github.com/mitchellh/vagrant/tree/master/keys/">insecure SSH key pair</a>
+which vagrant will use by default when connecting.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>openssh-server
+wget https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub
+<span class="nb">mkdir</span> /home/vagrant/.ssh
+<span class="nb">chmod </span>644 vagrant.pub
+<span class="nb">mv </span>vagrant.pub /home/vagrant/.ssh/authorized_keys
+</code></pre></div></div>
+
+<p>The line <code class="language-plaintext highlighter-rouge">AuthorizedKeysFile %h/.ssh/authorized_keys</code> was added to
+<code class="language-plaintext highlighter-rouge">/etc/ssh/sshd_config</code> to allow passwordless SSH access to take effect after a
+quick <code class="language-plaintext highlighter-rouge">/etc/init.d/ssh</code> restart.</p>
+
+<h2 id="8-export-box" class="section-heading">8. Export box</h2>
+
+<p>With everything configured correctly, the next step was to turn off the VM and
+export it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vagrant package <span class="nt">--base</span> debiansqueeze squeeze32.box
+</code></pre></div></div>
+
+<p>The name debiansqueeze there is what I named the VM itself in VirtualBox.</p>
+
+<h2 id="thats-it" class="section-heading">That’s It</h2>
+
+<p>After that the box was ready to roll. Just gotta add it to Vagrant.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vagrant box add squeeze32 ~/squeeze32.box
+</code></pre></div></div>
+
+<p>From here on out it’s plain old Vagrant usage. Hopefully all this effort will
+pay off in the long run when I can sit back and push systems changes to
+production with a beer in my hand.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

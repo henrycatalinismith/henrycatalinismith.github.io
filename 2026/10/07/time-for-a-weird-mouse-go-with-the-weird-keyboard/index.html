@@ -1,0 +1,161 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Time for a weird mouse to go with the weird keyboard
+      – Henry Catalini Smith
+    </title>
+    
+      <meta name="description" content="After more than ten happy years with my hand-built keyboard, when my trackpad battery began to die recently I was keen to replace it with something similar." />
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Time for a weird mouse to go with the weird keyboard</h1>
+  <p class="subtitle">2026-10-07</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Time for a weird mouse to go with the weird keyboard</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><figure>
+ <img alt="A black trackball mouse next to an 'Ergodox'-branded split keyboard." src="/2026/10/07/IMG_0533@1024x768.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>After more than <a href="/2024/08/18/ergodox-ten-years-later/">ten happy years with my hand-built keyboard</a>, when my trackpad battery began to die recently I was keen to replace it with something similar. The trackpad had also been causing a minor RSI for a while, so I was interested in finding a replacement with better ergonomics. A little bit of googling led me to the <a href="https://ploopy.co/adept-trackball/">Ploopy Adept</a>. Open source trackball, some assembly required, wired connection, no battery to worry about. Exactly what I’m looking for! Sold!</p>
+
+<figure>
+ <img alt="A profile view of a trackball mouse with a black case and a red ball." src="/2026/10/07/IMG_0531@1024x768.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>The <a href="https://github.com/ploopyco/adept-trackball/wiki/Ploopy-Adept-Trackball-Kit-Assembly">assembly instructions</a> for the Adept are wonderful. They include all the info you need without wasting any words.</p>
+
+<p>Unlike the original Ergodox, the Adept’s PCB ships 99% ready to use. No difficult surface-mount diodes to solder this time, which is probably for the best. Not sure I have that kind of free time these days. You only have to solder one chip onto the PCB.</p>
+
+<figure>
+ <img alt="A blue soldering mat with a PCB, a microchip, and a soldering iron." src="/2026/10/07/IMG_6805@1024x768.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>I hadn’t soldered anything since assembling the Ergodox back in 2014. It took a moment to get the hang of it again. Had forgotten how weirdly exciting the smell of fresh solder is. It smells… I dunno… “important”? Or something?.</p>
+
+<p>Anyway, the first time I plugged in my Adept, the buttons all worked, but the trackball didn’t. The assembly instructions have a section for this exact case.</p>
+
+<blockquote>
+  <p>The sensor likely isn’t soldered correctly. Double-check all of your solder connections, touch them up with some flux if you have it, and try again.</p>
+</blockquote>
+
+<p>Dead right. Look at the <em>state</em> of these joints. No wonder the poor thing didn’t work yet.</p>
+
+<figure>
+ <img alt="Close-up of some solder joints on a PCB. One or two of the joints are visibly not soldered well, with solder only on the leg of the chip." src="/2026/10/07/IMG_0527@1024x768.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>After a few minutes more of poking it with the soldering iron, I reassembled it and it was alive.</p>
+
+<p>This thing is gorgeous!</p>
+
+<figure>
+ <img alt="A side view of a trackball mouse with a black case and a red ball." src="/2026/10/07/IMG_0532@1024x768.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>It’s a joy to use, too. Trackballs are underrated as hell. And compared to the switch to the Ergodox, which took months to fully adjust to, this was nothing. Very happy!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

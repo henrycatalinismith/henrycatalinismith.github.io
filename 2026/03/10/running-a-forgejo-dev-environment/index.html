@@ -1,0 +1,176 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Running a Forgejo dev environment
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Running a Forgejo dev environment</h1>
+  <p class="subtitle">2026-03-10</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Running a Forgejo dev environment</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>Been wanting to get started making code contributions to Codeberg for the
+longest time. Finally got around to setting up a local development environment.
+Here’s my notes!</p>
+
+<p>First up, we need <code class="language-plaintext highlighter-rouge">go</code>, <code class="language-plaintext highlighter-rouge">node</code> and <code class="language-plaintext highlighter-rouge">postgresql</code> installed.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew <span class="nb">install </span>go node postgresql@18
+</code></pre></div></div>
+
+<p>Then we need to clone the repo.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone ssh://git@codeberg.org/forgejo/forgejo.git
+<span class="nv">$ </span><span class="nb">cd </span>forgejo
+</code></pre></div></div>
+
+<p>The frontend and backend dependencies need to be downloaded.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm <span class="nb">install</span>
+<span class="nv">$ </span>go mod download
+</code></pre></div></div>
+
+<p>Then we build everything and cross our fingers for no erros.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>make frontend
+<span class="nv">$ </span>make backend
+</code></pre></div></div>
+
+<p>The Postgres database needs some special care. This was the most time-consuming
+part of the process for me. It took a bit of trial and error to understand that
+I needed to do all this stuff.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew services start postgresql@18
+==&gt; Successfully started `postgresql@18` (label: homebrew.mxcl.postgresql@18)
+$ createuser -s postgres
+$ psql -h localhost -U postgres
+$ psql -h localhost -U postgres
+psql (18.3 (Homebrew))
+Type "help" for help.
+
+postgres=# CREATE ROLE forgejo WITH LOGIN PASSWORD ';';
+CREATE ROLE
+postgres=# CREATE DATABASE forgejo OWNER forgejo;
+CREATE DATABASE
+postgres=# GRANT ALL PRIVILEGES ON DATABASE forgejo TO forgejo;
+GRANT
+</code></pre></div></div>
+
+<p>Now all that’s left is to fire up the server.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>go run <span class="nb">.</span> <span class="nt">-w</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>
+</code></pre></div></div>
+
+<p>With that running, http://localhost:3000 should start to load. After completing
+a setup form, it should look like this.</p>
+
+<figure>
+ <img src="/2026/03/10/localhost3000@2158x1162.webp" alt="Blank new Forgejo instance showing No activity, There is nothing in your feed yet. Your actions and activity from repositories that you watch will show up here." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

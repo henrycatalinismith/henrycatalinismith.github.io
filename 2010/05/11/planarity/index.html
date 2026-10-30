@@ -1,0 +1,232 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Planarity
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Planarity</h1>
+  <p class="subtitle">2010-05-11</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Planarity</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><figure>
+ <img src="/2010/05/11/planarity@512x412.webp" alt="Desktop app screenshot showing a green dot and four red dots and a bunch of black lines connecting them all." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>My dissertation project at university was to implement this 2D Java puzzle game
+called <a href="https://en.wikipedia.org/wiki/Planarity">Planarity</a> where you win by
+dragging the dots around until none of the lines connecting them cross. Here’s
+100 lines of university student Java for your enjoyment.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">planarity.graphGeneration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.geom.Line2D</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.geom.Point2D</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Vector</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">planarity.graph.*</span><span class="o">;</span>
+
+<span class="cm">/**
+* This class implements the Edge Addition Graph Generation algorithm
+* described in the Design section
+*
+* @author Henry
+*/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EdgeAdditionGraphGenerator</span> <span class="kd">implements</span> <span class="nc">GraphGenerator</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="nc">Graph</span> <span class="n">graph</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">Vertex</span><span class="o">[]</span> <span class="no">V</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">Vector</span> <span class="nc">Vprime</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">Edge</span><span class="o">[]</span> <span class="no">E</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nc">Graph</span> <span class="nf">generateGraph</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Graph</span><span class="o">();</span>
+    <span class="no">V</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vertex</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+    <span class="nc">Vprime</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vector</span><span class="o">();</span>
+    <span class="c1">//System.out.println("start");</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="no">V</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vertex</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+      <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">(</span><span class="no">V</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+    <span class="o">}</span>
+    <span class="n">graph</span><span class="o">.</span><span class="na">arrangeAsCircle</span><span class="o">();</span>
+    <span class="c1">//System.out.println("here");</span>
+    <span class="n">connectTwoRandomVertices</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">graph</span><span class="o">.</span><span class="na">countEdges</span><span class="o">()</span> <span class="o">&lt;</span> <span class="o">((</span><span class="mi">3</span> <span class="o">*</span> <span class="n">n</span><span class="o">)</span> <span class="err">–</span> <span class="mi">6</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="o">;</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="nc">Vertex</span> <span class="n">p</span> <span class="o">=</span> <span class="n">getRandomVprimeVertex</span><span class="o">();</span>
+      <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="no">V</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="nc">Vertex</span> <span class="n">q</span> <span class="o">=</span> <span class="no">V</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">q</span><span class="o">))</span> <span class="o">{</span>
+          <span class="k">continue</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">isAdjacentTo</span><span class="o">(</span><span class="n">q</span><span class="o">))</span> <span class="o">{</span>
+          <span class="k">continue</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">graph</span><span class="o">.</span><span class="na">countEdgeIntersections</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">graph</span><span class="o">.</span><span class="na">removeEdge</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+          <span class="k">if</span> <span class="o">(!</span><span class="nc">Vprime</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">i</span><span class="o">))</span> <span class="o">{</span>
+            <span class="nc">Vprime</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+          <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">break</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="nc">Vertex</span><span class="o">[]</span> <span class="n">v</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getVertices</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">v</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">v</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">getAdjacentEdges</span><span class="o">().</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">graph</span><span class="o">.</span><span class="na">removeVertex</span><span class="o">(</span><span class="n">v</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">graph</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">connectTwoRandomVertices</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="no">V</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+    <span class="k">do</span> <span class="o">{</span>
+      <span class="c1">// System.out.println("323");</span>
+      <span class="n">b</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="no">V</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="o">);</span>
+    <span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="no">V</span><span class="o">[</span><span class="n">a</span><span class="o">],</span> <span class="no">V</span><span class="o">[</span><span class="n">b</span><span class="o">]);</span>
+    <span class="nc">Vprime</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+    <span class="nc">Vprime</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="nc">Vertex</span> <span class="nf">getRandomVprimeVertex</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">Vprime</span><span class="o">.</span><span class="na">elementAt</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="nc">Vprime</span><span class="o">.</span><span class="na">size</span><span class="o">())).</span><span class="na">toString</span><span class="o">());</span>
+    <span class="k">return</span> <span class="no">V</span><span class="o">[</span><span class="n">num</span><span class="o">];</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">canConnect</span><span class="o">(</span><span class="nc">Vertex</span> <span class="n">p</span><span class="o">,</span> <span class="nc">Vertex</span> <span class="n">q</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Edge</span><span class="o">[]</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getEdges</span><span class="o">();</span>
+    <span class="nc">Line2D</span> <span class="n">pq</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Line2D</span><span class="o">.</span><span class="na">Double</span><span class="o">();</span>
+    <span class="n">pq</span><span class="o">.</span><span class="na">setLine</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getCenterX</span><span class="o">(),</span> <span class="n">p</span><span class="o">.</span><span class="na">getCenterY</span><span class="o">(),</span> <span class="n">q</span><span class="o">.</span><span class="na">getCenterX</span><span class="o">(),</span>
+    <span class="n">q</span><span class="o">.</span><span class="na">getCenterY</span><span class="o">());</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">edges</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="nc">Line2D</span> <span class="n">e</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Line2D</span><span class="o">)</span> <span class="n">edges</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+      <span class="k">if</span> <span class="o">(!</span><span class="n">pq</span><span class="o">.</span><span class="na">intersectsLine</span><span class="o">(</span><span class="n">e</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">continue</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="nc">Point2D</span> <span class="n">p1</span><span class="o">,</span> <span class="n">p2</span><span class="o">,</span> <span class="n">p3</span><span class="o">,</span> <span class="n">p4</span><span class="o">;</span>
+      <span class="n">p1</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="na">getP1</span><span class="o">();</span>
+      <span class="n">p2</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="na">getP2</span><span class="o">();</span>
+      <span class="n">p3</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="na">getP1</span><span class="o">();</span>
+      <span class="n">p4</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="na">getP2</span><span class="o">();</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">p1</span><span class="o">.</span><span class="na">distance</span><span class="o">(</span><span class="n">p3</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="k">continue</span><span class="o">;</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">p1</span><span class="o">.</span><span class="na">distance</span><span class="o">(</span><span class="n">p4</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="k">continue</span><span class="o">;</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">p2</span><span class="o">.</span><span class="na">distance</span><span class="o">(</span><span class="n">p3</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="k">continue</span><span class="o">;</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">p2</span><span class="o">.</span><span class="na">distance</span><span class="o">(</span><span class="n">p4</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="k">continue</span><span class="o">;</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

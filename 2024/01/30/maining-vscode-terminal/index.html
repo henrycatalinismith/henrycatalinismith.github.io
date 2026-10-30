@@ -1,0 +1,412 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Maining VSCode Terminal
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Maining VSCode Terminal</h1>
+  <p class="subtitle">2024-01-30</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Maining VSCode Terminal</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>Once upon a time, the main tools I used for work were Vim and tmux. And until
+recently, once every few months I’d get this compulsive urge to try to recapture
+those glory days. If you know, you know.. That urge has stopped lately though.
+Visual Studio Code has reached a tipping point where the Vim support and
+terminal emulator are a better package than anything I can hack together with
+lua plugins and tmux config.</p>
+
+<p>Turning VSCode into something that feels cosy for this type of retro workflow
+preference doesn’t even take a lot of configuration. Here’s how I’m doing it.</p>
+
+<h2 id="editor" class="section-heading">Editor</h2>
+
+<p>The editor is basically good to go once you install the
+<a href="https://marketplace.visualstudio.com/items?itemName=vscodevim.vim">Vim plugin</a>
+and make one or two tweaks. By default, VSCode does a lot of automatic closing
+of brackets and tags and such. Some people love this. For me it just feels like
+that Sorcerer’s Apprentice scene with the out-of-control magic brooms in
+Fantasia, so I gotta turn it all off.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"editor.autoClosingBrackets"</span><span class="p">:</span><span class="w"> </span><span class="s2">"never"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"editor.autoClosingDelete"</span><span class="p">:</span><span class="w"> </span><span class="s2">"never"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"editor.autoClosingOvertype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"never"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"editor.autoClosingQuotes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"never"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"html.autoClosingTags"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="err">,</span><span class="w">
+</span><span class="nl">"javascript.autoClosingTags"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="err">,</span><span class="w">
+</span><span class="nl">"typescript.autoClosingTags"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>That’s about it, actually. The rest is handled by
+<a href="https://github.com/stars/henrycatalinismith/lists/vscode">extensions</a>.</p>
+
+<h2 id="terminal" class="section-heading">Terminal</h2>
+
+<p>The terminal is where most of the tweaking is necessary. The default setup
+caters for limited use cases – stuff like opening it in the morning to run
+<code class="language-plaintext highlighter-rouge">yarn start</code> and then closing it in the evening. If you’re using the terminal
+more like an IDE, it needs a little bit of extra juice.</p>
+
+<h3 id="colors" class="subsection-heading">Colors</h3>
+
+<p>VSCode’s terminal has this incredible
+<a href="https://code.visualstudio.com/docs/editor/accessibility#_minimum-contrast-ratio">minimum contrast ratio option</a>
+that I can’t live without any more. This option alone might be enough to
+convince many people to switch from other terminal emulators. Ever used a
+program in the terminal whose ANSI colors contasted so little with your
+background color that the text became effectively invisible? Crank up this
+setting to 4.5 and VSCode will automatically detect and fix that whenever it
+happens.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"terminal.integrated.minimumContrastRatio"</span><span class="p">:</span><span class="w"> </span><span class="mf">4.5</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>I’ve been using Solarized for pretty much my whole career, and I love that
+VSCode ships with it included. It also ships with what I consider to be
+Solarized’s worst flaw: the “bright” version of the palette is a gross soup of
+grays and oranges. VSCode makes it real easy to patch this though. I tend to
+just duplicate the regular palette, and then trust the magic of the minimum
+contrast ratio setting to fix any trouble this causes.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"workbench.colorTheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Solarized Dark"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"workbench.colorCustomizations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"gitlens.trailingLineForegroundColor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#93a1a1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminal.ansiBrightBlack"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#002b36"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminal.ansiBrightBlue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#268bd2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminal.ansiBrightCyan"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#2aa198"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminal.ansiBrightGreen"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#9bb300"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminal.ansiBrightMagenta"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#d33682"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminal.ansiBrightRed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#dc322f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminal.ansiBrightWhite"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#fdf6e3"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminal.ansiBrightYellow"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#b58900"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="keyboard" class="subsection-heading">Keyboard</h3>
+
+<p>The keyboard shortcuts to control the terminals are the other big thing to
+address. Once you’ve experienced tmux it’s hard to accept the rigidity of just
+having one little panel you can toggle below the code that requires mouse
+interactions for half its functionality.</p>
+
+<p>First up is the focus management. I need to be able to toggle focus back and
+forth between the editor and the terminal easily. The following
+<code class="language-plaintext highlighter-rouge">keybindings.json</code> entries configure ⌘↓ to focus the terminal and ⌘↑
+to focus the editor.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+	</span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+up"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.focusActiveEditorGroup"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalFocus"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+	</span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+down"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.terminal.toggleTerminal"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"!terminalFocus"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>When I’m working in the terminal, I want common shortcuts like ⌘T and ⌘W to open
+and close terminal tabs like they would in iTerm2. In VSCode there are two
+contexts a terminal can be open in: either the panel, or the editor area. The
+default keyboard controls for these two contexts are different, and the
+following <code class="language-plaintext highlighter-rouge">keybindings.json</code> entries standardise them across both.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+t"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.terminal.newInActiveWorkspace"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalFocus"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+t"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.createTerminalEditor"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalEditorFocus"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+w"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.terminal.kill"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalFocus"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+w"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.terminal.killEditor"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalEditorFocus"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Another quality of life thing is to have ^⇥ and ^⇧⇥ always mean “focus next tab”
+and “focus previous tab”. When I’m working in the panel with multiple terminal
+tabs open, I want these combos to switch over seamlessly so that they iterate
+through terminal tabs instead of editor tabs. The defaults here are a <em>long</em> way
+from this. This next bit of config makes ^⇥ and ^⇧⇥ do the right thing no matter
+what’s focused.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ctrl+tab"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.nextEditor"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ctrl+shift+tab"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.previousEditor"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ctrl+tab"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.terminal.focusNext"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ctrl+shift+tab"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.terminal.focusPrevious"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ctrl+tab"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalEditorFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.nextEditor"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ctrl+shift+tab"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalEditorFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workbench.action.previousEditor"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Depending on the size of the VSCode window, the position of the panel might
+vary. Sometimes it needs to be on the right of the editor, and sometimes below.
+I do most of my window management using
+<a href="https://rectangleapp.com/">Rectangle.app</a>’s keyboard shortcuts, so it’s most
+efficient if I can follow one of those combos with another in VSCode. The
+following bit of config sets up VSCode so that ⌘⇧→ and ⌘⇧↓ move it to
+those positions.</p>
+
+<p>This is going to be more lines of config than you’re probably expecting. The
+reason for the bloat here is that this way preserves keyboard focus. If you just
+run <code class="language-plaintext highlighter-rouge">workbench.action.positionPanelRight</code>, then afterwards you have to refocus
+whatever bit of UI you were working in. The keybindings here detect whether
+you’re invoking the shortcuts from inside a terminal or not, and ensure you land
+back where you started.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+shift+right"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"runCommands"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"workbench.action.positionPanelRight"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"workbench.action.terminal.focus"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+shift+down"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"runCommands"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"workbench.action.positionPanelBottom"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"workbench.action.terminal.focus"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+shift+right"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"!terminalFocus &amp;&amp; !terminalEditorFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"runCommands"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"workbench.action.positionPanelRight"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"workbench.action.focusActiveEditorGroup"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+shift+down"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"!terminalFocus &amp;&amp; !terminalEditorFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"runCommands"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"workbench.action.positionPanelBottom"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"workbench.action.focusActiveEditorGroup"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>VSCode’s support for placing terminals in the editor area is brilliant when
+you’re doing something really terminal centric. Sometimes a little panel off to
+the side isn’t big enough. By default, this is a mouse-driven interaction
+though. If I’m in a terminal in a bottom panel, I want ⌘⇧↑ to move it into
+the editor area, hide the panel, and focus the terminal. This next bit of config
+makes that happen.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+shift+up"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"runCommands"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"workbench.action.togglePanel"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"workbench.action.terminal.moveToEditor"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"workbench.action.focusActiveEditorGroup"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>For the reverse scenario, when I want to clear away my editor area terminal back
+down into the panel, this entry makes ⌘⇧↓ do that.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmd+shift+down"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"when"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminalEditorFocus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"runCommands"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"workbench.action.terminal.moveToTerminalPanel"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"workbench.action.positionPanelBottom"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>That’s pretty much it. It’s just enough so that I can shuffle around the
+position of the panel and move terminals in and out of it using the keyboard.
+Apparently that’s all I ever actually wanted. It feels pretty fantastic to have
+the keyboard-driven terminal winxow management I love without sacrificing any of
+the benefits that come from using the most popular tool in my corner of the
+industry. Much like
+<a href="/2024/01/14/my-sqlite-in-production-epiphany">using SQLite in production</a>, it
+feels like it shouldn’t even be possible. I’m certainly in a real happy place
+these days regarding devtools.</p>
+
+<h2 id="future-tweaks" class="section-heading">Future Tweaks</h2>
+
+<p>Yesterday, I decided the final piece of the puzzle would be to have VSCode start
+up with the terminal open in the editor area. I chucked
+<code class="language-plaintext highlighter-rouge">vscode startupeditor terminal</code> into Google and found my way to a GitHub issue
+thread titled
+“<a href="https://github.com/microsoft/vscode/issues/154366"><code class="language-plaintext highlighter-rouge">workbench.startupEditor</code> should support opening a terminal in editor area</a>”.
+It had a bunch of other people back in 2022 describing exactly what I was
+looking for.</p>
+
+<p>This is a type of search result I normally associate with disappointment. The
+purple “Closed” badge here normally means “thanks, but no thanks”. Not this time
+though. I scrolled to the bottom and could hardly believe what I was seeing: a
+pull request, merged 4 days ago, titled
+<a href="https://github.com/microsoft/vscode/pull/203567">Add terminal as a startup editor</a>.
+OMFG! So when that commit makes it into a shipped build, the config line to use
+it will be like this.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"workbench.startupEditor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terminal"</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Can’t wait! In the meantime, the
+<a href="https://gist.github.com/henrycatalinismith/1358f66b029d8a0a358c159b1ce1c146">entire config all together</a>
+is available as a gist.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

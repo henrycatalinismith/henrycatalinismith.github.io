@@ -1,0 +1,158 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Ubuntu 25.04 on a 2014 Macbook Air
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Ubuntu 25.04 on a 2014 Macbook Air</h1>
+  <p class="subtitle">2025-06-10</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Ubuntu 25.04 on a 2014 Macbook Air</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>The old MacBook Air I’d been
+<a href="/2024/10/01/kubernetes-homelab-on-an-old-macbook-air/">running k8s on</a> had
+become a bit problematic. The battery’s gone very bad, and newer versions of
+macOS have begun to run very poorly on it. After macOS Tahoe, Apple’s
+<a href="https://arstechnica.com/gadgets/2025/06/macos-tahoe-signals-that-the-end-is-near-for-intel-macs-dumping-all-but-four-models/">ending support for these old Intel Macs completely</a>
+too. Time to make a change!</p>
+
+<p>It makes sense to deal with the battery later once we’ve shown we can save the
+rest of the hardware, so step one was to install Ubuntu. Harder than expected!</p>
+
+<p>First thing I did was to download <code class="language-plaintext highlighter-rouge">ubuntu-25.04-desktop-amd64.iso</code>. This boots
+to GRUB, where you get these four options.</p>
+
+<ol>
+  <li>Try or Install Ubuntu</li>
+  <li>Ubuntu (safe graphics)</li>
+  <li>Boot from next volume</li>
+  <li>UEFI Firmware Settings</li>
+</ol>
+
+<p>Couldn’t get further than this, though. Options 1 and 2 both just led to a black
+screen of death. Through Googling I found various forum posts suggesting
+different boot flags to try. None of that helped either.</p>
+
+<p>I’ve been away from desktop Linux for about 15 years and I’m very out of date
+with the modern troubleshooting techniques. One new thing I learned this time is
+that YouTube videos have become a key source of information for this kind of
+thing. In a video by someone called “Level 2 Jeff” titled
+<a href="https://www.youtube.com/watch?v=1G0v5s1nEZk">Resurrecting my ancient MacBook Air with Ubuntu Linux</a>
+I saw the exact same problem resolved by booting from an older Ubuntu ISO.</p>
+
+<p>Starting again with <code class="language-plaintext highlighter-rouge">ubuntu-20.04.6-desktop-amd64.iso</code> and choosing
+<code class="language-plaintext highlighter-rouge">Ubuntu (safe graphics)</code> proved successful. From there, it was a matter of
+following the
+<a href="https://ubuntu.com/tutorials/upgrading-ubuntu-desktop">upgrade instructions</a> to
+upgrade to the latest version.</p>
+
+<p>So far so good! And Linux looks a lot better than I remember. With any luck this
+could be the first step in a journey out of a dependence on proprietary American
+tech!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

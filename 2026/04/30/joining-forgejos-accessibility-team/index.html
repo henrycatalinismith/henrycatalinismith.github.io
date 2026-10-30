@@ -1,0 +1,139 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Joining Forgejo’s Accessibility Team
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Joining Forgejo’s Accessibility Team</h1>
+  <p class="subtitle">2026-04-30</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Joining Forgejo’s Accessibility Team</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>If you go and look at <a href="https://codeberg.org/forgejo/governance/src/branch/main/TEAMS.md#accessibility">TEAMS.md#accessibility</a> in Forgejo’s governance repo today you’ll find my name there in the list. I’m very proud of this!</p>
+
+<p>Materially speaking, it’s minor stuff. There’s no money or power or anything like associated with it. Really it just means I did some accessibility work that was decent enough for the core team to be okay with putting my name in that list, I think partly as a bit of recognition and partly to help keep track of what capabilities the project has to hand at any given moment.</p>
+
+<p>I wrote this in the background section of <a href="https://codeberg.org/forgejo/governance/issues/393">my membership request</a>.</p>
+
+<blockquote>
+  <p>I see big opportunities ahead for Forgejo and Codeberg, and I know that WCAG compliance can be a sticking point for closing certain kinds of deal due to procurement legislation such as EN 301 549, so my hope is that any “problems” in this space are actually an opportunity for me to do lots of the kind of work I find most fun, and also contribute to the success of a a project I care a lot about.</p>
+</blockquote>
+
+<p>Since <a href="/2026/04/15/lessons-learned-from-the-forgejo-v15-release-blocker/">my adventures with the v15 release</a> a couple of weeks ago, we’ve successfully landed a <a href="https://codeberg.org/forgejo/forgejo/issues/11116">fix</a> for the <a href="https://codeberg.org/forgejo/forgejo/issues/11116">repo file list table semantics issue</a>.</p>
+
+<p>That one is a really big deal: the “latest commit” row used to live in the <code class="language-plaintext highlighter-rouge">&lt;thead&gt;</code> element. As a result, screen readers would announce the repo’s latest commit over and over and over again while navigating the list of files. It was pretty disorienting and it’s great that it’s fixed.</p>
+
+<p>Next up is an upstream improvement for GitHub’s <a href="https://github.com/github/combobox-nav"><code class="language-plaintext highlighter-rouge">@github/combobox-nav</code></a> package. Forgejo had an <a href="https://codeberg.org/forgejo/forgejo/pulls/11860">inaccessible combobox</a> that turned out to be the result of not assigning unique IDs to options. This felt like a mistake that could be handled more gracefully, so I sent a few ideas upstream, and now someone at GitHub is on board with <a href="https://github.com/github/combobox-nav/pull/99">one of them</a>. So hopefully together we’ll eliminate a whole category of accessibility bug that can arise when using that library, which is great news not only for Forgejo but for anyone else using it. Cool to see a nice example of collaboration among forge projects too.</p>
+
+<p>After that, who knows. There’s plenty of interesting bugs to fix, for sure. One I’m particularly excited about is <a href="https://codeberg.org/forgejo/forgejo/issues/1627">making the heatmap keyboard- and screen reader-accessible</a>. I’m also trying to build a new habit of skimming through open PRs and issues looking for places where accessibility feedback can be a positive contribution.</p>
+
+<p>I’m keen to do a little bit of auditing and see what bugs I can file myself, but that’s tricky before becoming more deeply familiar with the existing open issues on the issue tracker and the team’s less formal set of colloquially known issues. Besides, Forgejo has this great combination of factors of both being open source and having a critical mass of users, which means accessibility feedback tends to flow in directly as issues. So it doesn’t feel so urgent to actively add to that list given that bug reports from real-world use are inherently such a strong signal of priority and impact.</p>
+
+<p>Always very rewarding to slowly acclimatise to a project like this outside of an employment context. A lovely thing about open source work is that it’s a context that can outlast individual jobs if you want it to. My <a href="/zetkin/">Zetkin work</a> has outlived two or three jobs by now and I’m optimistic that Forgejo can be a similar deal.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

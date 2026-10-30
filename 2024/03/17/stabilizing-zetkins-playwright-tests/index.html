@@ -1,0 +1,252 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Stabilizing Zetkin&#39;s Playwright Tests
+      – Henry Catalini Smith
+    </title>
+    
+      <meta name="description" content="Reducing end-to-end test flakiness in a real-world open source app." />
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Stabilizing Zetkin's Playwright Tests</h1>
+  <p class="subtitle">2024-03-17</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Stabilizing Zetkin&#39</span>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 2"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">s Playwright Tests</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>I recently did
+<a href="https://github.com/zetkin/app.zetkin.org/pull/1807">some work addressing the flakiness of some end-to-end playwright tests</a>
+for Zetkin Foundation. This class of reliability issue is something I’ve seen
+affect almost every team I’ve worked with throughout my career. It’s hard, but
+for once I think we actually secured a win with this PR. It’s a bloody <em>messy</em>
+PR though. So let’s zoom in on what we actually changed and why it helped.</p>
+
+<h2 id="works-on-my-machine" class="section-heading">Works On My Machine</h2>
+
+<p>A typical playwright test for a web app feature involves a series of button
+clicks leading to an assertion at the end. It’s common for each UI event to
+depend on the ones before it. For example, a click on a menu item depends on the
+previous click which opens the menu. We can distil this down to an example like
+the one below, in which we click three buttons in turn and then see a status
+message.</p>
+
+<p><img src="/2024/03/17/fast@1200x256.gif" alt="Animation in which a button labeled &quot;one&quot; is clicked, which reveals a button labeled &quot;two&quot;. When &quot;two&quot; is clicked it reveals button &quot;three&quot;. When &quot;three&quot; is clicked a message appears that reads &quot;success&quot;. In each case, the effect of the button presses is immediate." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<p>If you’ve done any end-to-end testing before, you can probably imagine how you’d
+automate a test for that. You’d have three automated clicks and then at the end
+you’d assert the presence of the <code class="language-plaintext highlighter-rouge">success</code> text.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nf">click</span><span class="p">(</span><span class="dl">"</span><span class="s2">text=one</span><span class="dl">"</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nf">click</span><span class="p">(</span><span class="dl">"</span><span class="s2">text=two</span><span class="dl">"</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nf">click</span><span class="p">(</span><span class="dl">"</span><span class="s2">text=three</span><span class="dl">"</span><span class="p">);</span>
+<span class="nf">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nf">locator</span><span class="p">(</span><span class="dl">"</span><span class="s2">text=success</span><span class="dl">"</span><span class="p">).</span><span class="nf">isVisible</span><span class="p">()).</span><span class="nf">toBeTruthy</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>This would be a perfectly normal thing to write, and you’d see it working just
+fine when you tested it locally too. So you’d commit, push and it’d probably get
+merged without comment as well.</p>
+
+<h2 id="results-may-vary" class="section-heading">Results May Vary</h2>
+
+<p>Developer laptops tend to have fairly stable performance, whereas CI
+environments are under much heavier and more variable system load. Let’s take
+our example page from before and simulate running it under shitty conditions
+where each click takes an entire second to process.</p>
+
+<p><img src="/2024/03/17/slow@1200x256.gif" alt="Animation in which a button labeled &quot;one&quot; is clicked, which reveals a button labeled &quot;two&quot;. When &quot;two&quot; is clicked it reveals button &quot;three&quot;. When &quot;three&quot; is clicked a message appears that reads &quot;success&quot;. In each case, the button presses take one second to process." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<p>The test fails when things slow down this much. Playwright tries to find an
+element matching the <code class="language-plaintext highlighter-rouge">text=success</code> selector at the end and gives up when it
+doesn’t find it immediately after clicking on button three.</p>
+
+<p>That might happen to a random end-to-end test in a CI build for an unrelated
+code change you’re trying to merge. That’s when you say “God damn these stupid
+fucking flaky tests” and you retrigger the build, hoping for a better outcome
+next time. And if you get a green build on the retry, it’s probably because
+system load is lower on the cloud instance your second attempt runs on.</p>
+
+<h2 id="wait-for-it" class="section-heading">Wait For It</h2>
+
+<p>The trick is in replacing that final <code class="language-plaintext highlighter-rouge">isVisible()</code> assertion with something that
+doesn’t fail if the <code class="language-plaintext highlighter-rouge">success</code> text takes a moment to appear. Here’s an example
+using Playwright’s
+<a href="https://playwright.dev/docs/api/class-locator#locator-wait-for"><code class="language-plaintext highlighter-rouge">waitFor</code></a>
+method.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">status</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nf">locator</span><span class="p">(</span><span class="dl">"</span><span class="s2">#status</span><span class="dl">"</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">status</span><span class="p">.</span><span class="nf">waitFor</span><span class="p">({</span> <span class="na">state</span><span class="p">:</span> <span class="dl">"</span><span class="s2">visible</span><span class="dl">"</span> <span class="p">});</span>
+<span class="nf">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">status</span><span class="p">.</span><span class="nf">textContent</span><span class="p">()).</span><span class="nf">toBe</span><span class="p">(</span><span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The first line there doesn’t do much. It just instantiates a
+<a href="https://playwright.dev/docs/api/class-locator">locator</a> object for the status
+text. The second line tells Playwright to chill for a second until the status
+appears. Then finally, line three asserts that its text content is <code class="language-plaintext highlighter-rouge">success</code>.</p>
+
+<p>Whereas the code in the original example will randomly fail depending on system
+load at runtime, this approach is robust enough to pass reliably even if it’s
+running on a struggling, overworked CI server.</p>
+
+<h2 id="locators-for-everything" class="section-heading">Locators For Everything</h2>
+
+<p>It goes beyond just the assertion at the end, actually. The first thing
+<a href="https://playwright.dev/docs/api/class-page#page-click">Playwright’s documentation for <code class="language-plaintext highlighter-rouge">page.click()</code></a>
+says about it is not to use it.</p>
+
+<p><img src="/2024/03/17/click@1198x378.webp" alt="Discouraged. Use locator-based locator.click() instead. Read more about locators." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<p><a href="https://playwright.dev/docs/locators">Playwright’s docs for locators</a> describe
+them as “the central piece of Playwright’s auto-waiting and retry-ability”.
+Nice! Sounds like a great all-purpose flakiness vaccine to me.</p>
+
+<p>For our example test, that means that it ends up looking like this.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">one</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nf">locator</span><span class="p">(</span><span class="dl">"</span><span class="s2">text=one</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">two</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nf">locator</span><span class="p">(</span><span class="dl">"</span><span class="s2">text=two</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">three</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nf">locator</span><span class="p">(</span><span class="dl">"</span><span class="s2">text=three</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">status</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nf">locator</span><span class="p">(</span><span class="dl">"</span><span class="s2">#status</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">one</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
+<span class="k">await</span> <span class="nx">two</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
+<span class="k">await</span> <span class="nx">three</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
+
+<span class="k">await</span> <span class="nx">status</span><span class="p">.</span><span class="nf">waitFor</span><span class="p">({</span> <span class="na">state</span><span class="p">:</span> <span class="dl">"</span><span class="s2">visible</span><span class="dl">"</span> <span class="p">});</span>
+<span class="nf">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">status</span><span class="p">.</span><span class="nf">textContent</span><span class="p">()).</span><span class="nf">toBe</span><span class="p">(</span><span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>That’s about as good as I understand what I did in
+<a href="https://github.com/zetkin/app.zetkin.org/pull/1807">the Zetkin PR</a>. I always
+resort to a bit of guesswork and superstitious coding when dealing with tricky
+stuff like this, and this time was no different. We managed to catch and remove
+<a href="https://github.com/zetkin/app.zetkin.org/pull/1807#discussion_r1503611724">some of it</a>
+but who knows if that was all of it.</p>
+
+<p>Was every <code class="language-plaintext highlighter-rouge">waitFor()</code> call I added 100% necessary? Honestly not sure. I sure as
+hell didn’t replace all the <code class="language-plaintext highlighter-rouge">page.click()</code> calls with locators either. Maybe I
+should have? IDK, it’s tricky cos that would have <em>felt</em> superstitious unless I
+could reliably reproduce a test failure that was fixed by swapping to locators,
+but OTOH the very nature of this problem is that you can’t reliably reproduce
+them. This stuff is bloody hard, but at least we scored ourselves a clear win
+here.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

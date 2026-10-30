@@ -1,0 +1,167 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      hivernal
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">hivernal</h1>
+  <p class="subtitle">2021-02-21</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">hivernal</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><video controls="" preload="none" poster="/2021/02/21/hivernal-demo-poster@512x512.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ <source src="/2021/02/21/hivernal-demo@512x512.mp4" type="video/mp4" />
+</video>
+
+<p>Winter animation in pure CSS.</p>
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="Hivernal" src="https://codepen.io/henrycatalinismith/embed/OJqYOwj?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="" allowfullscreen=""></iframe>
+
+<h2 id="how-this-works" class="section-heading">How This Works</h2>
+
+<h3 id="pure-css" class="subsection-heading">Pure CSS</h3>
+
+<p>This is a pure CSS implementation of a Pythagoras tree with a bit of snow as an
+added flourish. By “pure CSS” I mean no extra HTML elements except for the bare
+minimum required to deliver the CSS in a valid way, so no <code class="language-plaintext highlighter-rouge">&lt;div class="tree"&gt;</code>
+helper elements or anything like that.</p>
+
+<h3 id="pythagoras-tree" class="subsection-heading">Pythagoras tree</h3>
+
+<p>The tree is based on the
+<a href="https://rosettacode.org/wiki/Pythagoras_tree">Pythagoras tree example code on Rosetta Code</a>.
+I haven’t found anywhere else that someone’s built a pythagoras tree in CSS like
+this, so here’s how mine works.</p>
+
+<p>I set a brown background on the <code class="language-plaintext highlighter-rouge">::after</code> pseudo-element on the body, and then
+use <code class="language-plaintext highlighter-rouge">clip-path</code> to hide the parts outside the tree. To create the wind effect on
+the branches, I generate two slightly different trees and use a keyframe
+animation to bounce back and forth between them.</p>
+
+<h3 id="snow" class="subsection-heading">Snow</h3>
+
+<p>The snow uses the same combination of <code class="language-plaintext highlighter-rouge">background-color</code> and <code class="language-plaintext highlighter-rouge">clip-path</code> as the
+tree, except with circles instead of polygons. The snow moves left as it falls
+in time with the swaying of the tree, which is supposed to create a bit of a
+wind effect.</p>
+
+<h3 id="performance-trade-offs" class="subsection-heading">Performance trade-offs</h3>
+
+<p>This one has slightly better performance than the CPU melting
+<a href="/2020/12/01/doomfire/">doomfire animation</a> I made a couple of months ago, but
+it’s still not really a technique you’d want in a production website. Who cares
+though? It’s fun as hell making these.</p>
+
+<p>And just like with doomfire, one thing I really like about this is that it takes
+advantage of one of the unique strengths of CSS. In this case, it’s the swaying
+tree animation. Almost everywhere you find pythagoras trees, they’re a
+completely static image. CSS made it fairly easy to bring this one to life with
+the keyframe animation, whereas most other technologies would require you to
+write a bunch of extra code for that.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

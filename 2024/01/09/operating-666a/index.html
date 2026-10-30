@@ -1,0 +1,278 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Operating 666a
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Operating 666a</h1>
+  <p class="subtitle">2024-01-09</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Operating 666a</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>In the final quarter of 2023 I launched my little side project
+<a href="https://666a.se/">666a</a>, which is a service providing work environment email
+notifications for union reps and people like that. It took a few months of work
+to build something shippable, and I’ve been refining it ever since to increase
+its reliability. I thought it’d be nice to share a glimpse of what that
+refinement work looks like. This is gonna be a technical one, so apologies to
+anyone who preferred the union propaganda.</p>
+
+<h2 id="how-666a-works" class="section-heading">How 666a works</h2>
+
+<p>The beating heart of 666a is a daily cron job that checks for new public filings
+on the Work Environment Authority’s website and sends email notifications
+whenever it finds one matching a user’s subscription criteria.</p>
+
+<p>Filings are published with one day of delay, which means Monday’s filings become
+available on Tuesday and so on. So each day, 666a scans the filings from the
+previous day.</p>
+
+<h2 id="backdated-filings-and-document-lag" class="section-heading">Backdated filings and “document lag”</h2>
+
+<p>The complicating factor here is that not all Monday’s filings are immediately
+available on Tuesday. In fact, they might not even be filed at all until next
+Friday. This is a phenomenon I’ve been referring to as “document lag”. The Work
+Environment Authority isn’t an API: it’s an organisation powered by people,
+interactions, emails, and even good old fashioned physical mail. This makes for
+a much more socially constructed model of time than I’m used to in my everyday
+tech work where machine-generated timestamps with millisecond accuracy are the
+norm.</p>
+
+<p>I didn’t spot this nuance until after launch.
+<a href="https://666a.se/incident-report">I take the responsibility of operating this service really really seriously</a>,
+and I’m not comfortable with the idea of anyone missing out on important
+information because of a detail like that. So I’ve been slowly tweaking the
+design of the system to meet this requirement.</p>
+
+<h2 id="manually-triggered-backfill" class="section-heading">Manually triggered backfill</h2>
+
+<p>My first move once I understood the system was missing some of the data was to
+start manually triggering the scan job from time to time. I was very deliberate
+about designing the actual jobs around this kind of versatility, so a bit of
+manual intervention was easy and didn’t require any code changes. This is more
+or less what I’d run in the rails console from time to time.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">WorkEnvironment</span><span class="o">::</span><span class="no">DayJob</span><span class="p">.</span><span class="nf">perform_now</span><span class="p">(</span><span class="s2">"2023-11-04"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Doing this every day was a labour-intensive approach, but it was a nice way to
+feel out the scope of the problem. Took about a week for this to give me a nice
+clear sense of how far back stuff was typically getting backdated.</p>
+
+<h2 id="scheduled-backfill" class="section-heading">Scheduled backfill</h2>
+
+<p>Based on that informal feel for the typical lag between document filing dates
+and their actual first appearance, I began scheduling a bunch of backfill jobs
+like these.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scheduler</span><span class="p">.</span><span class="nf">cron</span><span class="p">(</span><span class="s2">"0 14 * * *"</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">WorkEnvironment</span><span class="o">::</span><span class="no">DayJob</span><span class="p">.</span><span class="nf">perform_later</span><span class="p">(</span>
+    <span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">.</span><span class="nf">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-%d"</span><span class="p">)</span>
+  <span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>These have been running nicely since early December. For most days, the average
+document lag is only about a day or two. So except for the occasional rogue
+document filed 30 days after its official filing date, this was mission
+accomplished.</p>
+
+<h2 id="christmas" class="section-heading">Christmas</h2>
+
+<p>The arrival of Christmas unlocked a new level of this puzzle. Suddenly, my daily
+document count graph flatlined. Everybody had buggered off to watch
+<a href="https://en.wikipedia.org/wiki/From_All_of_Us_to_All_of_You">Donald Duck</a>, and
+even the steady everyday drumbeat of the
+<a href="https://www.av.se/om-oss/sok-i-arbetsmiljoverkets-diarium/?OrganisationNumber=559068-7967">asbestos removal company filings</a>
+fell silent.</p>
+
+<figure>
+  <img src="/2024/01/09/december-2023@1820x600.webp" alt="
+      Bar chart with y axis going up to 1500 and x axis of dates ranging across December 2023.
+      The first three weeks of the month average between 500 and 1000 documents per weekday.
+      The final week averages zero.
+    " class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+  <figcaption>
+    Documents per day in December 2023, as of New Year's Eve
+  </figcaption>
+</figure>
+
+<p>This would be no big deal, except by this point I’d also backfilled the data
+well into 2022. And the December 2022 graph’s final week looked nothing like
+this.</p>
+
+<figure>
+  <img src="/2024/01/09/december-2022@1820x600.webp" alt="
+      Bar chart with y axis going up to 1000 and x axis of dates ranging across December 2022.
+      The first three weeks of the month average between 500 and 1000 documents per weekday.
+      The final week averages 250.
+    " class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+  <figcaption>
+    Documents per day in December 2022
+  </figcaption>
+</figure>
+
+<p>I immediately suspected that this was another case of document lag. In other
+words everyone’s off for Christmas, and when they get back they’ll backdate all
+the filings that were missed during the holidays.</p>
+
+<h2 id="quantifying-document-lag" class="section-heading">Quantifying document lag</h2>
+
+<p>The only way to find out if my document lag theory was the right explanation was
+to ignore the problem, enjoy Christmas, and wait and see. It probably didn’t
+matter anyway: I don’t think many world-changing public filings are dropping
+during the Christmas season.</p>
+
+<p>I did want some way to visualise the issue when the backdated filings began to
+trickle in though. So I created a new chart displaying the document lag for each
+day since launch. The bar height here represents the average number of days
+difference between that date and the true chronological first appearance of the
+documents officially filed on that date.</p>
+
+<figure>
+  <img src="/2024/01/09/document-lag@1820x600.webp" alt="
+      Bar chart with y axis going up to 10 and x axis of dates ranging across Q3 of 2023.
+      Until late December the values average at one or two with occasional blips.
+      After December averages above 5 are more tpical.
+    " class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+  <figcaption>
+    Average document lag per day since launch day
+  </figcaption>
+</figure>
+
+<p>The Christmas spike represents the fact that the documents officially filed on
+e.g. December 27th were in fact not filed until January 3rd when people began
+returning to work.</p>
+
+<h2 id="next-steps" class="section-heading">Next Steps</h2>
+
+<p>I think the scale of this phenomenon will probably more or less double for
+Midsummer, so that’s what I want to be prepared for next. Once the dust settles
+from the Christmas period, I’m thinking I’ll figure out the maximum document lag
+measured in that week, double it, and then wire up the scheduler to backfill
+that far back every single day. I want Midsummer to run smoothly even if I’m too
+busy to do any manual interventions in the moment.</p>
+
+<p>By the way, if you’re a tech worker in Sweden and the events of the past year or
+so have got you thinking some new thoughts about labour relations in our
+industry, you might wanna check out 666a more closely. You can grab your
+employer’s <em lang="sv">organisationsnummer</em> from
+<a href="https://foretagsinfo.bolagsverket.se/sok-foretagsinformation-web/foretag">Bolagsverket’s company search tool</a>
+and then
+<a href="https://666a.se/register">subscribe to get notified (for free) about their correspondence with the Work Environment Authority</a>.
+I’m also hosting web versions of the Swedish government’s unofficial English
+translations of the
+<a href="https://lagstiftning.github.io/arbetsmiljolagen/2023:349/">Work Environment Act</a>,
+the
+<a href="https://lagstiftning.github.io/medbestammandelagen/2021:1114/">Co-Determination Act</a>
+and the
+<a href="https://lagstiftning.github.io/lagen-om-anstallningsskydd/2022:836/">Employment Protection Act</a>,
+which can be useful resources to know about depending on how 2024 unfolds at
+your job. Check it out!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

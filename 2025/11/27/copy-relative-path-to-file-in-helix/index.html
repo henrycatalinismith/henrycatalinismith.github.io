@@ -1,0 +1,145 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Copy relative path to file in Helix
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Copy relative path to file in Helix</h1>
+  <p class="subtitle">2025-11-27</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Copy relative path to file in Helix</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>In recent weeks I’ve accidentally migrated from Neovim to Helix. I say
+“accidentally” because I wasn’t really intending to switch. There was a
+<a href="https://lobste.rs/s/rahklm/notes_on_switching_helix_from_vim">post on Lobste.rs called “Notes on switching to Helix from vim”</a>
+that I read about a month ago, which inspired me to give Helix a bit of a try.
+My expectation had been that it’d be an interesting experiment but instead I
+found myself choosing to use Helix all the time.</p>
+
+<p>I just love how snappy and minimalist it is. Helix has everything I need and
+nothing I don’t. For example, while I really like the “added, removed and
+updated” lines thing that it has, I’ve never gotten along with in-depth VCS
+integrations relating to e.g. browsing a file’s history within text editors or
+plugins. For that kind of stuff I’ve always preferred to just work in the
+terminal itself so Helix’s plus/minus/delta colours in the gutter are all I want
+from it.</p>
+
+<p>That being said, the one missing step is the ability to copy the current file’s
+relative path to the clipboard so that it can be pasted into some git command in
+another tab. This proved possible to implement as a keybinding as follows.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">[</span><span class="n">keys</span><span class="k">.</span><span class="n">normal</span><span class="k">.</span><span class="n">space</span><span class="k">.</span><span class="n">z</span><span class="k">]</span>
+<span class="n">p</span> <span class="o">=</span><span class="w"> </span><span class="s">":sh echo </span><span class="se">\"</span><span class="s">%{buffer_name}</span><span class="se">\"</span><span class="s"> | pbcopy"</span>
+</code></pre></div></div>
+
+<p>I’m using “space z” as a prefix because Helix’s default keybindings already use
+almost the entire keyboard except for that. So for me “space z” is like a
+personal namespace for any custom keybindings where I can pick any letter I want
+without conflicting.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

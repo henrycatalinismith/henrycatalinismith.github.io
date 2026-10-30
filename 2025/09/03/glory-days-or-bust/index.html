@@ -1,0 +1,204 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Glory Days Or Bust
+      – Henry Catalini Smith
+    </title>
+    
+      <meta name="description" content="The road back to my coding happy place, i.e. a terminal emulator running Vim.
+" />
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Glory Days Or Bust</h1>
+  <p class="subtitle">2025-09-03</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Glory Days Or Bust</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>18 months ago I was all-in on VSCode. lol</p>
+
+<blockquote>
+  <p>Once upon a time, the main tools I used for work were Vim and tmux. And until
+recently, once every few months I’d get this compulsive urge to try to
+recapture those glory days. That urge has stopped lately though. Visual Studio
+Code has reached a tipping point where the Vim support and terminal emulator
+are a better package than anything I can hack together with lua plugins and
+tmux config.</p>
+
+  <p><a href="/2024/01/30/maining-vscode-terminal/">Maining VSCode Terminal</a></p>
+</blockquote>
+
+<p>Hasn’t aged well! Have you seen the VSCode website lately?</p>
+
+<p><img src="/2025/09/03/vscode@512x256.webp" alt="The open source AI code editor" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<p>Yikes!</p>
+
+<figure>
+ <video controls="" preload="none" poster="/2025/09/03/glwat@512x384.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+  <source src="/2025/09/03/glwat@512x384.mp4" type="video/mp4" />
+ </video>
+</figure>
+
+<p>So now I’m all-out. It’s glory days or bust!</p>
+
+<p>Real happy with
+<a href="https://github.com/henrycatalinismith/dotfiles/blob/main/dot_config/nvim/init.lua">my init.lua</a>
+for Neovim. Doing Vim config in Lua is such a dream come true. For everyday
+work, my core needs are simple enough.</p>
+
+<ol>
+  <li>LSP diagnostics (to highlight my mistakes)</li>
+  <li>Git integration (to highlight my changes)</li>
+  <li>Format on save</li>
+</ol>
+
+<p>Those use cases are so mainstream that you’re spoiled for choice regarding how
+to set them up. I landed on <a href="https://github.com/nvimdev/lspsaga.nvim">lspsaga</a>,
+<a href="https://github.com/lewis6991/gitsigns.nvim">gitsigns</a> and
+<a href="https://github.com/stevearc/conform.nvim">conform</a>.</p>
+
+<figure>
+ <img alt="Screenshot of neovim editing this blog post. The text displayed is the same as the text preceding this image." src="/2025/09/03/screenshot@1024x635.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>It’s such an incredible relief to be back working in proper Vim instead of some
+IDE’s bootleg reimplementation. You really learn to appreciate how finely
+crafted Vim’s core text editing functionality is by spending a few years seeing
+talented people trying and failing to reproduce it in competing software time
+and time again. Zed’s implementation was decent, but even that had quirks I
+never quite got used to.</p>
+
+<p><a href="https://zellij.dev/">Zellij</a> is fantastic too. It’s like a fully configured
+tmux right out of the box. And while keybinding conflicts between Vim and tmux
+used to be a big pain in the ass, with Zellij I’ve managed to move all its
+keybindings onto the ⌘ key where there’s no conflicts at all. Its vanilla
+out-of-the box UX is what I’ve been trying (and failing) to coerce VSCode or Zed
+to be all these years too.</p>
+
+<p>Wasn’t such a difficult switch to make in the end. This community-built tooling
+has become <em>really</em> fucking slick over the last few years. And with all the
+commercial tooling focusing so intensely on AI it seems reasonable to expect
+that balance to continue to shift in the coming years. I mean if you’re a
+product manager on VSCode and all your KPIs are about AI, why even prioritise
+fixing code editing bugs if a degraded coding experience could arguably drive AI
+adoption?</p>
+
+<p>Nice being rid of tools that are funded with blood money and all. Did you know
+<a href="https://www.aljazeera.com/news/2025/8/29/microsoft-fires-four-workers-over-protests-against-firms-ties-to-israel">Microsoft recently fired</a>
+a group of <a href="https://noazureforapartheid.com/">No Azure For Apartheid</a>
+protestors? Or that Zed recently took money from
+<a href="https://shaunmaguire.fyi/">Shaun Maguire &amp; co</a>? Increasingly I find myself
+wanting as few points of contact with this type of depravity as humanly possible
+in my everyday life.</p>
+
+<p>I had actually underestimated how good this integrity boost would feel. Seems I
+had become quite numb to the dissonance of sharing in the mundane everyday
+spoils of a genocidal war I was otherwise willing to
+<a href="/2024/05/12/eurovision-week/">boycott a beloved event for</a>. Cool as hell to
+discover that the high road is increasingly the best one too these days, at
+least when it comes to devtools.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

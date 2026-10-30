@@ -1,0 +1,187 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Is metadata streaming really SEO armageddon?
+      – Henry Catalini Smith
+    </title>
+    
+      <meta name="description" content="I don&#39;t like some of these silly Rube Goldberg additions to Next.js either but I do think this one at least works as described.
+" />
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Is metadata streaming really SEO armageddon?</h1>
+  <p class="subtitle">2025-06-15</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Is metadata streaming really SEO armageddon?</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>This blog post called
+<a href="https://omarabid.com/nextjs-vercel">Next.js 15.1+ is unusable outside of Vercel</a>
+has been doing the rounds this past week.</p>
+
+<blockquote>
+  <p>Starting with version 15.1.8, Next.js might break metadata handling for
+non-Vercel deployments, potentially devastating your search rankings.</p>
+</blockquote>
+
+<p>It’s about
+<a href="https://nextjs.org/docs/app/api-reference/functions/generate-metadata#streaming-metadata">metadata streaming</a>,
+which is this new TTFB optimisation where Next can load in meta tags
+asynchronously after the initial page load. The post presents this feature as an
+SEO doomsday scenario. It has a tinge of
+“<a href="https://dtrap-blog.acm.org/2019/09/04/hackers-can-turn-your-home-computer-into-a-bomb/">Hackers Can Turn Your Home Computer into a BOMB</a>”
+energy.</p>
+
+<p>I’m not convinced. We’ve had this version of Next running in production at work
+for months. We have asynchronous
+<a href="https://nextjs.org/docs/app/api-reference/functions/generate-metadata"><code class="language-plaintext highlighter-rouge">generateMetadata</code></a>
+functions all over the place. Not running on Vercel. No SEO doomsday has
+materialised as of yet.</p>
+
+<p>I spent a good while rereading the article and the linked GitHub issues and
+couldn’t find anything suggesting that metadata streaming behaves differently
+depending on whether you host your app on Vercel or elsewhere either. The claim
+that this new feature represents an escalation to a new level of vendor lock-in
+seems to be based on vibes as far as I can tell.</p>
+
+<p>There was also this part about static sites.</p>
+
+<blockquote>
+  <p>Here’s where it gets absurd. Even with static builds, metadata tags aren’t
+included in the HTML head anymore. They’re bundled with React Server
+Components and require JavaScript execution. Your static site server now needs
+crawler detection logic just to serve basic HTML metadata.</p>
+</blockquote>
+
+<p>This claim seemed both unlikely and easy to check. So I created a
+<a href="https://codeberg.org/henrycatalinismith/nextjs-static-metadata-demo/">quick test app</a>
+by running <code class="language-plaintext highlighter-rouge">create-next-app</code> and then
+<a href="https://codeberg.org/henrycatalinismith/nextjs-static-metadata-demo/commit/e42c24842c6ca2c0acb72e7378d6a423f9d6b927">configuring it to be a static build</a>
+and
+<a href="https://codeberg.org/henrycatalinismith/nextjs-static-metadata-demo/commit/6a9988d584a364a52a901472c587b393af0ad65f">adding an asynchronous metadata fetch</a>.
+You can load
+<a href="https://henrycatalinismith.github.io/nextjs-static-metadata-demo/">the resulting webpage</a>
+yourself and see the result in its source code.</p>
+
+<p><img src="/2025/06/15/source@1369x252.webp" alt="&lt;title&gt;Example Title&lt;/title&gt;&lt;meta name=&quot;description&quot; content=&quot;Example Description&quot;/&gt;" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<p>Metadata tags are indeed still included in the HTML head in static Next sites.
+The claim seems to simply be false.</p>
+
+<p>There’s plenty to dislike about React and Next. Even though I’ve been paying my
+bills by writing JSX for the better part of a decade, Heydon Pickering’s
+<a href="https://briefs.video/videos/what-is-react/">What Is React?</a> sums up my feelings
+about the whole thing fairly well.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BO71b3l22mM?si=JXdoVlTUwVmOGUbQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+
+<p>This is the dominant web development tech stack of our time and it’s flawed in
+lots of really fundamental ways. There’s so much that’s problematic about it
+that I don’t think we need to stretch quite this hard in search of new
+complaints. Metadata streaming itself seems to embody everything that’s become
+so silly about contemporary React, always growing ever more complex in order to
+solve increasingly niche problems. But it does at least seem to work.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

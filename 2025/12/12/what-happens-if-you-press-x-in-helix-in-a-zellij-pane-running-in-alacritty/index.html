@@ -1,0 +1,244 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      What Happens If You Press X In Helix In A Zellij Pane Running In Alacritty
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">What Happens If You Press X In Helix In A Zellij Pane Running In Alacritty</h1>
+  <p class="subtitle">2025-12-12</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">What Happens If You Press X In Helix In A Zellij Pane Running In Alacritty</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>One of the little things that inspired me to learn some Rust was the realisation
+that suddenly all the tools I’m using every day are built with it. In
+particular, Alacritty, Zellij and Helix are the bedrock of my workflow and
+they’re all written in Rust.</p>
+
+<p>It felt like an interesting Rust learning exerise to try to understand the
+journey of a single keystroke through that stack. So iI have Helix running
+inside a Zellij pane in an Alacritty window and I press <code class="language-plaintext highlighter-rouge">x</code> on my keyboard, what
+kind of adventure does that keypress go on?</p>
+
+<pre><code class="language-mermaid">flowchart LR
+Alacritty --&gt; Zellij
+Zellij --&gt; Helix
+</code></pre>
+
+<h2 id="alacritty" class="section-heading">Alacritty</h2>
+
+<p>The <a href="https://github.com/alacritty/alacritty/blob/18372031d1f1bda853b2027b7ef1c75b45942829/alacritty/src/event.rs#L1836"><code class="language-plaintext highlighter-rouge">handle_event()</code></a> function is the topmost entrypoint. Here the keypress
+traverses a pair of nested <a href="https://doc.rust-lang.org/rust-by-example/flow_control/match.html"><code class="language-plaintext highlighter-rouge">match</code> blocks</a>. The outermost match block filters
+by <a href="https://docs.rs/winit/0.30.12/winit/event/index.html"><code class="language-plaintext highlighter-rouge">winit::Event</code></a> type, of which a keypress is a <a href="https://docs.rs/winit/0.30.12/winit/event/enum.WindowEvent.html"><code class="language-plaintext highlighter-rouge">WindowEvent</code></a>. The
+innermost block filters by the variant of <code class="language-plaintext highlighter-rouge">WindowEvent</code>, which in this case is
+<a href="https://docs.rs/winit/0.30.12/winit/event/enum.WindowEvent.html#variant.KeyboardInput"><code class="language-plaintext highlighter-rouge">KeyboardInput</code></a>.</p>
+
+<p>All that filtering leads to a call to <a href="https://github.com/alacritty/alacritty/blob/18372031d1f1bda853b2027b7ef1c75b45942829/alacritty/src/input/keyboard.rs#L22"><code class="language-plaintext highlighter-rouge">key_input()</code></a>. This is a wonderfully
+readable function with nice little explanatory comments for each early return.
+None of those guard clauses apply to our simple <code class="language-plaintext highlighter-rouge">x</code> keypress, which makes it all
+the way to the <code class="language-plaintext highlighter-rouge">write_to_pty()</code> call at the very end.</p>
+
+<p>That <a href="https://github.com/alacritty/alacritty/blob/18372031d1f1bda853b2027b7ef1c75b45942829/alacritty/src/event.rs#L687-L689"><code class="language-plaintext highlighter-rouge">write_to_pty()</code></a> call brings us right back to <code class="language-plaintext highlighter-rouge">event.rs</code>, where a
+single-line function passes the value directly to a <code class="language-plaintext highlighter-rouge">notify()</code> call. I got a
+little stuck here, because when you use <code class="language-plaintext highlighter-rouge">gd</code> to navigate to the definition of
+the <code class="language-plaintext highlighter-rouge">notify()</code> function you end up in some kind of trait instead of the
+implementation. Eventually I found my way past that by using <code class="language-plaintext highlighter-rouge">gr</code> on the trait
+to list references to it and find the real implementation.</p>
+
+<figure>
+ <video poster="/2025/12/12/gdgr@1024x708.webp" src="/2025/12/12/gdgr@1024x706.mp4" title="Screen recording of Helix navigation workflow to bypass trait" controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  Bypassing a trait to find the real implementation in Helix.
+ </figcaption>
+</figure>
+
+<p>We land in a <a href="https://github.com/alacritty/alacritty/blob/18372031d1f1bda853b2027b7ef1c75b45942829/alacritty_terminal/src/event_loop.rs#L335-L347"><code class="language-plaintext highlighter-rouge">notify()</code></a> implementation inside a struct that contains an
+<code class="language-plaintext highlighter-rouge">EventLoopSender</code>, which is a pretty big clue as to what happens next. Our
+keypress becomes a <code class="language-plaintext highlighter-rouge">Msg::Input</code> on the event loop as a result of the code in
+<code class="language-plaintext highlighter-rouge">notify()</code>.</p>
+
+<p>That <code class="language-plaintext highlighter-rouge">Msg::Input</code> is read back out of the event loop in
+<a href="https://github.com/alacritty/alacritty/blob/18372031d1f1bda853b2027b7ef1c75b45942829/alacritty_terminal/src/event_loop.rs#L91"><code class="language-plaintext highlighter-rouge">drain_recv_channel()</code></a>. It puts it into a write queue called <a href="https://github.com/alacritty/alacritty/blob/18372031d1f1bda853b2027b7ef1c75b45942829/alacritty_terminal/src/event_loop.rs#L401"><code class="language-plaintext highlighter-rouge">write_list</code></a>.
+Later a <a href="https://github.com/alacritty/alacritty/blob/18372031d1f1bda853b2027b7ef1c75b45942829/alacritty_terminal/src/event_loop.rs#L415-L417"><code class="language-plaintext highlighter-rouge">goto_next()</code></a> call moves it into a value called <a href="https://github.com/alacritty/alacritty/blob/18372031d1f1bda853b2027b7ef1c75b45942829/alacritty_terminal/src/event_loop.rs#L402"><code class="language-plaintext highlighter-rouge">writing</code></a>. As a
+result of this, the subsequent call to <a href="https://github.com/alacritty/alacritty/blob/18372031d1f1bda853b2027b7ef1c75b45942829/alacritty_terminal/src/event_loop.rs#L174"><code class="language-plaintext highlighter-rouge">pty_write()</code></a> sends the keypress data
+to <code class="language-plaintext highlighter-rouge">pty.writer().write()</code>.</p>
+
+<p>That final <a href="https://doc.rust-lang.org/stable/std/fs/fn.write.html"><code class="language-plaintext highlighter-rouge">write()</code></a> call is happening on a <a href="https://doc.rust-lang.org/stable/std/fs/struct.File.html"><code class="language-plaintext highlighter-rouge">std::fs::File</code></a>. We’re at the
+boundary between Alacritty and Zellij here, where data changes hands by writing
+to virtual files in <code class="language-plaintext highlighter-rouge">/dev</code>. Alacritty writes the data to the master PTY file
+descriptor and from there it’s Zellij’s problem.</p>
+
+<h2 id="zellij" class="section-heading">Zellij</h2>
+
+<p>The second leg of the keypress’s journey begins in Zellij’s <a href="https://github.com/zellij-org/zellij/blob/b52f96c9460aa53c286bf313754b3db67c1d0033/zellij-client/src/stdin_handler.rs#L23"><code class="language-plaintext highlighter-rouge">stdin_loop()</code></a>
+function. This reads the data written by Alacritty and turns it into an
+<code class="language-plaintext highlighter-rouge">InputInstruction::KeyEvent</code>. A call to <code class="language-plaintext highlighter-rouge">send_input_instructions.send()</code> hands
+the event off to the input handler.</p>
+
+<p>Zellij uses a message passing crate called <a href="https://crates.io/crates/crossbeam-channel"><code class="language-plaintext highlighter-rouge">crossbeam-channel</code></a> for this step.
+That <code class="language-plaintext highlighter-rouge">send_input_instructions</code> struct is a <a href="https://docs.rs/crossbeam-channel/latest/crossbeam_channel/struct.Sender.html"><code class="language-plaintext highlighter-rouge">crossbeam_channel::Sender</code></a>. And
+there’s a <a href="https://docs.rs/crossbeam-channel/latest/crossbeam_channel/struct.Receiver.html"><code class="language-plaintext highlighter-rouge">crossbeam_channel::Receiver</code></a> struct called
+<code class="language-plaintext highlighter-rouge">receive_input_instructions</code> in <a href="https://github.com/zellij-org/zellij/blob/b52f96c9460aa53c286bf313754b3db67c1d0033/zellij-client/src/input_handler.rs#L148"><code class="language-plaintext highlighter-rouge">handle_input()</code></a> which receives the message
+and passes the raw bytes into a call to <a href="https://github.com/zellij-org/zellij/blob/b52f96c9460aa53c286bf313754b3db67c1d0033/zellij-client/src/input_handler.rs#L262-L275"><code class="language-plaintext highlighter-rouge">handle_key()</code></a>.</p>
+
+<p>Those raw bytes are repackaged once again as a <code class="language-plaintext highlighter-rouge">ClientToServerMsg::Key</code>, which
+is a big clue about what happens next. Zellij has a client-server architecture,
+and up to now we’ve been in the client part. Inside <a href="https://github.com/zellij-org/zellij/blob/b52f96c9460aa53c286bf313754b3db67c1d0033/zellij-server/src/route.rs#L1548"><code class="language-plaintext highlighter-rouge">route_thread_main()</code></a>, the
+server receives the <code class="language-plaintext highlighter-rouge">ClientToServerMsg::Key</code> and passes it to <a href="https://github.com/zellij-org/zellij/blob/b52f96c9460aa53c286bf313754b3db67c1d0033/zellij-server/src/route.rs#L160"><code class="language-plaintext highlighter-rouge">route_action()</code></a>
+as an <code class="language-plaintext highlighter-rouge">Action::Write</code>.</p>
+
+<p>From there it’s converted to a <code class="language-plaintext highlighter-rouge">ScreenInstruction::WriteCharacter</code> and passed to
+<code class="language-plaintext highlighter-rouge">send_to_screen()</code>. That’s picked up by <a href="https://github.com/zellij-org/zellij/blob/b52f96c9460aa53c286bf313754b3db67c1d0033/zellij-server/src/screen.rs#L3554"><code class="language-plaintext highlighter-rouge">screen_thread_main()</code></a> which sends it
+onwards to <a href="https://github.com/zellij-org/zellij/blob/b52f96c9460aa53c286bf313754b3db67c1d0033/zellij-server/src/tab/mod.rs#L2441"><code class="language-plaintext highlighter-rouge">tab.write_to_active_terminal()</code></a>.</p>
+
+<p>Zellij then figures out the ID of the active pane and sends the keypress to it
+by calling <a href="https://github.com/zellij-org/zellij/blob/b52f96c9460aa53c286bf313754b3db67c1d0033/zellij-server/src/tab/mod.rs#L2515"><code class="language-plaintext highlighter-rouge">write_to_pane_id()</code></a>. There, it becomes a
+<code class="language-plaintext highlighter-rouge">PtyWriteInstruction::Write</code> and makes its third crossbeam sender/receiver hop
+via <code class="language-plaintext highlighter-rouge">send_to_pty_writer()</code> into <a href="https://github.com/zellij-org/zellij/blob/main/zellij-server/src/pty_writer.rs"><code class="language-plaintext highlighter-rouge">pty_writer_main()</code></a>.</p>
+
+<p>That forwards it on to <a href="https://github.com/zellij-org/zellij/blob/b52f96c9460aa53c286bf313754b3db67c1d0033/zellij-server/src/os_input_output.rs#L663"><code class="language-plaintext highlighter-rouge">write_to_tty_stdin()</code></a>, which figures out the right
+file descriptor for the terminal ID and uses <a href="https://docs.rs/nix/latest/nix/unistd/fn.write.html"><code class="language-plaintext highlighter-rouge">nix::unistd::write()</code></a> to write
+the data to it. We’re writing to a file again, which means we’re at the border
+between two programs. It’s the end of the Zellij leg of the journey, and the
+keypress is about to enter Helix.</p>
+
+<h2 id="helix" class="section-heading">Helix</h2>
+
+<p>In Helix, a function called <a href="https://github.com/helix-editor/helix/blob/27e8bdb2f1ea83a0aefdb103cce662cb78ed55c2/helix-term/src/application.rs#L319"><code class="language-plaintext highlighter-rouge">event_loop_until_idle()</code></a> polls for events from
+<code class="language-plaintext highlighter-rouge">stdin</code> and sends them to <a href="https://github.com/helix-editor/helix/blob/27e8bdb2f1ea83a0aefdb103cce662cb78ed55c2/helix-term/src/application.rs#L688"><code class="language-plaintext highlighter-rouge">handle_terminal_events()</code></a>.</p>
+
+<p>An <code class="language-plaintext highlighter-rouge">into()</code> call on the event takes us on a detour via a <a href="https://doc.rust-lang.org/rust-by-example/conversion/from_into.html"><code class="language-plaintext highlighter-rouge">From</code> trait</a>’s
+<a href="https://github.com/helix-editor/helix/blob/27e8bdb2f1ea83a0aefdb103cce662cb78ed55c2/helix-view/src/input.rs#L462-L476"><code class="language-plaintext highlighter-rouge">from()</code></a> function to convert from a <a href="https://docs.rs/termina/latest/termina/event/struct.KeyEvent.html"><code class="language-plaintext highlighter-rouge">termina::Event::KeyEvent</code></a> to Helix’s
+own internal <code class="language-plaintext highlighter-rouge">Event::Key</code> struct. That Helix event then goes into a
+<a href="https://github.com/helix-editor/helix/blob/27e8bdb2f1ea83a0aefdb103cce662cb78ed55c2/helix-term/src/compositor.rs#L144"><code class="language-plaintext highlighter-rouge">handle_event()</code></a>
+function which uses event bubbling to route it to the right part of Helix.</p>
+
+<p>In the case of our <code class="language-plaintext highlighter-rouge">x</code> keypress, with Helix in insert mode, the right part of
+Helix is the editor. The editor’s own
+<a href="https://github.com/helix-editor/helix/blob/27e8bdb2f1ea83a0aefdb103cce662cb78ed55c2/helix-term/src/ui/editor.rs#L1358"><code class="language-plaintext highlighter-rouge">handle_event()</code></a>
+function routes the event to the <a href="https://github.com/helix-editor/helix/blob/27e8bdb2f1ea83a0aefdb103cce662cb78ed55c2/helix-term/src/ui/editor.rs#L916"><code class="language-plaintext highlighter-rouge">insert_mode()</code></a> function, which passes it on
+to a function called <a href="https://github.com/helix-editor/helix/blob/27e8bdb2f1ea83a0aefdb103cce662cb78ed55c2/helix-term/src/commands.rs#L4174"><code class="language-plaintext highlighter-rouge">insert_char()</code></a>.</p>
+
+<p>The event then becomes a transaction which is applied to the document. The <code class="language-plaintext highlighter-rouge">x</code>
+character from the keypress is now a part of the document but it’s not yet
+visible on the screen. The successful consumption of the event sets in motion a
+render within Helix which will work its way back via Zellij to Alacritty.</p>
+
+<p>I’m too exhausted from following the keypress down the chain to be arsed
+following it back up. This was a fun exercise though. I learned a lot about
+Rust, which was the point, but also about systems programming, which was
+unintentional.</p>
+
+<p>All three of these are tools I expect to use daily for a long time to come too,
+so it feels really worthwhile to work towards understanding what makes them
+tick. And Rust makes that a lot more feasible for me. I like C a lot, and
+remember reading The C Programming Language very fondly, but I’ve always really
+struggled to read real-world C code. It’s fun finally being able to understand
+stuff at this level.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

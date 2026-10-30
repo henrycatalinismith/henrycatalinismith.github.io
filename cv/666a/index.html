@@ -1,0 +1,192 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex">
+    <title>
+      666a.se
+      – Henry Catalini Smith
+    </title>
+    
+      <meta name="description" content="666a.se was a free service I built to send configurable email alerts about filings at the Swedish Work Environment Agency. It was inspired by an unfulfilled need I saw during my time as a union representative at Spotify and had something like 100 users by the time I shut it down for cost reasons.
+" />
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body class="page-grid">
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/cv/">CV</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">666a.se</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">666a.se</h1>
+  <p class="subtitle">Work environment email alerts</p>
+</header>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <nav class="section-nav lg:hidden flex flex-col gap-y-6">
+          <ul class="flex flex-col">
+            <li>
+              <a class="text-link underline" href="#top">666a.se</a>
+              <div class="section-links"><ul id="toc" class="flex flex-col">
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#incremental-web-scraping">Incremental web scraping</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#extreme-budget-architecture">Extreme budget architecture</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#ai-assisted-translation-workflow">AI-assisted translation workflow</a></li>
+</ul></div>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="flex flex-col gap-6 min-w-0 max-w-[65ch]">
+          
+            <p class="max-w-[65ch]">666a.se was a free service I built to send configurable email alerts about filings at the Swedish Work Environment Agency. It was inspired by an unfulfilled need I saw during my time as a union representative at Spotify and had something like 100 users by the time I shut it down for cost reasons.
+</p>
+          
+
+          <dl
+            class="body-text flex flex-col gap-y-4 py-4 dark:border-slate-500"
+          >
+            
+              <div class="flex flex-col sm:flex-row sm:gap-x-4">
+                <dt class="font-bold sm:w-32 sm:shrink-0">Repository</dt>
+                <dd>
+                  <a href="https://github.com/henrycatalinismith/666a.se">henrycatalinismith/666a.se</a>
+                </dd>
+              </div>
+            
+            
+              <div class="flex flex-col sm:flex-row sm:gap-x-4">
+                <dt class="font-bold sm:w-32 sm:shrink-0">Technologies</dt>
+                <dd>Rails, SQLite, Sendgrid</dd>
+              </div>
+            
+          </dl>
+
+          <div class="body-text post-body"><h2 id="incremental-web-scraping" class="section-heading">Incremental web scraping</h2>
+
+<p>The Swedish Work Environment Agency does not provide a notification mechanism of any kind. In order to determine which filings are new today you must compare today’s dataset with yesterday’s. Around 250,000 filings are processed per year, so refetching the full dataset is not an option without risking an IP block from an angry network administrator.</p>
+
+<p>I devised an incremental web scraping tool which stored all previously seen filings in a database and rescanned daily to catch new ones. This made it possible to identify new filings within at worst a day or two, at a cost of only a few minutes per day of operation at a rate of a request per second.</p>
+
+<h2 id="extreme-budget-architecture" class="section-heading">Extreme budget architecture</h2>
+
+<p>Nobody in the Swedish labour movement is particularly rich so the service needed to be free to use. This created a strong incentive to make the service as cheap to run as possible.</p>
+
+<p>The highly schedule-driven nature of the load patterns together with the service’s overall low write volume meant it was possible to run the entire thing as a single Ruby process using SQLite as the database. This was possible to run on Fly.io for less than $10 per month.</p>
+
+<h2 id="ai-assisted-translation-workflow" class="section-heading">AI-assisted translation workflow</h2>
+
+<p>Later in the lifecycle of the project I expanded its scope to include English translations of Swedish labour laws. The English translations published by the Swedish government were out of date and my goal was to catch them up to the latest Swedish versions.</p>
+
+<p>I used the OpenAI API to <a href="https://henry.catalinismith.se/2024/11/12/using-ai-to-help-humans-translate-swedish-labour-laws/">generate a glossary of Swedish-English phrase pairs based on the existing translations</a>. Using this glossary as a reference made it possible to deliver updated English translations with a high level of confidence about the fidelity of the update in relation to the linguistic choices made by the original translators.</p>
+</div>
+
+          <p class="body-text">
+            <a class="text-link underline" href="/cv/">Back to CV</a>
+          </p>
+        </div>
+
+        <aside
+          class="section-nav hidden lg:block lg:sticky lg:top-8 lg:self-start lg:h-fit body-text"
+        >
+          <nav aria-label="Sections" class="font-lilex">
+            <ul class="flex flex-col">
+              <li>
+                <a class="text-link underline" href="#top">666a.se</a>
+                <div class="section-links"><ul id="toc" class="flex flex-col">
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#incremental-web-scraping">Incremental web scraping</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#extreme-budget-architecture">Extreme budget architecture</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#ai-assisted-translation-workflow">AI-assisted translation workflow</a></li>
+</ul></div>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    <script src="/section-nav.js"></script>
+  </body>
+</html>

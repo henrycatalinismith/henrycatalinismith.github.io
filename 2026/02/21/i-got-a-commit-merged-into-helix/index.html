@@ -1,0 +1,167 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      I got a commit merged into Helix!
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">I got a commit merged into Helix!</h1>
+  <p class="subtitle">2026-02-21</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">I got a commit merged into Helix!</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>After
+<a href="/2025/12/07/lazyrename-for-helix-and-zellij/">building lazyrename a couple of months ago</a>
+I got curious about small ways of improving Helix’s built-in file moving
+functionality. The conclusion I came to was that a
+<a href="https://doc.rust-lang.org/std/fs/fn.create_dir_all.html"><code class="language-plaintext highlighter-rouge">fs::create_dir_all()</code></a>
+call would make a big difference all on its own, and so I set out to get that
+added. The
+<a href="https://github.com/helix-editor/helix/pull/15001/">pull request finally got merged</a>
+this week, which I’m really excited about.</p>
+
+<p>My first attempt went off in the wrong direction by directly changing how
+Helix’s <code class="language-plaintext highlighter-rouge">:move</code> command works. I’m very grateful for the patient feedback that
+guided me towards adding a <code class="language-plaintext highlighter-rouge">:move!</code> command instead. Helix uses that exclamation
+mark suffix for things with side effects, and there was already a <code class="language-plaintext highlighter-rouge">:write!</code> for
+creating necessary subdirectories when writing to a file.</p>
+
+<p>Learning about Helix’s internals has been really fun. It reminds me of some of
+the more well-engineered stuff I’ve worked on, with a clear architectural vision
+and lots of nice tidy structure.</p>
+
+<p>I think the slow pace of development is probably a big factor in that. My pull
+request sat unmerged for <em>months</em> once it was ready. Eventually someone created
+an issue about implementing it, and the merge happened when someone noticed the
+work was already done. I’ve said before
+<a href="/2025/12/06/zellij-and-helix-together-might-actually-be-just-plain-better-than-neovim/">I think Helix is as good as a finished piece of software</a>
+already and I stand by it.</p>
+
+<p>This new command makes
+<a href="https://codeberg.org/henrycatalinismith/lazyrename">lazyrename</a> partially
+obsolete. By
+<a href="https://github.com/henrycatalinismith/dotfiles/commit/34879a8e4d627d1de3feaeb2c027787cac4d5be5">adding a keymap</a>
+that writes <code class="language-plaintext highlighter-rouge">:mv! %{buffer_name}</code> to Helix without pressing enter, you can
+approximate most of that UX in a single line of config.</p>
+
+<figure>
+ <video poster="/2026/02/21/bananas@1024x554.webp" src="/2026/02/21/bananas@1024x552.mp4" title="Demo of the :mv! command" controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+</figure>
+
+<p>It’s enough to let you edit the full relative path of the current buffer without
+first having to type it in from scratch. For a Next.js project with lots of
+<code class="language-plaintext highlighter-rouge">src/app/(something)/foo/baz/bar/page.tsx</code> where you’re generally always moving
+<code class="language-plaintext highlighter-rouge">page.tsx</code> to a new directory, that’s probably enough. It lacks support for
+things like Alt+Left to jump back to the previous word boundary, but the
+increased simplicity might make that a good trade-off.</p>
+
+<p>Very fun to have gotten a commit into the project anyway. In all those years of
+Vim usage it never felt like contributing was anywhere near even being on the
+horizon. Rust is so goddamn cool.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

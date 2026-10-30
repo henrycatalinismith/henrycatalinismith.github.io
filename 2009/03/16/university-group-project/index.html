@@ -1,0 +1,204 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      University Group Project
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">University Group Project</h1>
+  <p class="subtitle">2009-03-16</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">University Group Project</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><figure>
+ <img src="/2009/03/16/university-group-project@256x256.webp" alt="Safari screenshot showing a webpage loaded on localhost with a placeholder avatar for a Dr. Ravi on the left and a list of appointments for Thursday 12th March on the right. The patients are all named after pro skaters such as Tony Hawk and Danny Way, and the illnesses are Theme Hospital illnesses such as bloaty head and invisibility." class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>A bunch of us built a medical appointment scheduling app together at university.
+It’s some of the oldest code I wrote that I still have a copy of. For
+nostalgia’s sake, here’s the contents of <code class="language-plaintext highlighter-rouge">doctor.php</code> as seen in the address bar
+above.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//include 'includes/common.php';</span>
+
+<span class="nv">$doctorID</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">getDoctorID</span><span class="p">();</span>
+
+<span class="nv">$date</span>     <span class="o">=</span> <span class="k">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'date'</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">:</span> <span class="no">DEBUG_DATE</span><span class="p">;</span>
+
+<span class="nv">$res1</span> <span class="o">=</span> <span class="nv">$dbs</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span>
+	<span class="s1">'SELECT
+		Users.lastName
+	FROM
+		Doctors,
+		Users
+	WHERE
+		Doctors.userID = Users.userID
+		AND Doctors.doctorID = %d'</span><span class="p">,</span>
+	<span class="nv">$doctorID</span>
+<span class="p">);</span>
+
+<span class="nv">$row</span> <span class="o">=</span> <span class="nv">$res1</span><span class="o">-&gt;</span><span class="nf">getNextRow</span><span class="p">();</span>
+<span class="nv">$doctorName</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'lastName'</span><span class="p">];</span>
+<span class="nv">$page</span><span class="o">-&gt;</span><span class="nf">addData</span><span class="p">(</span><span class="s1">'doctorName'</span><span class="p">,</span> <span class="nv">$doctorName</span><span class="p">);</span>
+
+<span class="nv">$res2</span> <span class="o">=</span> <span class="nv">$dbs</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span>
+	<span class="s1">'SELECT
+		Appointments.appointmentID,
+		Appointments.appointmentType,
+		Appointments.appointmentDate,
+		Users.firstName,
+		Users.lastName
+	FROM
+		Doctors,
+		Appointments,
+		Patients,
+		Users
+	WHERE
+		Doctors.doctorID = Appointments.doctorID
+		AND Appointments.patientID = Patients.patientID
+		AND Patients.userID = Users.userID
+		AND Doctors.doctorID = %d
+		AND appointmentDate LIKE \'%s%%\'
+	ORDER BY
+		Appointments.appointmentDate
+		ASC'</span><span class="p">,</span>
+	<span class="nv">$doctorID</span><span class="p">,</span>
+	<span class="nv">$date</span>
+<span class="p">);</span>
+
+
+
+<span class="nv">$apps</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$res2</span><span class="o">-&gt;</span><span class="nf">hasNextRow</span><span class="p">())</span> <span class="p">{</span>
+	<span class="nv">$row</span> <span class="o">=</span> <span class="nv">$res2</span><span class="o">-&gt;</span><span class="nf">getNextRow</span><span class="p">();</span>
+
+	<span class="nv">$time</span>  <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'appointmentDate'</span><span class="p">],</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+	<span class="nv">$name</span>  <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'firstName'</span><span class="p">]</span> <span class="mf">.</span><span class="s1">' '</span><span class="mf">.</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'lastName'</span><span class="p">];</span>
+	<span class="nv">$appID</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'appointmentID'</span><span class="p">];</span>
+	<span class="nv">$type</span>  <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'appointmentType'</span><span class="p">];</span>
+
+	<span class="nv">$apps</span><span class="p">[</span><span class="nv">$time</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+		<span class="s1">'id'</span>   <span class="o">=&gt;</span> <span class="nv">$appID</span><span class="p">,</span>
+		<span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span>
+		<span class="s1">'type'</span> <span class="o">=&gt;</span> <span class="nv">$type</span><span class="p">,</span>
+	<span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nv">$tstamp</span> <span class="o">=</span> <span class="nf">datetimeToTimestamp</span><span class="p">(</span><span class="nv">$date</span><span class="p">);</span>
+
+<span class="nv">$page</span><span class="o">-&gt;</span><span class="nf">addData</span><span class="p">(</span><span class="s1">'doctorID'</span><span class="p">,</span> <span class="nv">$doctorID</span><span class="p">);</span>
+<span class="nv">$page</span><span class="o">-&gt;</span><span class="nf">addData</span><span class="p">(</span><span class="s1">'hours'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'09'</span><span class="p">,</span> <span class="s1">'10'</span><span class="p">,</span> <span class="s1">'11'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'13'</span><span class="p">));</span>
+<span class="nv">$page</span><span class="o">-&gt;</span><span class="nf">addData</span><span class="p">(</span><span class="s1">'minutes'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'00'</span><span class="p">,</span> <span class="s1">'15'</span><span class="p">,</span> <span class="s1">'30'</span><span class="p">,</span> <span class="s1">'45'</span><span class="p">));</span>
+
+<span class="nv">$page</span><span class="o">-&gt;</span><span class="nf">addData</span><span class="p">(</span><span class="s1">'viewDate'</span><span class="p">,</span> <span class="nb">date</span><span class="p">(</span><span class="no">NICE_DATE_FORMAT</span><span class="p">,</span> <span class="nv">$tstamp</span><span class="p">));</span>
+<span class="nv">$page</span><span class="o">-&gt;</span><span class="nf">addData</span><span class="p">(</span><span class="s1">'tomorrow'</span><span class="p">,</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'Y-m-d'</span><span class="p">,</span> <span class="nv">$tstamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">)));</span>
+<span class="nv">$page</span><span class="o">-&gt;</span><span class="nf">addData</span><span class="p">(</span><span class="s1">'yesterday'</span><span class="p">,</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'Y-m-d'</span><span class="p">,</span> <span class="nv">$tstamp</span> <span class="o">-</span> <span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">)));</span>
+
+<span class="nv">$page</span><span class="o">-&gt;</span><span class="nf">addData</span><span class="p">(</span><span class="s1">'appointments'</span><span class="p">,</span> <span class="nv">$apps</span><span class="p">);</span>
+</code></pre></div></div>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

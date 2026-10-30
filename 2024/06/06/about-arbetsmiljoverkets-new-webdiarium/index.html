@@ -1,0 +1,169 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      About Arbetsmiljöverket&#39;s New Webdiarium
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">About Arbetsmiljöverket's New Webdiarium</h1>
+  <p class="subtitle">2024-06-06</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">About Arbetsmiljöverket&#39</span>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 2"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">s New Webdiarium</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><blockquote>
+  <p>This was originally posted at
+https://666a.se/news/about-arbetsmiljoverkets-new-webdiarium and has been
+migrated here since for long-term hosting.</p>
+</blockquote>
+
+<p>The Work Environment Authority
+<a href="https://www.av.se/nyheter/2024/ny-e-tjanst-for-att-soka-och-bestalla-handlingar/">shipped a completely new version of their web search tool last week</a>,
+which took 666a’s email alerts out of action for a week. It’s fixed now.</p>
+
+<p>This was always my nightmare scenario for 666a. The Work Environment Authority’s
+search tool was already looking very old when I built 666a. There’s a particular
+type of “looks old” where you can almost hear the team who maintain it arguing
+internally for a rewrite.</p>
+
+<p>My fear was that the new version, when it inevitably came, would require
+JavaScript. The old version served results as plain server-rendered HTML, which
+is important for a service like 666a because it means you can scrape them quite
+efficiently with just an HTTP request and an HTML parser. The economics of
+providing this kind of email alert service would look a lot worse if it became
+dependent on headless browser automation due to a JavaScript-heavy rewrite of
+the search tool.</p>
+
+<p>Thankfully this hasn’t happened. And for that, I’m very grateful to whoever’s
+behind this rewrite. Seriously, thank you.
+<a href="https://www.av.se/om-oss/diarium-och-allmanna-handlingar/bestall-handlingar/">The new version</a>
+is lovely, by the way, so great job!!</p>
+
+<p>Now that 666a’s an open source project, the full incident response process is
+public on GitHub. There’s even a project called “Update the email alerts service
+for the Work Environment Authority’s new web search tool” where you can get an
+overview of each individual task if you’re curious. Always happy to onboard new
+contributors so if it sparks your curiosity do reach out!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

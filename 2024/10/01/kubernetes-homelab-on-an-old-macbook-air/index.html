@@ -1,0 +1,222 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Kubernetes homelab on an old MacBook Air
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Kubernetes homelab on an old MacBook Air</h1>
+  <p class="subtitle">2024-10-01</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Kubernetes homelab on an old MacBook Air</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><figure>
+  <img src="/2024/10/01/kubernetes-homelab-on-an-old-macbook-air@1024x768.webp" alt="Router, laptop and other computer equipment sitting together on a shelf" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>Reflecting on
+<a href="https://henry.catalinismith.com/2024/08/18/ergodox-ten-years-later/">the ten year milestone of using my Ergodox</a>
+the other day really got me thinking. Tech’s so dominated by consumerism. It’s
+all very American really. Bigger is better and all that. Silly.</p>
+
+<p>So instead here’s a run through of quite a realistic, minimal homelab setup. It
+lives on the shelf above our front door. And it’s grown organically over time,
+through reusing old equipment and avoiding buying loads of expensive new stuff.</p>
+
+<h2 id="modem" class="section-heading">Modem</h2>
+
+<p>The big chunky boy on the left is our modem. This belongs to our ISP, and isn’t
+very good. I keep it standing up on its side like that so I can see the status
+lights when the connection drops out. That happens a lot.</p>
+
+<p>We actually only have one choice of ISP in our building. Recently it came out in
+the news that
+<a href="https://www.dn.se/ekonomi/kickbacks-omsatter-miljarder-hamnar-pa-hyresgasternas-bredbandsnota/">landlords in Sweden are getting kickbacks from ISPs</a>
+for monopolies like this one. So maybe that’s why.</p>
+
+<p>Anyway, its range isn’t good enough to get a WiFi signal to any of the parts of
+the apartment where it’s needed. So it’s bridged to the Google Nest WiFi router
+next to it.</p>
+
+<h2 id="router" class="section-heading">Router</h2>
+
+<p>This Google Nest WiFi thing is practically a member of the family. It floods the
+entire apartment with glorious internet. “Hey Google, stop” were some of the
+kids’ first words.</p>
+
+<p>Sometimes I wonder what it must be like to grow up with a talking computer. What
+it must do to your expectations about what it’s possible for the computer to do.
+Then I find myself doing a sarcastic impersonation of an American because it
+can’t understand “Hey Google, play BBC Radio Merseyside” unless you say it like
+someone from California. Never mind.</p>
+
+<p>It has a little ethernet port underneath, which is plugged into our NAS.</p>
+
+<h2 id="nas" class="section-heading">NAS</h2>
+
+<p>Way back in the old country I had one of those AirPort Time Capsule things that
+Apple don’t make any more. There wasn’t room for it when I packed to move to
+Sweden, so it went in a cupboard in my parents’ house for a good six or seven
+years until they found it one day.</p>
+
+<p>It’ll be about ten years old soon and it still works. Homelab nerds would
+probably cringe at the thought of using such an old single disk NAS. And sure,
+it’ll probably die soon. But we had zero disks before this showed up, and that
+was basically fine. Not trying to compete with the Arctic World Archive here.</p>
+
+<h2 id="server" class="section-heading">Server</h2>
+
+<p>At some point in like 2021 I went to play
+<a href="https://open.spotify.com/album/3Nunc0C2S3K5heQ9VRQFPy">Casual Sex In The Cineplex</a>
+on Spotify and it said “This content is not available”. Still does today,
+actually.</p>
+
+<figure>
+ <img alt="Spotify screenshot where the tracks in the album Casual Sex In The Cineplex by Sultans of Ping FC are greyed out and a toast notification saying 'This content is not available' is displayed" src="/2024/10/01/not-available@1146x1224.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>Not available my arse.</figcaption>
+</figure>
+
+<p>Anyway something snapped in me that day. A real “Hey, that’s not the wallet
+inspector” moment. I set up Plex on my laptop and put the album on there
+instead. After a few days I realised this was something I was probably going to
+keep using, so I dug out my old 2013 MacBook Air and moved the Plex server over
+onto that. And that laptop has been a Plex server ever since.</p>
+
+<p>Those old MacBooks didn’t come with tons of storage, so it didn’t take long to
+fill up. Eventually I bought a 1TB external SSD. It still runs off that today.
+Sometimes it fills up and I’ll delete a show or a film to make space. Over time
+I upgraded it to a nice Docker Compose &amp; Traefik setup with some help from a
+friend. Then later I installed Minikube and upgraded it to Kubernetes.</p>
+
+<p>Old laptops are underrated homelab servers. For one, the battery means it
+doesn’t immediately die if the power goes out. That’s a built-in UPS! Even
+better though are the built-in speakers. If I’m away on a work trip I’ll often
+SSH into it while I’m FaceTiming with the kids and run
+<code class="language-plaintext highlighter-rouge">say -vDaniel -r90 "Piss off naughty boys"</code>. I see a lot of very fancy rackmount
+homelab clusters on YouTube and they never have speakers. Not one of them can
+deliver the joy of watching two little boys running around laughing and shouting
+“No <em>you</em> piss off Google”.</p>
+
+<h2 id="oh-yeah-kubernetes" class="section-heading">Oh yeah, Kubernetes</h2>
+
+<p>Sorry, you’re probably here from Google about the Kubernetes MacBook Air homelab
+thing aren’t you. Let’s get into it then.</p>
+
+<p>I’m running Minikube on this thing. It’s a fairly standard traefik &amp;
+cert-manager setup. I’ve stopped bothering with setting up an automated dynamic
+DNS thing, to be honest. My modem’s public IP changes rarely enough that I don’t
+mind just logging into Cloudflare and updating it once every few weeks.</p>
+
+<p>That’s it though. It seems a bit maxed out with just that workload. I tried to
+spin up Authentik on it once and the whole thing kind of died on its arse. CPU
+fans roaring, pods getting evicted left and right, that kind of thing. It’s
+gonna need replacing with something proper before I can do more with it. So if
+you’re here from Google hoping to learn about running a badass k8s cluster on
+your old MacBook Air, too bad. Can’t be done, sorry. But do give “Piss off
+naughty boys” a try sometime.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

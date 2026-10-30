@@ -1,0 +1,152 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Next.js can’t handle Windows newlines in meta descriptions
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Next.js can’t handle Windows newlines in meta descriptions</h1>
+  <p class="subtitle">2026-04-28</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Next.js can’t handle Windows newlines in meta descriptions</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>Meta descriptions containing Windows-style <code class="language-plaintext highlighter-rouge">\r\n</code> newlines are broken in Next.js. When <code class="language-plaintext highlighter-rouge">\r</code> is present in a meta description, Next.js will render two <code class="language-plaintext highlighter-rouge">&lt;meta name="description"&gt;</code> tags instead of one, and each with slightly different content.</p>
+
+<p>Reproducing this bug is fairly simple.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nf">generateMetadata</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">description</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello, World!</span><span class="se">\r\n</span><span class="s2">Hello, World!</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>After building the site, you’ll see one meta description in the built HTML, as expected. Next strips the carriage return, which is why we only see <code class="language-plaintext highlighter-rouge">$</code> instead of <code class="language-plaintext highlighter-rouge">^M$</code> in the output below.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-s</span> http://localhost:3002/ | htmlq <span class="s2">"meta[name='description']"</span> | <span class="nb">cat</span> <span class="nt">-vet</span>
+&lt;meta <span class="nv">content</span><span class="o">=</span><span class="s2">"Hello, World!</span><span class="err">$</span><span class="s2">
+Hello, World!"</span> <span class="nv">name</span><span class="o">=</span><span class="s2">"description"</span><span class="o">&gt;</span><span class="err">$</span>
+</code></pre></div></div>
+
+<p>But in the RSC payload, the carriage return is still there.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat</span> .next/server/app/index.rsc | <span class="nb">grep</span> <span class="nt">-o</span> <span class="s1">'"name":"description","content":"[^"]*'</span>
+<span class="s2">"name"</span>:<span class="s2">"description"</span>,<span class="s2">"content"</span>:<span class="s2">"Hello, World!</span><span class="se">\r\n</span><span class="s2">Hello, World!
+</span></code></pre></div></div>
+
+<p>When the page loads, Next compares the meta tags in the HTML with the ones in the RSC payload. It notices that this one with the carriage return in it is “missing”, and adds it.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="p">[...</span><span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">meta[name="description"]</span><span class="dl">'</span><span class="p">)].</span><span class="nf">map</span><span class="p">(</span><span class="nx">e</span> <span class="o">=&gt;</span> <span class="nx">e</span><span class="p">.</span><span class="nf">getAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">))</span>
+<span class="o">&lt;</span> <span class="p">[</span>
+  <span class="dl">'</span><span class="s1">Hello, World!</span><span class="se">\n</span><span class="s1">Hello, World!</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">Hello, World!</span><span class="se">\r\n</span><span class="s1">Hello, World!</span><span class="dl">'</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>If you have a Next.js site hooked up to a CMS and the people using the CMS are on Windows, then there’s a good chance you have pages affected by this bug. It might take Vercel a while to get around to fixing <a href="https://github.com/vercel/next.js/issues/93089">the problem</a>, but it’s easy enough to run your metadata through <code class="language-plaintext highlighter-rouge">.replace(/\r/g, '')</code> to avoid it in the meantime.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

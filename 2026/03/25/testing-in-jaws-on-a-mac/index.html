@@ -1,0 +1,214 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Testing in JAWS on a Mac
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Testing in JAWS on a Mac</h1>
+  <p class="subtitle">2026-03-25</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Testing in JAWS on a Mac</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>A
+<a href="https://codeberg.org/forgejo/forgejo/pulls/10615">tricky-looking screen reader bug in Forgejo</a>
+inspired me to spin up a JAWS testing environment on my Mac.</p>
+
+<p>JAWS is one of the most widely used screen readers in the world and its
+behaviour is quite different to the VoiceOver screen reader that Apple
+ships with macOS. I’ve always been a little bit in awe of accessibility pros
+who have a JAWS testing setup, and have long wanted to join that club. Here’s
+how it went down!</p>
+
+<h2 id="install-vmware" class="section-heading">Install VMWare</h2>
+
+<p><a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a></p>
+
+<figure>
+ <img alt="
+   The VMWare download page, saying VirtualBox Platform Packages
+   Windows hosts
+   macOS / Intel hosts
+   macos / Apple Silicon hosts
+   Linux distributions
+   Solaris hosts
+   Solaris 11 IPS hosts
+  " src="/2026/03/25/vmware@1434x856.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  I clicked 'macOS / Apple Silicon hosts'.
+ </figcaption>
+</figure>
+
+<h2 id="download-windows-11" class="section-heading">Download Windows 11</h2>
+
+<p><a href="https://www.microsoft.com/en-us/software-download/windows11arm64">https://www.microsoft.com/en-us/software-download/windows11arm64</a></p>
+
+<figure>
+ <img alt="Website screenshot saying Download Windows 11 for Arm-based PCs" src="/2026/03/25/windows11@1426x846.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<h2 id="buy-a-windows-11-product-key" class="section-heading">Buy a Windows 11 product key</h2>
+
+<p><a href="https://www.gamekeys.se/produkt/windows-11-home-retail">https://www.gamekeys.se/produkt/windows-11-home-retail</a></p>
+
+<figure>
+ <img alt="Website screenshot saying gamekeys.se, Windows 11 Home Retail, 129kr" src="/2026/03/25/gamekeys@1428x840.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<h2 id="start-windows" class="section-heading">Start Windows</h2>
+
+<figure>
+ <img alt="
+   Installing 42%
+   Please keep your computer on.
+   Your computer may restart a few times.
+  " src="/2026/03/25/installing@1566x1019.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  This part took a while.
+ </figcaption>
+</figure>
+
+<h2 id="install-jaws" class="section-heading">Install JAWS</h2>
+
+<p><a href="https://support.freedomscientific.com/Downloads/JAWS">https://support.freedomscientific.com/Downloads/JAWS</a></p>
+
+<figure>
+ <img alt="
+   Pertorming JAWS Install
+   Press Escape to Cancel
+   Status: Acquiring…
+  " src="/2026/03/25/jawsinstall@1732x1223.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<h2 id="start-jaws" class="section-heading">Start JAWS</h2>
+
+<p>Starting JAWS at this point was as simple as double clicking its icon in the
+Windows start menu. You get a 40 minute free trial before needing to pay for
+JAWS, which is more than enough for typical exploratory manual testing. Here’s
+the screen recording I produced while attempting to reproduce the Forgejo bug.</p>
+
+<figure>
+ <video controls="" loop="" muted="" playsinline="" preload="none" poster="/2026/03/25/jaws@1024x726.webp" src="/2026/03/25/jaws@1024x724.mp4" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]"></video>
+</figure>
+
+<p>Reproducing the bug in this case would have meant JAWS not picking up the
+relationship between the checkboxes and their labels. A blind user has reported
+that the use of JavaScript to dynamically insert <code class="language-plaintext highlighter-rouge">for</code> and <code class="language-plaintext highlighter-rouge">id</code> attributes to
+retrofit proper relationships onto form controls isn’t working for their screen
+reader, and I thought this sounded like a likely JAWS issue, with the worst
+case scenario being that all JAWS users might be affected.</p>
+
+<p>The video above enables us to rule out that worst case scenario. I’ve replied
+<a href="https://codeberg.org/forgejo/forgejo/pulls/10615#issuecomment-12053496">asking for more detailed information</a>
+about the environment necessary to reproduce the problem.</p>
+
+<p>Setting this up cost me 120kr and about 45 minutes of my time. Wasn’t even half
+as tricky as I’d always imagined it’d be. I’m excited to see what kind of
+trouble I can find now that I’m armed with this new capability!</p>
+
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

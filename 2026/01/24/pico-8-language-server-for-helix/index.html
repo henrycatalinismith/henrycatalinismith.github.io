@@ -1,0 +1,170 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      PICO-8 language server for Helix
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">PICO-8 language server for Helix</h1>
+  <p class="subtitle">2026-01-24</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">PICO-8 language server for Helix</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>Been working on this one PICO-8 game on and off for like five years now. Having
+<a href="/2025/12/06/zellij-and-helix-together-might-actually-be-just-plain-better-than-neovim/">switched to Helix</a>
+since the last time I touched it, I needed to set up the PICO-8 language server
+for Helix first. It felt like nobody had glued together this combination of
+tools before.</p>
+
+<figure>
+ <img alt="Google screenshot showing query 'PICO-8 language server for Helix' and result 'Your search - PICO-8 language server for Helix - did not match any documents.'" src="/2026/01/24/google@1400x654.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  Some of us are still out here Googling and understanding things before doing them
+ </figcaption>
+</figure>
+
+<p>A
+<a href="https://github.com/japhib/pico8-ls/issues/34#issuecomment-1413433466">very useful comment</a>
+on a GitHub issue thread about Neovim integration was the magic ingredient.
+After carrying out the suggested steps there and hooking it up inside
+<code class="language-plaintext highlighter-rouge">~/.config/helix/languages.toml</code> I was in business.</p>
+
+<figure>
+ <img alt="Helix screenshot showing some PICO-8 Lua code with the cursor on a poke() call and a popup window displaying the API documentation for poke()" src="/2026/01/24/helix@1510x1504.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+ <figcaption>
+  Using the language server in the source code of my game <a href="/tailbone">Tailbone</a> to pull up the docs for <code><a href="https://pico-8.fandom.com/wiki/Poke">poke()</a></code>.
+ </figcaption>
+</figure>
+
+<p>You can see my full dotfiles commit adding the necessary <code class="language-plaintext highlighter-rouge">languages.toml</code>
+entries over on Codeberg at
+<a href="https://github.com/henrycatalinismith/dotfiles/commit/d7a2c218fabdedd263f3adfc2ff118c131b92133"><code class="language-plaintext highlighter-rouge">d7a2c21</code></a>.
+In case Codeberg’s down (usually due to DDoS by crawlers belonging to AI
+startups) the TOML is as follows.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">[[</span><span class="n">language</span><span class="k">]]</span>
+<span class="n">name</span> <span class="o">=</span><span class="w"> </span><span class="s">"lua"</span>
+<span class="n">file-types</span> <span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">"p8"</span><span class="p">]</span>
+<span class="n">language-servers</span> <span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">"pico8-ls"</span><span class="p">]</span>
+
+<span class="k">[</span><span class="n">language-server</span><span class="k">.</span><span class="n">pico8-ls</span><span class="k">]</span>
+<span class="n">command</span> <span class="o">=</span><span class="w"> </span><span class="s">"pico8-ls"</span>
+</code></pre></div></div>
+
+<p>Gamedev in PICO-8 and text editing in Helix have a similar kind of vibe. It’s
+the creative limitations thing I think. Being within a somewhat limited platform
+encourages you to focus on your own creative output instead of becoming
+distracted by the infinite possibilities of a perfectly flexible context.</p>
+
+<p>And now hopefully that Google results page will be better for the next person
+who comes along researching how to do this. Something tells me the intersection
+of PICO-8 devs and Helix users is a crowd who are relatively more interested in
+solving problems through research and understanding rather than vibecode
+spray-and-pray so this feels like an appropriate kind of How I Fixed X blog post
+for keeping the Old Ways alive.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

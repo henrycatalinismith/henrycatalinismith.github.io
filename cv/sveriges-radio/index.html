@@ -1,0 +1,218 @@
+
+
+<!doctype html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex">
+  <title>
+    Software Engineer @ Sveriges Radio
+    – Henry Catalini Smith
+  </title>
+  
+    <meta name="description" content="Senior full stack role working on sverigesradio.se
+" />
+  
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+
+
+<body class="page-grid">
+  
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/cv/">CV</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Sveriges Radio</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+  <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Software Engineer @ Sveriges Radio</h1>
+  <p class="subtitle">Jan 2025 — Present</p>
+</header>
+
+
+  <main class="[grid-area:content]">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <nav class="section-nav lg:hidden flex flex-col gap-y-6">
+        <ul class="flex flex-col">
+          <li>
+            <a class="text-link underline" href="#top">Software Engineer @ Sveriges Radio</a>
+            <div class="section-links"><ul id="toc" class="flex flex-col">
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#react-migration">React migration</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#accessibility">Accessibility</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#ops">Ops</a></li>
+</ul></div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="flex flex-col gap-6 min-w-0 max-w-[65ch]">
+        
+          <p class="max-w-[65ch]">Senior full stack role working on sverigesradio.se
+</p>
+        
+
+        <dl
+          class="body-text flex flex-col gap-y-4 py-4 dark:border-slate-500"
+        >
+          
+            <div class="flex flex-col sm:flex-row sm:gap-x-4">
+              <dt class="font-bold sm:w-32 sm:shrink-0">Previous role</dt>
+              <dd>
+                <a
+                  class="text-link underline"
+                  href="/cv/yazen"
+                >Senior Software Engineer @ Yazen</a>
+              </dd>
+            </div>
+          
+          
+          
+          
+            <div class="flex flex-col sm:flex-row sm:gap-x-4">
+              <dt class="font-bold sm:w-32 sm:shrink-0">Technologies</dt>
+              <dd>Tailwind, Next.js, Kubernetes</dd>
+            </div>
+          
+          
+        </dl>
+
+        <div class="body-text post-body"><h2 id="react-migration" class="section-heading">React migration</h2>
+
+<p>My team was midway through migrating sverigesradio.se to Next.js when I joined.
+We were using the same Strangler Fig pattern that I employed for the
+<a href="/cv/natural-cycles/#headless-wordpress">React migration at Natural Cycles</a>, but
+at a higher level of complexity due to the heavy traffic, the dynamic nature of
+the site, and the importance of its role in Swedish society.</p>
+
+<p>A favourite recurring contribution of mine here has been to take point on the
+final prep in the days before switching an endpoint over to the new system.
+Getting a release day to go smoothly is a real kick when everything goes right.</p>
+
+<h2 id="accessibility" class="section-heading">Accessibility</h2>
+
+<p>Nowhere else I’ve worked takes accessibility as seriously as SR, so
+<a href="/2023/01/14/my-cpwa-experience/">my CPWA experience</a> has been important here.
+Everything we build gets checked over by a third-party auditor, and then we
+actually <em>fix</em> the issues they find, so being the kind of collaborator who can
+identify and explain accessibility bugs during code review has been an impactful
+way to avoid momentum being lost to large retrofitting projects.</p>
+
+<p>I spent a bit of time out on loan to other teams, helping them prepare their
+parts of the site to go live on the new React-based system, and received a lot
+of very heartwarming feedback about how much they learned about accessibility
+during that time.</p>
+
+<h2 id="ops" class="section-heading">Ops</h2>
+
+<p>Grafana and Sentry have been like second homes during my time here. Monitoring
+for new crashes after each release has been part of the heartbeat of the job,
+and there’s been a good healthy number of telemetry data mysteries to explore
+and solve.</p>
+
+<p>Due to SR’s role in Sweden’s civil defense and critical social infrastructure
+the stakes here are relatively high when it comes to uptime and security, so
+identifying and addressing these kinds of issues promptly has been key.</p>
+</div>
+
+        <p class="body-text">
+          <a class="text-link underline" href="/cv/">Back to CV</a>
+        </p>
+      </div>
+
+      <aside
+        class="section-nav hidden lg:block lg:sticky lg:top-8 lg:self-start lg:h-fit body-text"
+      >
+        <nav aria-label="Sections" class="font-lilex">
+          <ul class="flex flex-col">
+            <li>
+              <a class="text-link underline" href="#top">Software Engineer @ Sveriges Radio</a>
+              <div class="section-links"><ul id="toc" class="flex flex-col">
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#react-migration">React migration</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#accessibility">Accessibility</a></li>
+<li class="relative py-1 pl-6 before:absolute before:left-0 before:top-0 before:h-[1.1rem] before:w-4 before:rounded-bl-[0.2rem] before:border-b before:border-l before:border-slate-300 after:absolute after:left-0 after:top-0 after:h-full after:w-px after:bg-slate-300 last:after:hidden dark:before:border-slate-600 dark:after:bg-slate-600 toc-h2"><a href="#ops">Ops</a></li>
+</ul></div>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+  </main>
+  <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+  <script src="/section-nav.js"></script>
+</body>
+</html>

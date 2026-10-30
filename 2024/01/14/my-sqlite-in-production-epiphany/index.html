@@ -1,0 +1,234 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      My SQLite in production epiphany
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">My SQLite in production epiphany</h1>
+  <p class="subtitle">2024-01-14</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">My SQLite in production epiphany</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>My work environment email alerts service – <a href="https://666a.se/">666a</a> – is a Rails
+app using SQLite for its production database. I’m super happy with this stack,
+but it wasn’t an obvious choice from the start, and I know a lot of folks still
+haven’t heard the growing hype about using SQLite in production in the Rails
+community. Here’s how I ended up shipping a production app with a SQLite
+database, and how it helped me rediscover some joy in full-stack work.</p>
+
+<h2 id="back-on-rails" class="section-heading">Back on Rails</h2>
+
+<p>I built the very first prototype version of 666a in Rails. Nothing beats Active
+Record when you need to iterate really quick on a concept for a database schema.
+It ran on our old MacBook Air where our Plex server lives. Then, in late August,
+I got sidetracked by the idea that for the “real” version I needed to redo it in
+a more “modern” web stack like Next.js.</p>
+
+<p>What a waste of a month this turned out to be. You have to jump through so many
+hoops for this new edge computing paradigm, but none of the benefits are
+applicable to an app like 666a with relatively stable load whose users are
+concentrated in one geographic location. Plus, the core things 666a actually
+<em>needs</em> – mundane stuff like an ORM or a nice mature localisation framework –
+are all third party plugins in Next.js. Afterthoughts.</p>
+
+<p>I churned through so many libraries and platforms trying to make this mismatch
+work. The ones I can remember include <a href="https://kysely.dev/">Kysely</a>,
+<a href="https://www.prisma.io/">Prisma</a>, <a href="https://planetscale.com/">Planetscale</a>,
+<a href="https://vercel.com/docs/storage/vercel-postgres">Vercel Postgres</a>, and
+<a href="https://www.inngest.com/">Inngest</a>. It seemed like no matter what I picked, it
+was going to get expensive fast, and yet at the same time nothing’s fully
+working right yet because the whole edge functions thing is still so bleeding
+edge.</p>
+
+<p>By the end of September I was fed up. I deleted my Next.js app and ran
+<code class="language-plaintext highlighter-rouge">rails new</code> with some considerable relief.</p>
+
+<h2 id="but-sqlite-in-production" class="section-heading">But… SQLite? In production?</h2>
+
+<p>As I was making that decision to jump back to Rails, I was aware of a growing
+wave of hype about using SQLite in production. I eagerly followed Stephen
+Margheim’s series of
+<a href="https://fractaledmind.github.io/tags/sqlite/">SQLite-related blog posts</a>,
+<a href="https://blog.appsignal.com/2023/09/27/an-introduction-to-litestack-for-ruby-on-rails.html">AppSignal’s series on LiteStack</a>,
+as well as
+<a href="https://fly.io/ruby-dispatch/sqlite-and-rails-in-production/">anything Fly.io published about it</a>.</p>
+
+<p>This used to be unthinkable. In fact it’s only in the past month that the Rails
+core team
+<a href="https://github.com/rails/rails/pull/50463">removed the warning message about running SQLite in production</a>.
+I reckon it’s a combination of factors: it’s enabled by technological advances,
+and driven by a reduced focus on exponential growth due to high interest rates.</p>
+
+<p>Whatever the underlying reason for the mindset shift, it doesn’t seem to be news
+to the folks behind SQLite itself. The quote below has been on their site
+<a href="https://web.archive.org/web/20050204022544/https://www.sqlite.org/whentouse.html">since at least 2005</a>.</p>
+
+<blockquote>
+  <p>SQLite works great as the database engine for most low to medium traffic
+websites (which is to say, most websites). Generally speaking, any site that
+gets fewer than a 100,000 hits/day should work fine with SQLite.</p>
+</blockquote>
+
+<p>666a is right in the centre of the sweet spot for a SQLite in production
+use-case. It’s a service targeting a niche interest group in a tiny country of
+10 million people. I reckon the entire Swedish labour movement could sign up
+before I’d even need to starting googling for performance tips.</p>
+
+<h2 id="the-experience-so-far" class="section-heading">The experience so far</h2>
+
+<p>It’s rare for me to find this much joy in the back-end &amp; infrastructure side of
+a project. Normally it’s the front-end work that gives me these feelings, but
+there’s something truly special about this tech stack. And the fact that it’s
+cheaper – 666a currently fits within the Fly.io free tier – is only part of it.</p>
+
+<p>The sensation of being able to ship an entire full-stack app as a single Docker
+image and not even have a <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> at all is difficult to describe.
+There’s something weirdly cosy about it. It also feels like it shouldn’t even be
+possible, and brings back nostalgic memories of the 2000s-era trend for PHP
+features to use a “flat file” for storage instead of a database.</p>
+
+<p>Four months in, there have been no downsides to speak of. It’s literally just…
+fantastic. My database is around 350MB, doing something on the order of 1000ish
+writes and (<em>really</em> guessing now) 10,000ish reads per day. It’s got indexes,
+I’m doing joins and group by statements and all that normal stuff, and I’m never
+being confronted with unexpected barriers resulting from the choice of SQLite.</p>
+
+<p>In fact I’m even using
+<a href="https://fractaledmind.github.io/2023/09/22/enhancing-rails-sqlite-ulid-primary-keys/">ULID primary keys</a>
+cos I didn’t want the infosec headaches of autoincrementing integers (any labour
+movement-related software always deserves a bit of paranoia) or the awkward
+ergonomics of regular UUIDs. Setting that up was a piece of piss too.</p>
+
+<p>The contrast I find the most striking in all this is that in Next.js I was just
+setting up a normal app the normal way, yet somehow still it felt like swimming
+against the tide, whereas with Rails, even configuring a quirky primary key
+format on a non-standard database was easy and actually kind of fun.</p>
+
+<p>When you consider the fact that I have zero professional Rails experience, and
+that I’ve spent the better part of a decade working mostly with React, it does
+seem a bit weird. I mean I even really <em>like</em> React for fuck’s sake. Seems silly
+that it’s somehow not the easiest way for me to ship a simple app like this one.</p>
+
+<p>My gut feeling is that it’s partly an incentives thing. Vercel’s in the PaaS
+business, so obviously the product strategy for Next.js is wrapped up in that
+and it makes sense to prioritise promoting the serverless paradigm they’ve bet
+their entire company on over e.g. integrating a production-ready i18n solution.
+By contrast, nothing about 37signals’ SaaS business incentivises Rails to double
+as the top of a freemium conversion funnel.</p>
+
+<p>Nothing showcases that difference in incentives better than production SQLite.
+We use Next.js at my current job, where it’s a great fit, and I think I kinda
+get it: this new serverless stuff is way more worth the trouble when you’re
+hoping to scale up as fast and as big as possible. For more modest projects with
+smaller troubleshooting time budgets, maybe it’s natural that a tool built by
+and for the VC ecosystem doesn’t fit so great. It feels great that this
+production SQLite adventure has helped me understand all this a bit better, and
+after a decade of React I’m stoked about the prospect of having a new go-to
+stack with more batteries included.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

@@ -1,0 +1,157 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      The kollektivavtal archive&#39;s moved back to GitHub
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">The kollektivavtal archive's moved back to GitHub</h1>
+  <p class="subtitle">2026-10-17</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">The kollektivavtal archive&#39</span>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 2"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">s moved back to GitHub</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>Made the decision this week to pull the plug on <a href="https://kollektivavtal.github.io/">kollektivavtal.github.io</a> and move it back to <a href="https://kollektivavtal.github.io/">kollektivavtal.github.io</a>. Not an easy decision to make as I’d come to really love Codeberg.</p>
+
+<p>With the legacy <a href="https://blog.codeberg.org/migrate-your-site-to-the-new-git-pages-backed-codeberg-pages-now-were-sunsetting-codeberg-pages-v2.html?via=dailydev">Codeberg Pages v2 sunset deadline</a> approaching, there was going to need to be some maintenance work on the site no matter what I did. It occurred to me that returning to GitHub would be a comparable amount of work to handling the upgrade on Codeberg itself. And GitHub won the trade-off.</p>
+
+<p>One reason was licensing. I use the <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC-0 license</a> on the whole kollektivavtal archive project and all its sister projects like <a href="https://arbetsmiljo.github.io/">arbetsmiljo.github.io</a> and all those. That’s because 99% of the the value is in the form of data such as PDFs created by Swedish trade unions, data collected from the Swedish work environment agency, and laws written by the Swedish government. As I’m only aggregating that existing work, I don’t want to make any claims of my own regarding ownership of it. I also can’t be bothered with a hybrid license setup where the code is under one license and the data another. Codeberg’s <a href="https://docs.codeberg.org/getting-started/licensing/#other-projects-(documentation%2C-music%2C-etc.)">licensing documentation</a> is vaguely negative towards this type of usage in a way that always made me uneasy. GitHub doesn’t give a shit.</p>
+
+<p>Another one was the new <a href="https://henry.catalinismith.se/2026/08/06/why-i-voted-in-favour-of-codebergs-ai-policy/">AI policy at Codeberg (that I voted in favour of)</a>. So far the kollektivavtal archive is completely hand-built, but it is actually very boring and gruelling work to scour trade union websites, download PDFs, and then annotate everything with links to sources. And currently the archive only covers a small fraction of the real number of agreements out there. It’s not feasible for me to find them all manually. In the future I want to explore delegating some of that work to AI, at which point I will risk being in violation of the new AI policy at Codeberg. I stand by my vote for that policy for the reasons I already outlined in my blog post about it. I think it’s a good thing that there are different services for different use cases, and a vibecoding ban is a great fit both for Codeberg’s community culture and for its resource constraints. It was the right decision even if it pushes me out.</p>
+
+<p>The other reason was reliability, which admittedly might be a little unfair of me. The new pages server at Codeberg is likely to be miles more reliable than the old one. But uptime on <code class="language-plaintext highlighter-rouge">.github.io</code> <em>has</em> been a problem. And people do give a shit about the uptime of the kollektivavtal archive, as I was reminded just last night. A few hours after completing the GitHub migration I got an email asking where the old site had gone and could I please fix it as this person was using URLs on it in their <em>work</em>, like at their <em>job</em>. So now there’s some redirects up there just in case.</p>
+
+<p>One last reason was the CI at GitHub. I built a pretty nice CI workflow into the kollektivavtal archive so that I can just upload a PDF and have it autoindexed on the site. Never felt super comfortable porting it over to Codeberg in case the bandwidth and disk usage of the PDFs could be a problem for the infra.</p>
+
+<blockquote>
+  <p><strong>Resource usage must be reasonable for the intended use-case.</strong><br />
+CI requires substantial computing resources (cloning the repo and pulling the image, installing required tools, building and throwing everything away). Therefore, please consider twice how to create a good balance between ensuring code quality for your project and resource usage.<br />
+<a href="https://docs.codeberg.org/ci/">https://docs.codeberg.org/ci/</a></p>
+</blockquote>
+
+<p>The above read like a closed door to me. Having to hand crank the build system and deploy every new PDF manually more or less doubled the workload of maintaining the site and led to me loving the project less and spending less time on it.</p>
+
+<p>Bit of a shame as I had become quite emotionally attached to Codeberg. But it will be fun to see if the move breathes some new life into the project.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

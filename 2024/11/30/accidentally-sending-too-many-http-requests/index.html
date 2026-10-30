@@ -1,0 +1,147 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Accidentally Sending Too Many HTTP Requests
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Accidentally Sending Too Many HTTP Requests</h1>
+  <p class="subtitle">2024-11-30</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Accidentally Sending Too Many HTTP Requests</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><blockquote>
+  <p>This was originally posted at
+https://666a.se/news/accidentally-sending-too-many-http-requests and has been
+migrated here since for long-term hosting.</p>
+</blockquote>
+
+<p>Arbetsmiljöverket
+<a href="https://henry.catalinismith.com/2024/06/06/about-arbetsmiljoverkets-new-webdiarium">updated their webdiairum back in June</a>.
+When I
+<a href="https://codeberg.org/henrycatalinismith/666a.se/commit/1c2e2cf20a9c6650c18a8b2d7020d82b30dda99b">updated 666a to work with their new system</a>,
+I made a coding mistake. The impact of my mistake was that 666a began to send
+more and more HTTP requests to Arbetsmiljöverket’s webdiarium with each day that
+passed after the mistake.</p>
+
+<p>This was the kind of mistake where it doesn’t have very much impact at first,
+but the impact quietly grows and grows. These are the worst. They’re so easy to
+miss because of how subtle they are on the day you ship them. And then by the
+time you do notice them, they’ve grown into a monster. By the time I caught
+this, it was causing something like 10000 extra HTTP requests per day.</p>
+
+<p><img src="/2024/11/30/search-growth-bug@1252x656.webp" alt="Graph showing a surge in growth around June" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+
+<p>It’s
+<a href="https://codeberg.org/henrycatalinismith/666a.se/commit/68a7c459335021dfe63b8fc358f68be9b7aba8ae">fixed</a>
+now. Sorry, Arbetsmiljöverket. I hope the system extra load didn’t cause any
+trouble, although to be honest I doubt I’m the only one monitoring the
+webdiarium in this way so perhaps it wasn’t even noticeable on your end. You can
+<a href="mailto:henry@catalinismith.se">email me</a> any time if you ever need to have a
+word with me about something like this.</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

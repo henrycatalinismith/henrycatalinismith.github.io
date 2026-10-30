@@ -1,0 +1,210 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Inspecting HTML elements that disappear on blur
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Inspecting HTML elements that disappear on blur</h1>
+  <p class="subtitle">2026-03-28</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Inspecting HTML elements that disappear on blur</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>Web accessibility is mostly about HTML, I reckon. Tons of the bugs you work on
+end up being about adding or removing some attribute from an element. So the
+inspect element tool is a really important part of the toolkit. And most of the
+time you don’t even have to think about it: just ⌘⇧C, click on the element
+you’re curious about, and you’re in business.</p>
+
+<p>That simple workflow falls apart when you need to debug an element that
+disappears when you blur the document. Stuff like comboboxes and dropdown menus
+are built to close themselves when the user is finished with them. So when you
+try to expand them in the inspect element tool, they vanish. It’s bloody
+frustrating!</p>
+
+<p>Sometimes it’s easy to work around the problem by hardcoding the UI component
+to ignore the blur event and remain open. This is most often possible in
+projects that contain their own set of base UI components. Today I found myself
+dealing with a case where that wasn’t practical, and realised it might be worth
+sharing the workaround I always use.</p>
+
+<p>I’d found this really interesting issue about <a href="https://codeberg.org/forgejo/forgejo/issues/7668">the @mention combobox in Forgejo’s
+issue comment UI not being announced properly</a>.
+Forgejo uses the <code class="language-plaintext highlighter-rouge">@github/text-expander-element</code> for this, and GitHub’s known
+for taking accessibility pretty seriously, so I was surprised it didn’t just
+work perfectly out of the box and curious about why. Couldn’t use inspect
+element though!</p>
+
+<figure>
+ <video poster="/2026/03/28/no@1000x544.webp" src="/2026/03/28/no@1000x544.mp4" title="Browser debugging session" controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  It disappears every time you try to inspect it!
+ </figcaption>
+</figure>
+
+<p>The workaround I went with was one of my favourite little accessibility trade
+secrets: <code class="language-plaintext highlighter-rouge">setTimeout</code>, <code class="language-plaintext highlighter-rouge">console.log</code>, and <code class="language-plaintext highlighter-rouge">innerHTML</code>! You give up on the
+inspect element tool and go to the console instead. You rig up a <code class="language-plaintext highlighter-rouge">setTimeout</code>
+that will wait 2 seconds before printing the HTML of the element you’re
+interested in, then you race over to get the UI into the state you’re curious
+about in time for the timeout to fire.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span>
+  <span class="nb">document</span>
+   <span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">.suggestions</span><span class="dl">'</span><span class="p">)</span>
+   <span class="p">.</span><span class="nx">innerHTML</span>
+<span class="p">),</span> <span class="mi">2000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<figure>
+ <video poster="/2026/03/28/yes@1000x544.webp" src="/2026/03/28/yes@1000x544.mp4" title="Browser debugging session" controls="" preload="none" playsinline="" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+ </video>
+ <figcaption>
+  There it is!
+ </figcaption>
+</figure>
+
+<p>Thanks to that trick, it became clear that the combobox items lacked unique IDs,
+which prevented <code class="language-plaintext highlighter-rouge">@github/text-expander-element</code> from setting
+<a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-activedescendant"><code class="language-plaintext highlighter-rouge">aria-activedescendant</code></a>
+properly on the textarea element. From there, it was an <a href="https://codeberg.org/forgejo/forgejo/pulls/11860">easy pull
+request</a> to put together.</p>
+
+<p>By the way, did you spot the console warning in the second video?</p>
+
+<blockquote>
+  <p>Empty string passed to getElementById()</p>
+</blockquote>
+
+<p>Firefox is fucking <em>brilliant</em> for that kind of stuff. That warning is coming
+from <code class="language-plaintext highlighter-rouge">@github/combobox-nav</code>, and it’s caused by the same lack of unique IDs
+that break the screen reader accessibility of the dropdown. Clicking on the
+line number in the stack trace showed me exactly where the missing IDs were
+causing trouble, and helped me quickly build a mental model of what was wrong.
+So second tip: debug in Firefox!</p>
+
+<p>It’s a lot of fun working on Foregejo’s accessibility. The UI has a very
+late-2000’s / early-2010’s architecture, with lots of jQuery. A big strength
+I’ve noticed about this is that it seems to impose a fairly low ceiling on code
+complexity, discouraging ambitious metaprogramming. The downside of that
+trade-off is well understood thanks to a decade of React hegemony, but I want
+it in writing that I was surprised by how approachable and understandable I
+found this type of code even after so many years away from it. It reminds me of
+the internals of the <a href="/2026/03/11/restoring-an-old-80s-boombox/">80’s boombox I’ve
+been slowly working on refurbishing</a>,
+and I mean that as an enormous complement.</p>
+
+<p>It would be very cool if there was more competition over all these interesting
+little Forgejo accessibility puzzles. If it’s something you’re into, I can
+reassure you that Forgejo’s the kind of project where accessibility bug reports
+and fixes are well-received. Come join us in
+<a href="https://matrix.to/#/#forgejo-accessibility:matrix.org">#forgejo-accessibility</a>
+and let’s make the new home of free and open source software accessible to everyone!</p>
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>
