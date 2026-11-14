@@ -1,0 +1,77 @@
+---
+layout: null
+title: Blog
+subtitle: All kinds of different stuff really
+permalink: /blog/
+toc: true
+---
+{% assign posts = site.posts | sort: 'date' | reverse %}
+{% assign years = posts | group_by_exp: 'post', "post.date | date: '%Y'" %}
+
+{% capture year_headings %}
+  {% for year in years %}
+    <h2 id="{{ year.name }}">{{ year.name }}</h2>
+  {% endfor %}
+{% endcapture %}
+
+{% assign toc_html = year_headings | toc_only %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {{ page.title }}
+      – Henry Catalini Smith
+    </title>
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
+  </head>
+  <body class="page-grid">
+    {% include breadcrumbs.html crumbs="Henry Catalini Smith|/;Blog" %}
+    {% include header.html title=page.title subtitle=page.subtitle %}
+
+    <div class="[grid-area:content] flex flex-col lg:flex-row gap-8">
+      <nav aria-label="Years" class="lg:hidden flex flex-col hidden lg:block">
+        <ul class="flex flex-col">
+          <li>
+            <a class="text-link underline" href="#top">{{ page.title | escape }}</a>
+            <div class="section-links">{{ toc_html }}</div>
+          </li>
+        </ul>
+      </nav>
+      <main class="flex flex-col gap-6 max-w-[65ch]">
+        {% for year in years %}
+          <h2 id="{{ year.name }}" class="section-heading font-sm">
+            {{ year.name }}
+          </h2>
+          <ul class="body-text flex flex-col gap-6">
+            {% for post in year.items %}
+              <li>
+                <h3 class="font-bold">
+                  <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+                </h3>
+                <div>{{ post.date | date: '%Y-%m-%d' }}</div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </main>
+      <aside
+        class="hidden lg:block lg:sticky lg:top-8 lg:self-start lg:h-fit body-text"
+      >
+        <nav aria-label="Years" class="font-lilex">
+          <ul class="flex flex-col">
+            <li>
+              <a class="text-link underline" href="#top">{{ page.title }}</a>
+              <div class="section-links">{{ toc_html }}</div>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+
+    {% include footer.html %}
+    <script src="{{ '/section-nav.js' | relative_url }}"></script>
+  </body>
+</html>

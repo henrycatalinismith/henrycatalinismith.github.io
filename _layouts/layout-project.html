@@ -1,0 +1,82 @@
+{% capture trail %}Henry Catalini Smith|/;CV|/cv/;{{ page.project.name | escape }}{% endcapture %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex">
+    <title>
+      {{ page.title | escape }}
+      – Henry Catalini Smith
+    </title>
+    {% if page.description %}
+      <meta name="description" content="{{ page.description | escape }}" />
+    {% endif %}
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
+  </head>
+
+  <body class="page-grid">
+    {% include breadcrumbs.html crumbs=trail %}
+    {% include header.html title=page.title subtitle=page.subtitle %}
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <nav class="section-nav lg:hidden flex flex-col gap-y-6">
+          <ul class="flex flex-col">
+            <li>
+              <a class="text-link underline" href="#top">{{ page.title | escape }}</a>
+              <div class="section-links">{% toc %}</div>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="flex flex-col gap-6 min-w-0 max-w-[65ch]">
+          {% if page.description %}
+            <p class="max-w-[65ch]">{{ page.description }}</p>
+          {% endif %}
+
+          <dl
+            class="body-text flex flex-col gap-y-4 py-4 dark:border-slate-500"
+          >
+            {% if page.project.repo %}
+              <div class="flex flex-col sm:flex-row sm:gap-x-4">
+                <dt class="font-bold sm:w-32 sm:shrink-0">Repository</dt>
+                <dd>
+                  <a href="{{ page.project.repo }}">{{ page.project.repo | remove_first: 'https://github.com/' }}</a>
+                </dd>
+              </div>
+            {% endif %}
+            {% if page.project.tech %}
+              <div class="flex flex-col sm:flex-row sm:gap-x-4">
+                <dt class="font-bold sm:w-32 sm:shrink-0">Technologies</dt>
+                <dd>{{ page.project.tech | join: ', ' }}</dd>
+              </div>
+            {% endif %}
+          </dl>
+
+          <div class="body-text post-body">{{ content }}</div>
+
+          <p class="body-text">
+            <a class="text-link underline" href="{{ '/cv/' | relative_url }}">Back to CV</a>
+          </p>
+        </div>
+
+        <aside
+          class="section-nav hidden lg:block lg:sticky lg:top-8 lg:self-start lg:h-fit body-text"
+        >
+          <nav aria-label="Sections" class="font-lilex">
+            <ul class="flex flex-col">
+              <li>
+                <a class="text-link underline" href="#top">{{ page.title | escape }}</a>
+                <div class="section-links">{% toc %}</div>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+      </div>
+    </main>
+    {% include footer.html %}
+    <script src="{{ '/section-nav.js' | relative_url }}"></script>
+  </body>
+</html>

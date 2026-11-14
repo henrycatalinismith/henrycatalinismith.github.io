@@ -1,0 +1,211 @@
+---
+layout: null
+title: Curriculum Vitae
+subtitle: Henry Catalini Smith
+permalink: /cv/
+toc: true
+---
+{% capture section_headings %}
+  <h2 id="roles">Roles</h2>
+  {% assign roles = site.roles | sort: 'role.start' | reverse %}
+  {% for item in roles %}
+    {% capture item_id %}role-{{ item.role.company_name | slugify }}-{{ item.role.start | date: '%Y-%m' }}{% endcapture %}
+    <h3 id="{{ item_id }}">{{ item.role.job_title }} @ {{ item.role.company_name }}</h3>
+  {% endfor %}
+
+  <h2 id="projects">Projects</h2>
+  {% assign projects = site.projects | sort: 'project.start' | reverse %}
+  {% for item in projects %}
+    {% capture item_id %}project-{{ item.title | slugify }}{% endcapture %}
+    <h3 id="{{ item_id }}">{{ item.project.name }}</h3>
+  {% endfor %}
+
+  <h2 id="education">Education</h2>
+  {% assign sorted_education = site.education | sort: 'start' | reverse %}
+  {% for item in sorted_education %}
+    {% capture item_id %}education-{{ item.qualification | slugify }}{% endcapture %}
+    <h3 id="{{ item_id }}">{{ item.qualification }}</h3>
+  {% endfor %}
+
+  <h2 id="certifications">Certifications</h2>
+  {% assign sorted_certifications = site.certifications | sort: 'start' | reverse %}
+  {% for item in sorted_certifications %}
+    {% capture item_id %}certification-{{ item.qualification | slugify }}{% endcapture %}
+    <h3 id="{{ item_id }}">{{ item.qualification }}</h3>
+  {% endfor %}
+{% endcapture %}
+
+{% assign toc_html = section_headings | toc_only %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex">
+    <title>Curriculum Vitae – Henry Catalini Smith</title>
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
+  </head>
+  <body class="page-grid">
+    {% include breadcrumbs.html crumbs="Henry Catalini Smith|/;CV" %}
+    {% include header.html title=page.title subtitle=page.subtitle %}
+
+    <div class="[grid-area:content] flex flex-col lg:flex-row gap-8">
+      <nav aria-label="Contents" class="lg:hidden flex flex-col">
+        <ul class="flex flex-col">
+          <li>
+            <a class="text-link underline" href="#top">{{ page.title | escape }}</a>
+            <div class="section-links">{{ toc_html }}</div>
+          </li>
+        </ul>
+      </nav>
+
+      <main class="flex flex-col gap-8 min-w-0 max-w-[65ch]">
+        <section id="roles">
+          <h2 class="section-heading mb-4">Roles</h2>
+          {% assign roles = site.roles | sort: 'role.start' | reverse %}
+          <ul class="flex flex-col gap-8">
+            {% for item in roles %}
+              {% capture item_id %}
+                role-{{ item.role.company_name | slugify }}-{{ item.role.start | date: '%Y-%m' }}
+              {% endcapture %}
+              {% capture item_title %}
+                {{ item.role.job_title }} @ {{ item.role.company_name }}
+              {% endcapture %}
+              {% capture item_subtitle %}
+                {{ item.role.start | date: '%b %Y' }} —
+                {% if item.role.end -%}
+                  {{- item.role.end | date: '%b %Y' -}}
+                {%- else -%}
+                  Present
+                {%- endif %}
+              {% endcapture %}
+              {% capture link_text %}
+                {% if item.role.topics -%}
+                  Read more about {{ item.role.topics -}}
+                {%- endif %}
+              {% endcapture %}
+              {%
+                include cv-item.html
+                id=item_id
+                title=item_title
+                subtitle=item_subtitle
+                description=item.description
+                link_href=item.url
+                link_text=link_text
+              %}
+            {% endfor %}
+          </ul>
+        </section>
+
+        <section id="projects">
+          <h2 class="section-heading mb-4">Projects</h2>
+          {% assign projects = site.projects | sort: 'project.start' | reverse %}
+          <ul class="flex flex-col gap-8">
+            {% for item in projects %}
+              {% capture item_id %}
+                project-{{ item.title | slugify }}
+              {% endcapture %}
+              {% capture link_text %}
+                {% if item.project.topics -%}
+                  Read more about {{ item.project.topics -}}
+                {%- endif %}
+              {% endcapture %}
+              {%
+                include cv-item.html
+                id=item_id
+                title=item.project.name
+                subtitle=item.subtitle
+                description=item.description
+                link_href=item.url
+                link_text=link_text
+              %}
+            {% endfor %}
+          </ul>
+        </section>
+
+        <section id="education">
+          <h2 class="section-heading mb-4">Education</h2>
+          {% assign sorted_education = site.education | sort: 'start' | reverse %}
+          <ul class="flex flex-col gap-8">
+            {% for item in sorted_education %}
+              {% capture item_id %}education-{{ item.qualification | slugify }}{% endcapture %}
+              {% capture item_subtitle %}
+                {{ item.institution }}, {{ item.start }} —
+                {% if item.end -%}
+                  {{- item.end -}}
+                {%- else -%}
+                  Present
+                {%- endif %}
+              {% endcapture %}
+              {% capture link_text %}
+                {% if item.topics -%}
+                  Read more about {{ item.topics -}}
+                {%- endif %}
+              {% endcapture %}
+              {%
+                include cv-item.html
+                id=item_id
+                title=item.qualification
+                subtitle=item_subtitle
+                description=item.description
+                link_href=item.url
+                link_text=link_text
+              %}
+            {% endfor %}
+          </ul>
+        </section>
+
+        <section id="certifications">
+          <h2 class="section-heading mb-4">Certifications</h2>
+          {% assign sorted_certifications = site.certifications | sort: 'start' | reverse %}
+          <ul class="flex flex-col gap-8">
+            {% for item in sorted_certifications %}
+              {% capture item_id %}certification-{{ item.qualification | slugify }}{% endcapture %}
+              {% capture item_subtitle %}
+                {{ item.start }} —
+                {% if item.end -%}
+                  {{- item.end -}}
+                {%- else -%}
+                  Present
+                {%- endif %}
+              {% endcapture %}
+              {% capture link_text %}
+                Read more about this
+              {% endcapture %}
+              {% capture link_text %}
+                {% if item.topics -%}
+                  Read more about {{ item.topics -}}
+                {%- endif %}
+              {% endcapture %}
+              {%
+                include cv-item.html
+                id=item_id
+                title=item.qualification
+                subtitle=item_subtitle
+                description=item.description
+                link_href=item.url
+                link_text=link_text
+              %}
+            {% endfor %}
+          </ul>
+        </section>
+      </main>
+
+      <aside
+        class="hidden lg:block lg:sticky lg:top-8 lg:self-start lg:h-fit body-text"
+      >
+        <nav aria-label="Sections" class="font-lilex">
+          <ul class="flex flex-col">
+            <li>
+              <a class="text-link underline" href="#top">{{ page.title }}</a>
+              <div class="section-links">{{ toc_html }}</div>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+
+    <script src="{{ '/section-nav.js' | relative_url }}"></script>
+  </body>
+</html>

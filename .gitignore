@@ -1,0 +1,7 @@
+.jekyll-cache
+_site
+node_modules
+
+# Local Netlify folder
+.netlify
+.DS_Store

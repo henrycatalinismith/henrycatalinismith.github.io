@@ -1,0 +1,18 @@
+- label: RSS Feed
+  href: /feed.xml
+  image: /2026/10/26/rss2@80x15.webp
+  alt: RSS Feed
+
+- label: CC BY-SA 4.0
+  href: https://creativecommons.org/licenses/by-sa/4.0/deed.en
+  image: /2026/10/26/cc-by-sa-4@80x15.webp
+  alt: CC BY-SA
+# - label: Valid HTML5
+#   href: https://validator.w3.org/check/referer
+#   image: /2026/10/26/html5@80x15.webp
+#   alt: W3C HTML5
+
+# - label: Valid CSS3
+#   href: https://jigsaw.w3.org/css-validator/check/referer
+#   image: /2026/10/26/css3@80x15.webp
+#   alt: W3C CSS3

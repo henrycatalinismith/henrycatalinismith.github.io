@@ -1,0 +1,93 @@
+---
+layout: null
+title: Open Source
+subtitle: Contributions I've made over the years
+permalink: /opensource/
+toc: true
+---
+{% assign contributions = site.pullrequests | concat: site.issues | concat: site.commits | sort: 'date' | reverse %}
+{% assign years = contributions | group_by_exp: 'item', "item.date | date: '%Y'" %}
+
+{% capture year_headings %}
+  {% for year in years %}
+    <h2 id="{{ year.name }}">{{ year.name }}</h2>
+  {% endfor %}
+{% endcapture %}
+
+{% assign toc_html = year_headings | toc_only %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Open Source – Henry Catalini Smith</title>
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
+  </head>
+  <body class="page-grid">
+    {% include breadcrumbs.html crumbs="Henry Catalini Smith|/;Open Source" %}
+    {% include header.html title=page.title subtitle=page.subtitle %}
+
+    <div class="[grid-area:content] flex flex-col lg:flex-row gap-8">
+      <nav aria-label="Years" class="lg:hidden flex flex-col">
+        <ul class="flex flex-col">
+          <li>
+            <a class="text-link underline" href="#top">{{ page.title | escape }}</a>
+            <div class="section-links">{{ toc_html }}</div>
+          </li>
+        </ul>
+      </nav>
+
+      <main class="flex flex-col gap-6 max-w-[65ch]">
+        {% for year in years %}
+          <h2 id="{{ year.name }}" class="subsection-heading font-sm">
+            {{ year.name }}
+          </h2>
+          <ul class="body-text flex flex-col gap-6">
+            {% for item in year.items %}
+              <li>
+                <h3 class="font-bold">
+                  <a href="{{ item.external_url }}">{{ item.title }}</a>
+                </h3>
+                <div>{{ item.project }}</div>
+                <div class="flex items-center gap-2">
+                  {% case item.collection %}
+                    {% when 'pullrequests' %}
+                      {% include icon-pull-request.html %}
+                      {% assign type_label = 'pull request' %}
+                    {% when 'issues' %}
+                      {% include icon-issue.html %}
+                      {% assign type_label = 'issue' %}
+                    {% when 'commits' %}
+                      {% include icon-commit.html %}
+                      {% assign type_label = 'commit' %}
+                  {% endcase %}
+                  <span>
+                    {{- type_label }}
+                    {{ item.date -}}
+                  </span>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </main>
+
+      <aside
+        class="hidden lg:block lg:sticky lg:top-8 lg:self-start lg:h-fit body-text"
+      >
+        <nav aria-label="Years" class="font-lilex">
+          <ul class="flex flex-col">
+            <li>
+              <a class="text-link underline" href="#top">{{ page.title }}</a>
+              <div class="section-links">{{ toc_html }}</div>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+
+    {% include footer.html %}
+    <script src="{{ '/section-nav.js' | relative_url }}"></script>
+  </body>
+</html>

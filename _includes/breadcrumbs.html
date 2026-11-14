@@ -1,0 +1,31 @@
+{% assign items = include.crumbs | split: ';' %}
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    {% for item in items %}
+      {% assign parts = item | split: '|' %}
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] {% if parts[1] %}min-w-max{% else %}min-w-0{% endif %}"
+        style="--depth: {{ forloop.index0 | minus: 1 }}"
+      >
+        {% if forloop.index > 1 %}
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        {% endif %}
+        {% if parts[1] %}
+          <a class="text-link underline body-text" href="{{ parts[1] }}">{{ parts[0] }}</a>
+        {% else %}
+          <span class="body-text min-w-0 sm:truncate">{{ parts[0] }}</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</nav>
