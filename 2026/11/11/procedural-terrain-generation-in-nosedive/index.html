@@ -1,0 +1,324 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Procedural terrain generation in Nosedive
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Procedural terrain generation in Nosedive</h1>
+  <p class="subtitle">2026-11-11</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Procedural terrain generation in Nosedive</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>My game <a href="https://henry.catalinismith.se/nosedive/">Nosedive</a> is finally finished after
+years of on-again-off-again development and I feel like writing down how the
+procedural terrain generation works, so this is that.</p>
+
+<p>The game’s a one button game where you fly a helicopter through a cave and
+collect coins. Maxing out the combo bar gives you a speed boost and temporary
+invincibility, and the coins are worth more points the faster you’re going.
+Looks like this.</p>
+
+<figure>
+ <video controls="" preload="none" poster="/2026/11/11/nosedive-poster@512x512.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+  <source src="/2026/11/11/nosedive@512x512.mp4" type="video/mp4" />
+ </video>
+</figure>
+
+<p>It’s inspired by the old Flash classic Helicopter Game, which is a little more
+slow paced but has the same basic helicopter + tunnel concept, and looks like
+this.</p>
+
+<figure>
+ <video controls="" preload="none" poster="/2026/11/11/helicopter-game-poster@960x722.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+  <source src="/2026/11/11/helicopter-game@960x722.mp4" type="video/mp4" />
+ </video>
+</figure>
+
+<p>The cave generation is the fun part of building something like this. In fact,
+every time I’ve tried to work on finishing the game I’ve always become fixated
+on the cave generation code instead, and forgotten about the rest of the game.
+That’s probably why it’s older than either of my kids and only just shipped
+now.</p>
+
+<p>The cave needs to have a few special properties. Most importantly, it needs to
+be different every time you play. It also needs to be infinitely long while
+using as little memory as possible. And because of the speed boost game
+mechanic, the cave geometry needs to be more forgiving at higher speeds so that
+the speed boost isn’t just a boring anticlimactic death sentence.</p>
+
+<p>The screen for a PICO-8 game is always 128x128 pixels, so we need to store
+exactly 128 vertical slices of cave in memory in order to render any given
+screen. And the cave always has a roof and a floor, so that’s two numbers per
+slice.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cave</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span><span class="mi">22</span><span class="p">,</span> <span class="mi">95</span><span class="p">},</span> <span class="err">…</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here’s a visualization of the above in terms of how the numbers map to the
+actual cave you see in the game.</p>
+
+<figure>
+ <img src="/2026/11/11/cave@512x512.webp" alt="Still shot of the game with an empty cave and several slices of cave are annotated with numbers" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+<p>A fun detail about how Nosedive works is that under the hood, the helicopter
+doesn’t actually go anywhere. The cave and the smoke move, and the helicopter
+just flies up and down in place. And each time the cave moves, the first slice
+on the left gets forgotten and a new last slice gets added onto the end,</p>
+
+<p>The obvious way to implement this would be to loop through the cave shifting
+each element along by one. That gives you a really easy-to-understand
+relationship between the data structure and what’s on the screen: <code class="language-plaintext inline-code highlighter-rouge">cave[1]</code> is
+always the bit of cave right at the left edge of the screen. It’s not very
+efficient though, as it means you have to do 128 write operations for every
+single pixel of horizontal motion.</p>
+
+<p>At some point I went on (I think) ChatGPT, and asked it how to speed that up.
+And as a result of that question, I learned about one of my fav data
+structures, the <a href="https://en.wikipedia.org/wiki/Circular_buffer">circular
+buffer</a>, which I’m excited to
+tell you about.</p>
+
+<blockquote class="markdown-blockquote">
+  <p>The useful property of a circular buffer is that it does not need to have its elements shuffled around when one is consumed. (If a non-circular buffer were used then it would be necessary to shift all elements when one is consumed.) In other words, the circular buffer is well-suited as a FIFO (first in, first out) buffer while a standard, non-circular buffer is well suited as a LIFO (last in, first out) buffer.</p>
+
+  <p><a href="https://en.wikipedia.org/wiki/Circular_buffer#Uses">https://en.wikipedia.org/wiki/Circular_buffer#Uses</a></p>
+</blockquote>
+
+<p>In Nosedive, that means that instead of shifting the entire cave along by one,
+there’s a <code class="language-plaintext inline-code highlighter-rouge">cave_head</code> variable that tracks which of the 128 elements is the
+current “start” of the cave which gets incremented. And a fun result of that is
+that what I said before about the helicopter not really moving is kind of also
+true of the cave under the hood.</p>
+
+<p>Here’s a side by side visualization where the top half shows what’s rendered by
+the <code class="language-plaintext inline-code highlighter-rouge">_draw_</code> function and the bottom half shows how the data structure actually
+looks underneath for each frame. The little arrow represents the <code class="language-plaintext inline-code highlighter-rouge">cave_head</code>
+variable.</p>
+
+<figure>
+ <video controls="" preload="none" poster="/2026/11/11/circular-poster@512x512.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+  <source src="/2026/11/11/circular@512x512.mp4" type="video/mp4" />
+ </video>
+</figure>
+
+<p>At this point the need for the cave to be infinitely long while using as little
+memory as possible is fulfilled. What’s left is the procedural generation
+itself, which Nosedive handles with little <code class="language-plaintext inline-code highlighter-rouge">terrain</code> functions like these.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="nf">static</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+ <span class="k">return</span> <span class="n">terrain</span><span class="p">(</span>
+  <span class="k">function</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">y</span>
+  <span class="k">end</span>
+ <span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">sinewave</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">frequency</span><span class="p">)</span>
+ <span class="k">return</span> <span class="n">terrain</span><span class="p">(</span>
+  <span class="k">function</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">frequency</span><span class="p">)</span> <span class="o">*</span> <span class="n">magnitude</span>
+  <span class="k">end</span>
+ <span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Each one of these gets a value <code class="language-plaintext inline-code highlighter-rouge">p</code> which can vary from 0 to 1 A little bit of
+<a href="https://www.lua.org/pil/13.1.html">metatable metaprogramming magic</a> lets you
+combine them together in different ways using <code class="language-plaintext inline-code highlighter-rouge">+</code> and <code class="language-plaintext inline-code highlighter-rouge">%</code> and so on. Then
+they’re combined together into “chunks”, which have one terrain function for
+the roof of the cave and another for the floor. A chunk is 128 pixels wide, and
+the <code class="language-plaintext inline-code highlighter-rouge">p</code> parameter is 0 at the start of the chunk and 1 at the end.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="nf">tunnel</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+ <span class="k">return</span> <span class="n">chunk</span><span class="p">(</span>
+  <span class="n">static</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="n">noise</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+  <span class="n">static</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span> <span class="o">+</span> <span class="n">noise</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+ <span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">sinechunk</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+ <span class="k">return</span> <span class="n">chunk</span><span class="p">(</span>
+  <span class="n">sinewave</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">f</span><span class="p">),</span>
+  <span class="n">sinewave</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+ <span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This is a lot of quite ambitious metaprogramming. It was a tough architecture
+to get working and I had to make a lot of scratch carts to understand my own
+idea properly and iron out all the bugs. Here’s one of them,
+<a href="https://github.com/henrycatalinismith/nosedive/blob/main/nosedive-chunks.p8"><code class="language-plaintext inline-code highlighter-rouge">nosedive-chunks.p8</code></a>,
+which renders the cave boundaries of a bunch of different chunks as red lines.</p>
+
+<figure>
+ <video controls="" preload="none" poster="/2026/11/11/nosedive-chunks-poster@512x512.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+  <source src="/2026/11/11/nosedive-chunks@512x512.mp4" type="video/mp4" />
+ </video>
+</figure>
+
+<p>Borrowing further from Minecraft’s vocabulary, chunks are then grouped into
+“biomes”, so that several screenfuls of similar-looking terrain can be packaged
+up into one coherent thing. Here’s
+<a href="https://github.com/henrycatalinismith/nosedive/blob/main/nosedive-chunks.p8"><code class="language-plaintext inline-code highlighter-rouge">nosedive-biomes.p8</code></a>,
+which zooms way out and renders a bunch of different biomes one after another
+really fast.</p>
+
+<figure>
+ <video controls="" preload="none" poster="/2026/11/11/nosedive-biomes-poster@512x512.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+  <source src="/2026/11/11/nosedive-biomes@512x512.mp4" type="video/mp4" />
+ </video>
+</figure>
+
+<p>This structure provides enough leverage to make the cave different each time
+and balance the difficulty of the cave for the higher speeds. The novelty comes
+from randomizing the parameters, and the balance comes from setting different
+thresholds and rules for the different speeds.</p>
+
+<p>Not that the game is particularly well-balanced, though. One of the big downsides
+of having a game in development for so many years is that you get far too much
+time to playtest it and end up becoming far too good at your own game. Everyone
+who plays is complains it’s too hard and they can barely survive a few seconds
+and meanwhile I’m doing this.</p>
+
+<figure>
+ <video controls="" preload="none" poster="/2026/11/11/466-poster@640x640.webp" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]">
+  <source src="/2026/11/11/466@640x640.mp4" type="video/mp4" />
+ </video>
+</figure>
+
+<p>I should probably rebalance it but I can’t stand the thought of putting it back
+into “in-development” status after all these years or making the game boring
+for me personally to play. With Tailbone I solved the second part by making a
+<a href="https://henry.catalinismith.se/tailbone/disk2.html">much harder “disk 2”
+version</a> for myself to play
+but Nosedive just needs to be finished at this point, for better or worse!</p>
+
+<p><a href="https://henry.catalinismith.se/nosedive/">Give it a try</a> and let me know if
+you if you beat my high score!</p>
+
+<figure>
+ <img src="/2026/11/11/highscore@1016x840.webp" alt="Dead. 802 points. New high score!" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+</figure>
+
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+      <li class="flex flex-row items-center">
+        <a href="https://github.com/henrycatalinismith/" aria-label="GitHub" title="GitHub">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/>
+          </svg>
+        </a>
+      </li>
+      <li class="flex flex-row items-center">
+        <a href="https://bsky.app/profile/henry.catalinismith.se" aria-label="Bluesky" title="Bluesky">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 600 530" aria-hidden="true">
+            <path d="M135.72 44.03C202.216 93.951 273.74 195.17 300 249.49c26.262-54.316 97.782-155.54 164.28-205.46C512.26 8.009 590-19.862 590 68.825c0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.38-3.69-10.832-3.708-7.896-.017-2.936-1.193.516-3.707 7.896-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.45-163.25-81.433C20.15 217.613 9.997 86.535 9.997 68.825c0-88.687 77.742-60.816 125.72-24.795z"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>

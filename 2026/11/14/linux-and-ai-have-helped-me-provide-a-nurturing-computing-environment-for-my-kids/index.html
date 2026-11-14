@@ -1,0 +1,163 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Linux and AI have helped me provide a nurturing computing environment for my kids
+      – Henry Catalini Smith
+    </title>
+    
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="page-grid">
+    <header class="[grid-area:header]" id="top">
+  <h1 class="page-heading">Linux and AI have helped me provide a nurturing computing environment for my kids</h1>
+  <p class="subtitle">2026-11-14</p>
+</header>
+
+    
+<nav
+  aria-label="Breadcrumbs"
+  class="print:hidden [grid-area:breadcrumbs] grid items-center"
+>
+  <ol
+    class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0"
+  >
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: -1"
+      >
+        
+        
+          <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max"
+        style="--depth: 0"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <a class="text-link underline body-text" href="/blog/">Blog</a>
+        
+      </li>
+    
+      
+      <li
+        class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0"
+        style="--depth: 1"
+      >
+        
+          <span
+            class="sm:hidden font-mono whitespace-pre self-start"
+            aria-hidden="true"
+            >└──</span
+          >
+          <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+        
+        
+          <span class="body-text min-w-0 sm:truncate">Linux and AI have helped me provide a nurturing computing environment for my kids</span>
+        
+      </li>
+    
+  </ol>
+</nav>
+
+
+    <main class="[grid-area:content]">
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+
+        <div class="body-text post-body"><p>When I was a kid, computing meant stuff like Encarta 98, MSPaint, random programs that on demo discs that came with computer magazines, and writing little stories and poems and songs and satirical school newspapers. It was creative and exploratory, and not addictive in the way it’s become today, and I’ve longed to give my kids access to that world. Ubuntu was the key to this, and agents were the magic missing ingredient to really make it sing.</p>
+
+<p>We had an old iMac become available for duty as a kids’ computer recently, and I tried macOS first, but the parental controls on an old Intel Mac are a joke so I tried Ubuntu next. And holy shit, Ubuntu’s fucking <em>perfect</em> for a kids’ computer. It’s a minute’s work to turn off the browser and install Tuxmath, an offline copy of Wikipedia, GNOME Chess, Tux Paint, Celestia, GNOME Maps, and all kinds of interesting stuff like that.</p>
+
+<p>Tuxmath is bloody amazing. It’s like Space Invaders, except you have to solve little maths problems to aim the gun. Overnight we had the kids practicing arithmetic for fun. A bonafide miracle. A day later I noticed one problem: no sound. Typical Linux problem! I fired up OpenCode and wrote this.</p>
+
+<blockquote class="markdown-blockquote">
+  <p>log in to ssh henry@imac.local and help me figure out why my
+ubuntu imac isnt playing any sound. my kid is playing tux math 
+rn and no sound is coming</p>
+</blockquote>
+
+<p>It did some investigation and eventually narrowed it down to a missing driver. It identified <a href="https://github.com/davidjo/snd_hda_macbookpro"><code class="language-plaintext inline-code highlighter-rouge">snd_hda_macbookpro</code></a> as a likely solution and gave me a shell script to run on the iMac to install it. One reboot later sound was working, and practicing arithmetic had magically become even more fun than the miracle of the day before.</p>
+
+<p>One more day went by, and we discovered Tuxmath’s “Factoroids” mini game. And in Factoroids, instead of doing mental arithmetic, you can have a shitload of fun just flying the spaceship around and blowing up the asteroids. The learning stopped immediately, and we were back in addictive screen time territory. So I Googled (like an absolute boomer) and learned that Tuxmath’s main menu has an XML config file, and then asked Opus this.</p>
+
+<blockquote class="markdown-blockquote">
+  <p>my kids love tuxmath on the imac at henry@imac.local but they
+have become fixated on the stupid factoroids game and i dont
+wnat them to play that. the idea of the imac is to be a
+computer with only good educatiaonal options on it and i want
+to remove factoroids. can you log into it via ssh and look for
+some kind of <code class="language-plaintext inline-code highlighter-rouge">tuxmath/menus/main_menu.xml</code></p>
+</blockquote>
+
+<p>A few moments later all that was left to do was to remind the kids what we’d agreed the computer was for, explain why Factoroids was about to disappear, and restart Tuxmath so that the updated snap could start with the new menu.</p>
+
+<p>Either of these two investigations would have taken me multiple entire evenings if I’d done them the old fashioned way with a combination of Googling and trial and error. In practice this means neither of them would have actually happened. Thanks to the availability of these new agentic tools, I’ve been able to give my kids a best-of-both-worlds computing environment combining the <a href="https://en.wikipedia.org/wiki/Creative_limitation">creative limitations</a> of an offline environment with the upsides of the internet.</p>
+
+<p>The idea of agents as mostly tools for greedy self-enrichment and rampantly addictive consumption is one of the forms my grief about the loss of the pre-AI era of computing has taken. This anecdote is my own personal case study in how the new tools can also be used to go in the exact opposite direction of all that and polish a relatively modest, nurturing, and creative thing that’s deliberately possible to get bored of.</p>
+
+</div>
+
+        
+      </div>
+    </main>
+    <div class="print:hidden [grid-area:footer] grid items-center">
+  <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="/feed.xml"
+          >RSS Feed</a>
+        </li>
+      
+        <li class="relative flex flex-row items-center gap-x-2">
+          <a
+            class="before:absolute before:inset-0 text-xs"
+            href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+          >CC BY-SA 4.0</a>
+        </li>
+      
+      <li class="flex flex-row items-center">
+        <a href="https://github.com/henrycatalinismith/" aria-label="GitHub" title="GitHub">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/>
+          </svg>
+        </a>
+      </li>
+      <li class="flex flex-row items-center">
+        <a href="https://bsky.app/profile/henry.catalinismith.se" aria-label="Bluesky" title="Bluesky">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 600 530" aria-hidden="true">
+            <path d="M135.72 44.03C202.216 93.951 273.74 195.17 300 249.49c26.262-54.316 97.782-155.54 164.28-205.46C512.26 8.009 590-19.862 590 68.825c0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.38-3.69-10.832-3.708-7.896-.017-2.936-1.193.516-3.707 7.896-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.45-163.25-81.433C20.15 217.613 9.997 86.535 9.997 68.825c0-88.687 77.742-60.816 125.72-24.795z"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</div>
+
+    
+  </body>
+</html>
