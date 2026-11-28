@@ -1,0 +1,376 @@
+---
+---
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lilex:ital,wght@0,100..700;1,100..700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xxs: 300px;
+  --breakpoint-xs: 380px;
+  --color-background: #fafafa;
+  --color-background-secondary: lightgray;
+  --color-foreground: #171717;
+  --color-link: royalblue;
+  --font-lilex: "Lilex", monospace;
+  --font-serif: "IBM Plex Serif", serif;
+  --color-media-frame-border: #d4d4d4;
+  --color-media-frame-background: #ffffff;
+  --color-media-frame-inner: rgb(0 0 0 / 0.04);
+  --color-media-frame-shadow: rgb(0 0 0 / 0.12);
+  --color-code-background: rgb(0 0 0 / 0.04);
+  --color-code-border: #e2e8f0;
+  --color-blockquote-border: #cbd5e1;
+  --color-ring-faint: rgb(27 40 45 / 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #05181d;
+    --color-foreground: #eee8d5;
+    --color-secondary: #8ea6ac;
+    --color-background-secondary: #163a44;
+    --color-link: #5da4ff;
+    --color-media-frame-border: #204a56;
+    --color-media-frame-background: #08191e;
+    --color-media-frame-inner: rgb(255 255 255 / 0.04);
+    --color-media-frame-shadow: rgb(0 0 0 / 0.4);
+    --color-code-background: #05181d;
+    --color-code-border: #204a56;
+    --color-blockquote-border: #204a56;
+    --color-ring-faint: rgb(212 229 234 / 0.16);
+  }
+}
+
+body {
+  color: var(--color-foreground);
+  background: var(--color-background);
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr) 0 0 1rem;
+  grid-template-rows:
+    1rem auto 2rem auto 2rem auto auto minmax(calc(100vh - 4rem), auto)
+    4rem auto 1rem;
+  grid-template-areas:
+    ". . . . ."
+    ". breadcrumbs breadcrumbs breadcrumbs ."
+    ". . . . ."
+    ". header header header ."
+    ". . . . ."
+    ". toc toc toc ."
+    ". main main main ."
+    ". after after after ."
+    ". . . . ."
+    ". footer footer footer ."
+    ". . . . .";
+  min-height: 100vh;
+}
+
+@media (min-width: 40rem) {
+  .page-grid {
+    grid-template-rows:
+      0rem 4rem 1rem auto 2rem auto auto minmax(calc(100vh - 4rem), auto)
+      4rem auto 1rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .page-grid {
+    grid-template-columns: 1rem minmax(0, 35fr) 2rem minmax(0, 27fr) 1rem;
+    grid-template-rows:
+      0rem 4rem 1rem auto 2rem minmax(calc(100vh - 4rem), auto)
+      4rem auto 1rem;
+    grid-template-areas:
+      ". . . . ."
+      ". breadcrumbs breadcrumbs breadcrumbs ."
+      ". . . . ."
+      ". header header header ."
+      ". . . . ."
+      ". main . aside ."
+      ". . . . ."
+      ". footer footer footer ."
+      ". . . . .";
+  }
+}
+
+@media (min-width: 66rem) {
+  .page-grid {
+    grid-template-columns: 1fr 35rem 2rem 27rem 1fr;
+  }
+}
+
+.page-aside {
+  @apply [grid-area:toc] mb-8;
+  @apply lg:[grid-area:aside] lg:mb-0 lg:sticky lg:top-8 lg:self-start lg:h-fit;
+}
+
+body,
+.body-text,
+.page-aside {
+  @apply font-lilex text-sm leading-normal tracking-normal;
+}
+
+.section-heading {
+  @apply font-serif text-2xl lg:text-2xl leading-8 lg:leading-9 border-b-1 border-slate-300 pb-1 dark:border-(--color-blockquote-border);
+}
+
+.subsection-heading {
+  @apply font-serif text-xl lg:text-xl font-bold leading-8 lg:leading-9;
+}
+
+.inline-code {
+  background: var(--color-code-background);
+  border: 1px solid var(--color-code-border);
+  border-radius: 0.25rem;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.9em;
+}
+
+.markdown-blockquote {
+  @apply font-serif italic text-base text-slate-600 dark:text-(--color-secondary);
+  border-left: 3px solid var(--color-blockquote-border);
+  padding-left: 1rem;
+}
+
+.subtitle {
+  @apply font-lilex text-sm leading-normal tracking-normal text-slate-500 dark:text-(--color-secondary);
+  font-optical-sizing: auto;
+}
+
+.page-heading {
+  @apply font-serif text-2xl md:text-3xl font-bold italic leading-none;
+}
+
+.post-body {
+  @apply max-w-[65ch];
+}
+
+.project-icon {
+  box-sizing: content-box;
+  padding: 3px;
+  border-radius: 4px;
+  background: var(--color-background);
+  box-shadow: 0 0 0 1px var(--color-ring-faint);
+}
+
+.post-body > * + * {
+  margin-top: 1.5rem;
+}
+
+@layer utilities {
+  :where(a[href]) {
+    @apply text-link underline;
+  }
+
+  .section-links a.current {
+    @apply font-bold text-foreground;
+  }
+}
+
+div.highlight {
+  background: var(--color-code-background);
+  border: 1px solid var(--color-code-border);
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+}
+
+div.highlight pre {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  width: max-content;
+  min-width: 100%;
+  font-family: inherit;
+}
+
+.highlight .c,
+.highlight .cm,
+.highlight .c1,
+.highlight .cs {
+  color: #93a1a1;
+  font-style: italic;
+}
+
+.highlight .err {
+  color: #dc322f;
+}
+
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kp,
+.highlight .kr,
+.highlight .ow {
+  color: #859900;
+  font-weight: bold;
+}
+
+.highlight .o {
+  color: #657b83;
+  font-weight: bold;
+}
+
+.highlight .kt {
+  color: #b58900;
+  font-weight: bold;
+}
+
+.highlight .m,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .mo,
+.highlight .il {
+  color: #2aa198;
+}
+
+.highlight .s,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .s1,
+.highlight .s2,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .ss {
+  color: #cb4b16;
+}
+
+.highlight .na,
+.highlight .nc,
+.highlight .nf,
+.highlight .nb,
+.highlight .no,
+.highlight .nn,
+.highlight .nt,
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
+.highlight .bp,
+.highlight .ni {
+  color: #268bd2;
+}
+
+.highlight .gr,
+.highlight .gd {
+  color: #dc322f;
+}
+
+.highlight .gi {
+  color: #859900;
+}
+
+.highlight .go,
+.highlight .gp,
+.highlight .gh,
+.highlight .gu,
+.highlight .w {
+  color: #93a1a1;
+}
+
+.highlight .ge {
+  font-style: italic;
+}
+
+.highlight .gs {
+  font-weight: bold;
+}
+
+/* Darkstar, matching the Helix theme in ~/dotfiles */
+@media (prefers-color-scheme: dark) {
+  .highlight {
+    color: #eee8d5;
+  }
+
+  .highlight .c,
+  .highlight .cm,
+  .highlight .c1,
+  .highlight .cs {
+    color: #6c838b;
+  }
+
+  .highlight .err,
+  .highlight .gr,
+  .highlight .gd,
+  .highlight .bp {
+    color: #ff796e;
+  }
+
+  .highlight .k,
+  .highlight .kd,
+  .highlight .kp,
+  .highlight .kr,
+  .highlight .ow {
+    color: #ff796e;
+    font-weight: normal;
+  }
+
+  .highlight .kc,
+  .highlight .no,
+  .highlight .nt {
+    color: #ff81ca;
+  }
+
+  .highlight .kt,
+  .highlight .nc,
+  .highlight .m,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .mo,
+  .highlight .il {
+    color: #5da4ff;
+    font-weight: normal;
+  }
+
+  .highlight .o,
+  .highlight .p,
+  .highlight .nn,
+  .highlight .nv,
+  .highlight .vc,
+  .highlight .vg,
+  .highlight .vi,
+  .highlight .go,
+  .highlight .gp,
+  .highlight .w {
+    color: #eee8d5;
+    font-weight: normal;
+  }
+
+  .highlight .s,
+  .highlight .sb,
+  .highlight .sc,
+  .highlight .sd,
+  .highlight .s1,
+  .highlight .s2,
+  .highlight .se,
+  .highlight .sh,
+  .highlight .si,
+  .highlight .sx,
+  .highlight .gi,
+  .highlight .gh,
+  .highlight .gu {
+    color: #83c746;
+  }
+
+  .highlight .sr,
+  .highlight .ss,
+  .highlight .na,
+  .highlight .nf {
+    color: #efc541;
+  }
+
+  .highlight .nb {
+    color: #de428c;
+  }
+
+  .highlight .ni {
+    color: #ed8649;
+  }
+}

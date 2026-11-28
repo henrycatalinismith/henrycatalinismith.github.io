@@ -1,0 +1,50 @@
+{% assign h2_count = content | split: '< h2' | size | minus: 1 %}
+{% assign h3_count = content | split: '< h3' | size | minus: 1 %}
+{% assign section_count = h2_count | plus: h3_count %}
+{% assign date = page.date | date: '%Y-%m-%d' %}
+{% capture trail %}Henry Catalini Smith|/;Blog|/blog/;{{ page.title }}{% endcapture %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#05181d" media="(prefers-color-scheme: dark)" />
+    <title>
+      {{ page.title | escape }}
+      – Henry Catalini Smith
+    </title>
+    {% if page.description %}
+      <meta name="description" content="{{ page.description | escape }}" />
+    {% endif %}
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
+  </head>
+  <body class="page-grid">
+    {% include header.html title=page.title subtitle=date %}
+    {% include breadcrumbs.html crumbs=trail %}
+
+    {% if section_count >= 3 %}
+      <aside class="section-nav page-aside">
+        <h2 class="section-heading mb-6 lg:hidden">Contents</h2>
+        <nav aria-label="Sections">
+          <ul class="flex flex-col">
+            <li>
+              <a class="text-link underline" href="#top">{{ page.title | escape }}</a>
+              <div class="section-links">{% toc %}</div>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    {% endif %}
+
+    <main class="[grid-area:main] min-w-0">
+      <div class="body-text post-body">{{ content }}</div>
+    </main>
+    {% include footer.html %}
+    {% if section_count >= 3 %}
+      <script src="{{ '/section-nav.js' | relative_url }}"></script>
+    {% endif %}
+  </body>
+</html>

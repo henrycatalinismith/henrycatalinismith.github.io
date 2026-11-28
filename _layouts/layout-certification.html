@@ -1,0 +1,51 @@
+{% capture trail %}Henry Catalini Smith|/;CV|/cv/;{{ page.qualification }}{% endcapture %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#05181d" media="(prefers-color-scheme: dark)" />
+    <meta name="robots" content="noindex">
+    <title>
+      {{ page.qualification | escape }}
+      – Henry Catalini Smith
+    </title>
+    {% if page.description %}
+      <meta name="description" content="{{ page.description | escape }}" />
+    {% endif %}
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
+  </head>
+
+  <body class="page-grid">
+    {% include breadcrumbs.html crumbs=trail %}
+    {% include header.html title=page.qualification subtitle=page.subtitle %}
+
+    <aside class="section-nav page-aside">
+      <nav aria-label="Sections">
+        <ul class="flex flex-col">
+          <li>
+            <a class="text-link underline" href="#top">{{ page.qualification | escape }}</a>
+            <div class="section-links">{% toc %}</div>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="[grid-area:main] flex flex-col gap-6 min-w-0">
+      {% if page.description %}
+        <p>{{ page.description }}</p>
+      {% endif %}
+
+      <div class="body-text post-body">{{ content }}</div>
+
+      <p class="body-text">
+        <a class="text-link underline" href="{{ '/cv/' | relative_url }}">Back to CV</a>
+      </p>
+    </main>
+    {% include footer.html %}
+    <script src="{{ '/section-nav.js' | relative_url }}"></script>
+  </body>
+</html>

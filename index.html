@@ -1,0 +1,89 @@
+---
+title: Henry Catalini Smith
+subtitle: Software engineer based in Malmö, Sweden
+---
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}" />
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#05181d" media="(prefers-color-scheme: dark)" />
+  <title>henry.catalinismith.se</title>
+  <link rel="stylesheet" href="{{ '/style.css' | relative_url }}" />
+</head>
+
+<body class="page-grid">
+  {% include header.html title=page.title subtitle=page.subtitle %}
+  <main class="[grid-area:main] flex flex-col gap-6">
+    <h2 class="section-heading">Posts</h2>
+    <ul class="body-text flex flex-col gap-6">
+      {% assign latest_posts = site.posts | sort: 'date' | reverse %}
+      {% for post in latest_posts limit: 6 %}
+      <li>
+        <h2 class="font-bold">
+          <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        </h2>
+        <div>{{ post.date | date: '%Y-%m-%d' }}</div>
+      </li>
+      {% endfor %}
+    </ul>
+    <p>
+      <a class="body-text" href="/blog/">{{ site.posts | size | minus: 6 }} more</a>
+    </p>
+  </main>
+  <aside class="[grid-area:after] mt-8 lg:[grid-area:aside] lg:mt-0 body-text">
+    <h2 class="section-heading mb-6">Projects</h2>
+    <ul class="flex flex-col gap-6">
+      <li class="flex gap-3 items-start">
+        <img src="/2026/11/26/darkstar@96x96.webp" alt="" width="48" height="48" class="project-icon shrink-0">
+        <div class="flex flex-col">
+          <a class="font-bold" href="/darkstar/">Darkstar</a>
+          <span>Deep space colour palette</span>
+        </div>
+      </li>
+      <li class="flex gap-3 items-start">
+        <img src="/2026/11/19/nosedive@96x96.webp" alt="" width="48" height="48"
+          class="project-icon shrink-0 [image-rendering:pixelated]">
+        <div class="flex flex-col">
+          <a class="font-bold" href="/nosedive/">Nosedive</a>
+          <span>Helicopter tunnel game</span>
+        </div>
+      </li>
+      <li class="flex gap-3 items-start">
+        <img src="/2026/11/26/svenska-modellen@96x96.webp" alt="" width="48" height="48" class="project-icon shrink-0">
+        <div class="flex flex-col">
+          <a class="font-bold" href="https://svenskamodellen.github.io/" lang="sv">Svenska Modellen</a>
+          <span>Labour market documentation</span>
+        </div>
+      </li>
+      <li class="flex gap-3 items-start">
+        <img src="/2026/11/19/tailbone@96x96.webp" alt="" width="48" height="48"
+          class="project-icon shrink-0 [image-rendering:pixelated]">
+        <div class="flex flex-col">
+          <a class="font-bold" href="/tailbone/">Tailbone</a>
+          <span>Skateboarding dinosaur game</span>
+        </div>
+      </li>
+      <li class="flex gap-3 items-start">
+        <img src="/2026/11/26/wargames@96x96.webp" alt="" width="48" height="48" class="project-icon shrink-0">
+        <div class="flex flex-col">
+          <a class="font-bold" href="/wargames/">Wargames</a>
+          <span>Global thermonuclear war simulator</span>
+        </div>
+      </li>
+      <li class="flex gap-3 items-start">
+        <img src="/2026/11/26/ppl@96x96.webp" alt="" width="48" height="48" class="project-icon shrink-0">
+        <div class="flex flex-col">
+          <a class="font-bold" href="/ppl/">ppl</a>
+          <span>Command line address book</span>
+        </div>
+      </li>
+    </ul>
+  </aside>
+  {% include footer.html %}
+</body>
+
+</html>

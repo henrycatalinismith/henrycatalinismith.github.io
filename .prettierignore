@@ -1,0 +1,13 @@
+_assets/
+_commits/
+_certifications/
+_education/
+_issues/
+_posts/
+_projects/
+_pullrequests/
+_roles/
+_site/
+node_modules/
+.netlify/
+pnpm-lock.yaml
