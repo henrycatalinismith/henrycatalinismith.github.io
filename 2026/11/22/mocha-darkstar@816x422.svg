@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 816 422" width="816" height="422">
+<rect width="816" height="422" fill="#05181d"/>
+<g font-family="Menlo, Monaco, Consolas, monospace" font-size="16">
+<text x="24" y="62"><tspan fill="#eee8d5">&#160;&#160;Cart</tspan></text>
+<text x="24" y="84"><tspan fill="#859900">&#160;&#160;&#160;&#160;✔</tspan><tspan fill="#8ea6ac">&#160;adds&#160;items&#160;to&#160;the&#160;basket</tspan></text>
+<text x="24" y="106"><tspan fill="#859900">&#160;&#160;&#160;&#160;✔</tspan><tspan fill="#8ea6ac">&#160;removes&#160;items&#160;from&#160;the&#160;basket</tspan></text>
+<text x="24" y="128"><tspan fill="#859900">&#160;&#160;&#160;&#160;✔</tspan><tspan fill="#8ea6ac">&#160;calculates&#160;the&#160;subtotal</tspan></text>
+<text x="24" y="150"><tspan fill="#e9403a">&#160;&#160;&#160;&#160;1)&#160;applies&#160;discount&#160;codes</tspan></text>
+<text x="24" y="216"><tspan fill="#859900">&#160;&#160;3&#160;passing</tspan><tspan fill="#8ea6ac">&#160;(14ms)</tspan></text>
+<text x="24" y="238"><tspan fill="#e9403a">&#160;&#160;1&#160;failing</tspan></text>
+<text x="24" y="282"><tspan fill="#eee8d5">&#160;&#160;1)&#160;Cart</tspan></text>
+<text x="24" y="304"><tspan fill="#eee8d5">&#160;&#160;&#160;&#160;&#160;&#160;&#160;applies&#160;discount&#160;codes:</tspan></text>
+<text x="24" y="326"><tspan fill="#e9403a">&#160;&#160;&#160;&#160;&#160;TypeError:&#160;Cannot&#160;read&#160;properties&#160;of&#160;undefined&#160;(reading&#160;'percent')</tspan></text>
+<text x="24" y="348"><tspan fill="#8ea6ac">&#160;&#160;&#160;&#160;&#160;&#160;at&#160;applyDiscount&#160;(src/cart.js:18:31)</tspan></text>
+<text x="24" y="370"><tspan fill="#8ea6ac">&#160;&#160;&#160;&#160;&#160;&#160;at&#160;Context.&lt;anonymous&gt;&#160;(test/cart.test.js:24:12)</tspan></text>
+</g>
+</svg>

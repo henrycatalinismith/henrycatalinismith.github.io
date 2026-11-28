@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://henry.catalinismith.se/2026/11/22/darkstar-is-solarized-without-the-contrast-bugs/" />
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#05181d" media="(prefers-color-scheme: dark)" />
+  <title>
+   Darkstar is Solarized without the contrast bugs
+   – Henry Catalini Smith
+  </title>
+  <link rel="stylesheet" href="/style.css" />
+ </head>
+ <body class="page-grid">
+  <header class="[grid-area:header]" id="top">
+   <h1 class="page-heading">Darkstar is Solarized without the contrast bugs</h1>
+   <p class="subtitle">2026-11-22</p>
+  </header>
+  <nav aria-label="Breadcrumbs" class="print:hidden [grid-area:breadcrumbs] grid items-center">
+   <ol class="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center gap-1 sm:gap-1.5 font-lilex text-sm text-muted-foreground sm:gap-2.5 min-w-0">
+    <li class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max" style="--depth: -1">
+     <a class="text-link underline body-text" href="/">Henry Catalini Smith</a>
+    </li>
+    <li class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-max" style="--depth: 0">
+     <span class="sm:hidden font-mono whitespace-pre self-start" aria-hidden="true">└──</span>
+     <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+     <a class="text-link underline body-text" href="/blog/">Blog</a>
+    </li>
+    <li class="flex min-w-0 text-[8px] items-center gap-1.5 sm:inline-flex sm:pl-0 pl-[calc(var(--depth)*1.25rem)] min-w-0" style="--depth: 1">
+     <span class="sm:hidden font-mono whitespace-pre self-start" aria-hidden="true">└──</span>
+     <span class="hidden sm:inline font-lilex text-xxs" aria-hidden="true">❯</span>
+     <span class="body-text min-w-0 sm:truncate">Darkstar is Solarized without the contrast bugs</span>
+    </li>
+   </ol>
+  </nav>
+  <main class="[grid-area:main] min-w-0">
+   <div class="body-text post-body">
+    <p>Over the past year or so I’ve finally gotten around to fixing the contrast
+     problems in the <a href="https://ethanschoonover.com/solarized/">Solarized</a> colour
+     palette. Darkstar is what I’ve been calling my private fork with the fixes.</p>
+    <p>For early 2010s Vim users, Solarized was a minor cultural phenomenon. Ethan’s
+     site with his description of the thought process behind it is an
+     underappreciated bit of marketing work. That tagline “Precision colors for
+     machines and people” is brilliant. This was <em>looooong</em> before you could push a
+     button to churn out a slick landing page full of generic cokehead yank salesman
+     lingo and it went down very well indeed. Solarized was everywhere.</p>
+    <p>It’s funny how certain things can get locked in to your psyche just because you
+     happened to pick them up early in life. I was using Solarized in the most
+     formative and prolific years of my career, and as a result, it’s a visual “home”
+     for me at some deep psychological level.</p>
+    <p>Only trouble is, it often doesn’t work well with real world software. There’s
+     nowhere near enough colours or contrast in the palette, and you end up losing
+     all kinds of information as a result. Most problematic of all are all the
+     colours that are almost identical to the background colour. The design intent of
+     the palette is that those should not be used as foreground colours. Many do
+     though. When Mocha was the trendy JavaScript unit testing framework, this was
+     what the output looked like in Solarized.</p>
+    <p><img alt="Mocha test output in a terminal using Solarized. Under a heading of 'Cart', three green checkmarks are followed by blank space where the test names should be, then a red line reading '1) applies discount codes'. The summary reads '3 passing', '1 failing', and a red error 'TypeError: Cannot read properties of undefined (reading 'percent')' with nothing visible underneath it where the stack trace should be." src="/2026/11/22/mocha-solarized@816x422.svg" width="816" height="422" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+    <p>The text after the checkmarks has been themed using a colour that Solarized
+     considers a background colour. As a result, it’s invisible. For years I would
+     work around this by selecting blocks of text in the terminal to reveal them
+     with the selection highlight background, like a kid doing one of those
+     lemon juice &amp; candle hidden message craft projects.</p>
+    <p>Ultimately this is a design flaw in Solarized.
+     The world of terminal programs is chaotic and to create a theme for it you have
+     to engage with that chaos. You can’t unilaterally imagine away the reality that
+     authors of terminal software expect all available palette colours to be
+     available for usage as foreground colours.</p>
+    <p>Solarized ships with two colours whose WCAG contrast ratios are an outright
+     <code class="language-plaintext inline-code highlighter-rouge">FAIL</code> rating against the background colour. Several of the foreground colours
+     are only rated <code class="language-plaintext inline-code highlighter-rouge">AA Large</code> too, which means they’re technically below the WCAG
+     thresholds at the smaller font sizes 99% of people use in practice.</p>
+    <p><img alt="Grid of the 15 Solarized colours on its dark teal background, each labelled with its contrast rating against that background. The two darkest greys are rated Fail and are barely distinguishable from the background. Red, orange, magenta, violet, blue and the next grey are rated AA Large. Yellow, green, cyan and two lighter greys are rated AA, and only the two cream colours reach AAA." src="/2026/11/22/solarized@800x800.svg" width="800" height="800" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+    <p>It also doesn’t ship anything for the “bright” colour variants that terminals
+     expect. Instead it fills many of those “bright” gaps with various greys. Since many
+     authors of terminal software expect those colours to be available for use, this
+     ends up breaking tons of programs. In NetHack, it leads to certain types of
+     monster looking almost identical to each other. In the scene below, the player is in a room
+     with three hill orcs and one orc shaman. The bright blue orc shaman should be
+     very distinctive from the bright yellow hill orcs, but instead all four are just
+     grey.</p>
+    <p><img alt="NetHack screen using Solarized, showing a cave level. The player's white @ stands in a corridor with four grey-blue letter o's clustered just to the left, all practically the same shade. The message line at the top reads 'The orc shaman casts a spell!'" src="/2026/11/22/nethack-solarized@792x360.svg" width="792" height="360" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+    <p>Darkstar addresses these problems first by massively darkening the background
+     colour. This measure alone is enough to avoid the invisible text problem. Every
+     colour has at least an <code class="language-plaintext inline-code highlighter-rouge">AA</code> rating against the background. It then also defines
+     proper bright variants for each colour so that they’re possible to tell apart
+     from one another. This fixes all the issues caused by information encoded using
+     colour. It’s a dramatic change, but I’ve found in practice my expectations easily
+     adjust to the new darker background, while the familiarity of the foreground
+     colours preserves the sense of “home” in the overall palette. It looks almost
+     black in a small sample image in the middle of a screen of different colours,
+     but in real usage when it fills most of the screen it looks a lot more blue.</p>
+    <p><img alt="Grid of the 18 Darkstar colours on its near-black background, each labelled with its contrast rating against that background. Colours are arranged in pairs, each regular colour next to its brighter variant: grey, cream, red, orange, yellow, green, cyan, blue and magenta. Every regular colour is rated AA and every bright variant is rated AAA. None are rated Fail or AA Large." src="/2026/11/22/darkstar@800x800.svg" width="800" height="800" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+    <p>Here’s the exact same Mocha output as the example earlier, with the new colours
+     applied. No more selection highlight decoder ring workflow here.</p>
+    <p><img alt="The same Mocha test output using Darkstar, with everything readable. Under 'Cart', three green checkmarks are followed by grey test names: 'adds items to the basket', 'removes items from the basket' and 'calculates the subtotal'. The summary reads '3 passing (14ms)' and '1 failing', and the red TypeError is followed by a grey stack trace pointing at src/cart.js line 18 and test/cart.test.js line 24." src="/2026/11/22/mocha-darkstar@816x422.svg" width="816" height="422" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+    <p>And finally here’s that same NetHack scene from before. Turns out the orc shaman
+     was the one right next to us! Good to know!</p>
+    <p><img alt="The same NetHack scene using Darkstar. Of the four letter o's clustered near the player's @, three are bright yellow and one, closest to the player, is bright blue, making the orc shaman easy to pick out." src="/2026/11/22/nethack-darkstar@792x360.svg" width="792" height="360" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" /></p>
+    <p>The name’s a Slackware reference. If you don’t set a hostname during
+     installation of Slackware, it sets it to <code class="language-plaintext inline-code highlighter-rouge">darkstar</code> for you. Installing
+     Slackware 10.0 from a Linux Format CD was a turning point in my life and
+     I have even more nostalgia for that experience of first discovering Linux than
+     for the early 2010s Vim usage.</p>
+    <p>For now Darkstar is just for my own personal use in <a href="https://github.com/henrycatalinismith/dotfiles/">my
+      dotfiles</a>. You’re very welcome
+     to borrow or steal ideas from it for yourself, and if one or two people <a href="mailto:henry@catalinismith.se?subject=Please%20package%20Darkstar%20as%20an%20installable%20theme%20for%20loads%20of%20different%20things%20so%20I%20can%20give%20it%20a%20try!">email
+      me asking for a proper set of installable themes for different
+      stuff</a>
+     I will definitely do that.</p>
+    <p>Here’s a couple of screenshots of it in action.</p>
+    <p><a href="/2026/11/22/lazygit@1200x846.webp">
+      <img alt="Lazygit in a terminal using Darkstar. On the left are panels for status, files, local branches, commits and stash. On the right is a git log with a branch graph drawn in red and blue lines, yellow commit hashes and a bold teal HEAD label, and below it a command log in teal and yellow text with a pink 'Deleting path' line. A row of blue keyboard shortcuts runs along the bottom." src="/2026/11/22/lazygit@1200x846.webp" width="1200" height="846" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+     </a></p>
+    <p><a href="/2026/11/22/helix@1200x840.webp">
+      <img alt="The Helix editor using Darkstar, showing a TypeScript React component. Keywords are coral, type names blue, imported names yellow, strings green, and null and undefined pink. A JSDoc comment is in grey italics with a pink @example tag, and line 26 is highlighted as the cursor line." src="/2026/11/22/helix@1200x840.webp" width="1200" height="840" class="block max-w-full h-auto border border-(--color-media-frame-border) rounded-md bg-(--color-media-frame-background) shadow-[0_0_0_1px_var(--color-media-frame-inner)_inset,0_12px_30px_var(--color-media-frame-shadow)]" />
+     </a></p>
+    <hr />
+    <p>Edit:
+     <a href="https://henry.catalinismith.se/darkstar/">https://henry.catalinismith.se/darkstar/</a></p>
+   </div>
+  </main>
+  <div class="print:hidden [grid-area:footer] grid items-center">
+   <footer class="flex flex-col gap-2">
+    <ul class="flex flex-col sm:flex-row gap-y-2 gap-x-8">
+     <li class="relative flex flex-row items-center gap-x-2">
+      <a class="before:absolute before:inset-0 text-xs" href="/feed.xml">RSS Feed</a>
+     </li>
+     <li class="relative flex flex-row items-center gap-x-2">
+      <a class="before:absolute before:inset-0 text-xs" href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a>
+     </li>
+     <li class="relative flex flex-row items-center gap-x-2">
+      <a class="before:absolute before:inset-0 text-xs" href="https://github.com/henrycatalinismith/">GitHub</a>
+     </li>
+     <li class="relative flex flex-row items-center gap-x-2">
+      <a class="before:absolute before:inset-0 text-xs" href="https://bsky.app/profile/henry.catalinismith.se">Bluesky</a>
+     </li>
+     <li class="relative flex flex-row items-center gap-x-2">
+      <a class="before:absolute before:inset-0 text-xs" href="mailto:henry@catalinismith.se">henry@catalinismith.se</a>
+     </li>
+    </ul>
+   </footer>
+  </div>
+ </body>
+</html>

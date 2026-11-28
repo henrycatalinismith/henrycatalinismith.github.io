@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+<rect width="800" height="800" fill="#05181d"/>
+<g font-family="sans-serif" font-size="17" fill="#eee8d5" text-anchor="middle">
+<rect x="65.19999999999999" y="122.8" width="93.60000000000001" height="93.60000000000001" fill="#6c838b"/><text x="112" y="238">AA</text>
+<rect x="209.2" y="122.8" width="93.60000000000001" height="93.60000000000001" fill="#8ea6ac"/><text x="256" y="238">AAA</text>
+<rect x="353.2" y="122.8" width="93.60000000000001" height="93.60000000000001" fill="#eee8d5"/><text x="400" y="238">AAA</text>
+<rect x="497.2" y="122.8" width="93.60000000000001" height="93.60000000000001" fill="#fbf0cc"/><text x="544" y="238">AAA</text>
+<rect x="641.2" y="122.8" width="93.60000000000001" height="93.60000000000001" fill="#e9403a"/><text x="688" y="238">AA</text>
+<rect x="65.19999999999999" y="266.8" width="93.60000000000001" height="93.60000000000001" fill="#ff796e"/><text x="112" y="382.00000000000006">AAA</text>
+<rect x="209.2" y="266.8" width="93.60000000000001" height="93.60000000000001" fill="#db5231"/><text x="256" y="382.00000000000006">AA</text>
+<rect x="353.2" y="266.8" width="93.60000000000001" height="93.60000000000001" fill="#ed8649"/><text x="400" y="382.00000000000006">AAA</text>
+<rect x="497.2" y="266.8" width="93.60000000000001" height="93.60000000000001" fill="#b58900"/><text x="544" y="382.00000000000006">AA</text>
+<rect x="641.2" y="266.8" width="93.60000000000001" height="93.60000000000001" fill="#efc541"/><text x="688" y="382.00000000000006">AAA</text>
+<rect x="65.19999999999999" y="410.8" width="93.60000000000001" height="93.60000000000001" fill="#859900"/><text x="112" y="526">AA</text>
+<rect x="209.2" y="410.8" width="93.60000000000001" height="93.60000000000001" fill="#83c746"/><text x="256" y="526">AAA</text>
+<rect x="353.2" y="410.8" width="93.60000000000001" height="93.60000000000001" fill="#2aa198"/><text x="400" y="526">AA</text>
+<rect x="497.2" y="410.8" width="93.60000000000001" height="93.60000000000001" fill="#56d8c9"/><text x="544" y="526">AAA</text>
+<rect x="641.2" y="410.8" width="93.60000000000001" height="93.60000000000001" fill="#268bd2"/><text x="688" y="526">AA</text>
+<rect x="65.19999999999999" y="554.8" width="93.60000000000001" height="93.60000000000001" fill="#5da4ff"/><text x="112" y="670">AAA</text>
+<rect x="209.2" y="554.8" width="93.60000000000001" height="93.60000000000001" fill="#de428c"/><text x="256" y="670">AA</text>
+<rect x="353.2" y="554.8" width="93.60000000000001" height="93.60000000000001" fill="#ff81ca"/><text x="400" y="670">AAA</text>
+</g>
+</svg>
